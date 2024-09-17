@@ -63,22 +63,5 @@
   Googleマップへのリンクも用意したい場合、Google Maps Platformとの紐づけも必要になるかも？
 
 
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
+# 画面遷移図
+Figma：https://www.figma.com/design/5ZeMNiszHQQd6PFkOX63Bq/MyApp%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&node-type=canvas&t=SJ4z9j1xvIj1xSRv-0

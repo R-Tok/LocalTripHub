@@ -65,3 +65,6 @@
 
 # 画面遷移図
 Figma：https://www.figma.com/design/5ZeMNiszHQQd6PFkOX63Bq/MyApp%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&node-type=canvas&t=SJ4z9j1xvIj1xSRv-0
+
+# ER図
+[![Image from Gyazo](https://i.gyazo.com/5ef8d755190662a6688c34a4b0100bae.png)](https://gyazo.com/5ef8d755190662a6688c34a4b0100bae)

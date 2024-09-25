@@ -10,12 +10,12 @@ ENV TZ Asia/Tokyo
 RUN apt-get update -qq && apt-get install -y nodejs default-mysql-client
 
 # 作業ディレクトリの作成
-RUN mkdir /MyApp
-WORKDIR /MyApp
+RUN mkdir /LocalTripHub
+WORKDIR /LocalTripHub
 
 # GemfileとGemfile.lockを作業ディレクトリにコピー
-COPY Gemfile /MyApp/Gemfile
-COPY Gemfile.lock /MyApp/Gemfile.lock
+COPY Gemfile /LocalTripHub/Gemfile
+COPY Gemfile.lock /LocalTripHub/Gemfile.lock
 
 # RubyGems / Bundlerのアップデート
 RUN gem update --system
@@ -24,7 +24,7 @@ RUN bundle update --bundler
 # Bundlerを使用してGemをインストール
 RUN bundle install
 # アプリケーションのソースコードをコピー
-COPY . /MyApp
+COPY . /LocalTripHub
 
 # デフォルトで `rails server` を実行
 CMD ["rails", "server", "-b", "0.0.0.0"]

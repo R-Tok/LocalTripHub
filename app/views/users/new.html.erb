@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-lg-8 mx-auto">
-      <h1>ユーザー新規登録</h1>
+      <h1><%= t('.title') %></h1>
       <%= form_with model: @user do |f| %>
         <div class="mb-3">
           <%= f.label :nickname, class: "form-label" %>
@@ -12,7 +12,7 @@
           <%= f.email_field :email, class: "form-control" %>
         </div>
         <div class="mb-3">
-          <%= f.label :password, class: "form-label" %> (6文字以上で設定してください)
+          <%= f.label :password, class: "form-label" %> <%= t('.password_length') %>
           <%= f.password_field :password, class: "form-control" %>
         </div>
         <div class="mb-3">
@@ -20,12 +20,12 @@
           <%= f.password_field :password_confirmation, class: "form-control" %>
         </div>
         <div class="d-flex justify-content-center">
-          <%= f.submit "登録", class: "btn btn-primary w-50" %>
+          <%= f.submit nil, class: "btn btn-primary w-50" %>
         </div>
       <% end %>
       <br>
       <div class='text-center'>
-        <%= link_to 'ログインページへ', login_path %>
+        <%= link_to t('.to_login_page'), login_path %>
       </div>
       <br>
     </div>

@@ -1,0 +1,9 @@
+<turbo-frame id="municipality_select_frame">
+  <label for="spot_municipality_id">市町村</label>
+  <select name="spot[municipality_id]" id="spot_municipality_id" class="form-control">
+    <option value="">市町村を選択</option>
+    <% municipalities&.each do |municipality| %>
+      <option value="<%= municipality.id %>"><%= municipality.name %></option>
+    <% end %>
+  </select>
+</turbo-frame>

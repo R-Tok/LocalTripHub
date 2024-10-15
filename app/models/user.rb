@@ -7,4 +7,6 @@ class User < ApplicationRecord
   validates :nickname, presence: true, length: { maximum: 255 }
   validates :introduction, length: { maximum: 5000 }
   validates :email, presence: true, uniqueness: true
+
+  has_many :spots
 end

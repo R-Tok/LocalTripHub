@@ -12,7 +12,10 @@
           <%= f.email_field :email, class: "form-control" %>
         </div>
         <div class="mb-3">
-          <%= f.label :password, class: "form-label" %> <%= t('.password_length') %>
+          <div class="d-flex align-items-start">
+            <%= f.label :password, class: "form-label" %>
+            <%= t('.password_length') %>
+          </div>
           <%= f.password_field :password, class: "form-control" %>
         </div>
         <div class="mb-3">

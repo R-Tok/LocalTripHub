@@ -1,0 +1,48 @@
+<div class="col-lg-8 offset-lg-2">
+      <h1><%= "スポット登録" %></h1>
+      <%= form_with model: @spot, local: true, remote: false, class: "new_spot" do |f| %>
+         <%= render "shared/error_messages", object: f.object %>
+        <div class="mb-3">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class="row">
+          <div class="col">
+            <%= f.label :latitude %>
+          </div>
+          <div class="col">
+            <%= f.label :longitude %>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <%= f.number_field :latitude, step: "0.000001", class: "form-control" %>
+          </div>
+          <div class="col">
+            <%= f.number_field :longitude, step: "0.000001", class: "form-control" %>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <%= f.label :prefecture_id, "都道府県" %>
+            <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name,
+            {prompt: "都道府県を選択"}, 
+            {class: "form-control", data: { turbo_action: "change", turbo_frame: "municipality_select" }} %>
+          </div>
+          <div class="col">
+            <%= render partial: 'municipality_select', locals: { municipalities: @municipalities } %>
+          </div>
+        </div>
+        <br>
+        <h3>カテゴリ</h3>
+        <div>
+          <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+            <div>
+              <%= b.check_box %> <%= b.label %>
+            </div>
+          <% end %>
+        </div>
+        <br>
+        <%= f.submit nil, class: "btn btn-primary" %>
+      <% end %>
+    </div>

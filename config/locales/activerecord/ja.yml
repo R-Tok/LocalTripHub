@@ -10,3 +10,7 @@ ja:
         avatar: アイコン
         password: パスワード
         password_confirmation: パスワード確認
+      spot:
+        name: スポット名称
+        latitude: 緯度
+        longitude: 経度

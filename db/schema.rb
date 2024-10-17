@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_11_114214) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_15_113415) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_11_114214) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["prefecture_id"], name: "index_municipalities_on_prefecture_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.text "content", null: false
+    t.text "access_info"
+    t.bigint "user_id"
+    t.bigint "spot_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_posts_on_spot_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "prefectures", force: :cascade do |t|
@@ -66,6 +77,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_11_114214) do
   end
 
   add_foreign_key "municipalities", "prefectures"
+  add_foreign_key "posts", "spots"
+  add_foreign_key "posts", "users"
   add_foreign_key "spots", "municipalities"
   add_foreign_key "spots", "prefectures"
   add_foreign_key "spots", "users"

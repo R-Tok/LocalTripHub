@@ -14,3 +14,6 @@ ja:
         name: スポット名称
         latitude: 緯度
         longitude: 経度
+      post:
+        access_info: アクセス・営業時間
+        content: 本文(見どころ・感想など)

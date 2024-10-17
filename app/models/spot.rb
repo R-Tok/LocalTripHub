@@ -6,6 +6,7 @@ class Spot < ApplicationRecord
   belongs_to :user
   belongs_to :prefecture
   belongs_to :municipality
+  has_many :posts, dependent: :destroy
 
   has_and_belongs_to_many :categories
 end

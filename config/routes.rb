@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   post "login", to: "user_sessions#create"
   delete "logout", to: "user_sessions#destroy"
 
-  resources :spots, only: %i[new create]
+  resources :spots, only: %i[new create] do
+    resources :posts, only: %i[new create index]
+  end
   resources :municipalities, only: %i[index]
 end

@@ -1,0 +1,21 @@
+<div class="col-lg-8 offset-lg-2">
+  <h1>投稿作成<h1>
+  <h3>スポット名: <%= @spot.name %></h2>
+  <p>都道府県: <%= @spot.prefecture.name %> 市町村: <%= @spot.municipality.name %></p>
+  <p>緯度: <%= @spot.latitude %> 経度: <%= @spot.longitude %></p>
+
+  <%= form_with model: [@spot, @post], local: true do |f| %>
+    <%= render "shared/error_messages", object: f.object %>
+    <div class="mb-3">
+      <%= f.label :access_info %>
+      <%= f.text_area :access_info, class: "form-control", rows: 4 %>
+    </div>
+  
+    <div class="mb-3">
+      <%= f.label :content %>
+      <%= f.text_area :content, class: "form-control", rows: 10 %>
+    </div>
+  
+    <%= f.submit nil, class: "btn btn-primary" %>
+  <% end %>
+</div>

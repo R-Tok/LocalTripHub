@@ -17,3 +17,5 @@ ja:
       post:
         access_info: アクセス・営業時間
         content: 本文(見どころ・感想など)
+      image:
+        image_url: 画像

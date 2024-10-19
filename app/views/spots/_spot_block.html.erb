@@ -1,0 +1,12 @@
+<h3>スポット名: <%= @spot.name %></h3>
+<p>
+  都道府県: <span class="badge bg-success text-wrap"><%= @spot.prefecture.name %></span>
+  市町村: <span class="badge bg-success text-wrap"><%= @spot.municipality.name %></span>
+</p>
+<p>緯度: <%= @spot.latitude %> 経度: <%= @spot.longitude %></p>
+<p>
+  カテゴリ: 
+  <% @spot.categories&.each do |category| %>
+    <span class="badge bg-success text-wrap"><%= category.name %></span>
+  <% end %>
+</p>

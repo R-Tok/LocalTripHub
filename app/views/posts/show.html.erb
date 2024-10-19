@@ -1,0 +1,26 @@
+<div class="col-lg-8 offset-lg-2">
+  <h1>投稿詳細<h1>
+  
+  <%= render "spots/spot_block" %>
+
+  <div class="d-flex flex-wrap gap-3">
+    <% @post.images&.each do |image| %>
+      <% if image.image_url.present? %>
+        <div class="p-0">
+          <%= image_tag image.image_url.url, height: "240px", class: "mr-1" %>
+        </div>
+      <% end%>
+    <% end%>
+  </div>
+
+  <h5 class="fw-semibold">見どころ・感想など</h5>
+  <div class="border border-2 p-2">
+    <%= @post.content%>
+  </div>
+  <br>
+  <h5 class="fw-semibold">アクセス・営業時間</h5>
+  <div class="border border-2 p-2">
+    <%= @post.access_info%>
+  </div>
+  <br>
+</div>

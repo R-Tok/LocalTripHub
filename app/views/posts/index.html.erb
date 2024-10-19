@@ -1,19 +1,10 @@
 <div class="col-lg-8 offset-lg-2">
   <h1>投稿一覧<h1>
-  <h3>スポット名: <%= @spot.name %></h2>
-  <p>都道府県: <%= @spot.prefecture.name %> 市町村: <%= @spot.municipality.name %></p>
-  <p>緯度: <%= @spot.latitude %> 経度: <%= @spot.longitude %></p>
 
-  <% if @posts.present? %>
-    <% @posts.each do |post| %>
-      <div>
-        <%= post.content %>
-        <%= post.access_info %>
-      </div>
-    <% end %>
-  <% else %>
-   このスポットに関する投稿はありません
-  <% end %>
+  <%= render "spots/spot_block" %>
+
+  <%= render "posts/post_block" %>
+
   <div class="mb-3">
     <%= link_to "このスポットについて新規投稿する", new_spot_post_path(@spot), class: "btn btn-primary" %>
   </div>

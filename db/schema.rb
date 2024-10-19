@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_15_113415) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_17_064348) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_15_113415) do
   create_table "categories_spots", id: false, force: :cascade do |t|
     t.bigint "spot_id", null: false
     t.bigint "category_id", null: false
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.string "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_images_on_post_id"
   end
 
   create_table "municipalities", force: :cascade do |t|
@@ -76,6 +84,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_15_113415) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "images", "posts"
   add_foreign_key "municipalities", "prefectures"
   add_foreign_key "posts", "spots"
   add_foreign_key "posts", "users"

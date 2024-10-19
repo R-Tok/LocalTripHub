@@ -1,0 +1,31 @@
+<% if @posts.present? %>
+  <% @posts.each do |post| %>
+    <%= link_to spot_post_path(post.spot, post), class: "post-preview-link text-dark text-decoration-none" do %>
+      <div class="post-preview d-flex border mb-3" style="height: 205px;" >
+        <!-- 画像表示エリア -->
+        <div class="image-area d-flex overflow-auto" style="background-color: #f0f0f0; width: 50%; height: 100%; white-space: nowrap;">
+          <% post.images&.each do |image| %>
+            <% if image.image_url.present? %>
+              <div class="image-box mr-2" style="display: inline-block; border: 2px solid #f0f0f0;">
+                <%= image_tag image.image_url.url, height: "186px", class: "mr-1" %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+
+        <!-- テキスト表示エリア -->
+        <div class="text-area pl-3" style="width: 50%; height: 100%;">
+          <div class="content" style="max-height: 3em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+            <%= post.content %>
+          </div>
+          <br>
+          <div class="access-info mt-2" style="max-height: 2em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+            <%= post.access_info %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>このスポットに関する投稿はありません</p>
+<% end %>

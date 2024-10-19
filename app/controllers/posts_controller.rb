@@ -1,8 +1,9 @@
 class PostsController < ApplicationController
-  before_action :set_spot, only: %i[new create index]
+  before_action :set_spot, only: %i[new create index show]
 
   def new
     @post = @spot.posts.build
+    @post.images.build
   end
 
   def create
@@ -21,10 +22,14 @@ class PostsController < ApplicationController
     @posts = Post.where(spot_id: params[:spot_id])
   end
 
+  def show
+    @post = Post.find_by(id: params[:id])
+  end
+
   private
 
   def post_params
-    params.require(:post).permit(:access_info, :content)
+    params.require(:post).permit(:access_info, :content, images_attributes: [ :image_url ])
   end
 
   def set_spot

@@ -7,6 +7,9 @@ ja:
     label:
       email: メールアドレス
       password: パスワード
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
   user_sessions:
     new:
       title: ログイン

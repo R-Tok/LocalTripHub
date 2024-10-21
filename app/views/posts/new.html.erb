@@ -3,25 +3,5 @@
 
   <%= render "spots/spot_block" %>
 
-  <%= form_with model: [@spot, @post], local: true do |f| %>
-    <%= render "shared/error_messages", object: f.object %>
-    <div class="mb-3">
-      <%= f.label :content %>
-      <%= f.text_area :content, class: "form-control", rows: 10 %>
-    </div>
-
-    <div class="mb-3">
-      <%= f.label :access_info %>
-      <%= f.text_area :access_info, class: "form-control", rows: 4 %>
-    </div>
-
-    <%= f.fields_for :images do |image_f| %>
-      <div class="mb-3">
-        <%= image_f.label :image_url %>
-        <%= image_f.file_field :image_url, class: "form-control", accept: 'image/*', multiple: true, name: "post[images_attributes][][image_url]" %>
-      </div>
-    <% end %>
-  
-    <%= f.submit nil, class: "btn btn-primary" %>
-  <% end %>
+  <%= render "post_form" %>
 </div>

@@ -1,0 +1,36 @@
+  <%= form_with model: [@spot, @post], local: true do |f| %>
+    <%= render "shared/error_messages", object: f.object %>
+    <div class="mb-3">
+      <%= f.label :content %>
+      <%= f.text_area :content, class: "form-control", rows: 10 %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :access_info %>
+      <%= f.text_area :access_info, class: "form-control", rows: 4 %>
+    </div>
+
+    
+    <div class="mb-3">
+      <%= f.label :image_url %>
+      <%= f.file_field :image_url, class: "form-control", accept: 'image/*', multiple: true, name: "post[images_attributes][][image_url]" %>
+    </div>
+    
+    <div class="d-flex">
+      <% @post.images&.each do |image| %>
+        <% if image.id.present? && image.image_url.present? %>
+          <div class="image-box d-inline-block text-center me-2" style="display: border: 2px solid #f0f0f0;">
+            <%= image_tag image.image_url.url, height: "186px", class: "mr-1" %>
+            <div class="mt-1">
+            <%= link_to '削除', image_path(image), data: { turbo_confirm: "画像を削除しますか？ (直ちに削除が行われます)", turbo_method: :delete}, class: 'btn btn-danger' %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      
+    </div>
+    <br>
+  
+    <%= f.submit nil, class: "btn btn-primary" %>
+  <% end %>
+  <br>

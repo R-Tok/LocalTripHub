@@ -10,4 +10,8 @@ class User < ApplicationRecord
 
   has_many :spots
   has_many :posts, dependent: :destroy
+
+  def own?(object)
+    object.user_id === id
+  end
 end

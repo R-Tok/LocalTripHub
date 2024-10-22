@@ -1,5 +1,29 @@
 <div class="container">
   <div class="row">
-    <%= render partial: "spot_form" %>
+    <div class="col-lg-8 offset-lg-2">
+      <h1>スポット登録</h1>
+      <div class="d-flex align-items-center">
+        <input id="address" type="textbox" placeholder="スポット名を検索" class="p-1">
+        <input type="button" value="検索" onclick="codeAddress()" class="p-1 me-3">
+        市区町村の取得結果： <div id="display"></div>
+      </div>
+
+      <%= render "spotcreate_map" %>
+      <%= render partial: "spot_form" %>
+    </div>
   </div>
 </div>
+
+<script>
+  const prefectureMap = {
+    <% Prefecture.all.each do |prefecture| %>
+      "<%= prefecture.name %>": <%= prefecture.id %>,
+    <% end %>
+  };
+
+  const municipalityMap = {
+    <% Municipality.all.each do |municipality| %>
+      "<%= municipality.name %>": <%= municipality.id %>,
+    <% end %>
+  };
+</script>

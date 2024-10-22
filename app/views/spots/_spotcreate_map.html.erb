@@ -1,0 +1,139 @@
+  <div id='map'></div>
+  <style>
+    #map { height: 600px; width: 600px;}
+  </style>
+
+  <script>
+    let map
+
+    function initMap(){
+      geocoder = new google.maps.Geocoder()
+
+      map = new google.maps.Map(document.getElementById('map'), {  // 初期表示の位置とピン
+        center: {lat: 35.6812, lng: 139.7671},
+        zoom: 14,
+      });
+      marker = new google.maps.Marker({
+        position:  {lat: 35.6812, lng: 139.7671},
+        map: map
+      });
+
+      map.addListener("click", function(event) {  //  地図上のクリックにより座標を指すするルート
+        placeMarker(event.latLng);
+        document.getElementById('spot_latitude').value = event.latLng.lat().toFixed(6);
+        document.getElementById('spot_longitude').value = event.latLng.lng().toFixed(6);
+
+        codeLatLng(event.latLng);
+      });
+    }
+
+    function codeAddress(){   // 検索ボックスから座標を指定するルート
+      let inputAddress = document.getElementById('address').value;
+
+      geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+        if (status == 'OK') {
+          map.setCenter(results[0].geometry.location);
+
+          placeMarker(results[0].geometry.location);  // ピンを立てるためのplaceMarkerメソッド実行
+          document.getElementById('spot_latitude').value = results[0].geometry.location.lat().toFixed(6);
+          document.getElementById('spot_longitude').value = results[0].geometry.location.lng().toFixed(6);
+
+          codeLatLng(results[0].geometry.location);
+        }
+      });   
+    }
+
+    function placeMarker(location) {   // マーカーを新規に設定するメソッド
+      if(marker) {
+        marker.setMap(null);  //既存のピンを削除
+      }
+      marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+    }
+
+    function codeLatLng(latLng) {    //  マーカーの座標から県と市町村を逆引きして自動選択するメソッド
+      geocoder.geocode({ "location": latLng }, function(results, status) {
+        if (status == "OK" && results[0]) {
+          // Geocode結果から市町村を取得
+          let addressComponents = results[0].address_components;
+          let city = '';
+          let municipality = '';
+          let administrativeAreaLevel2 = '';  // 郡名
+          let locality = '';  // 市町村名
+          let sublocalityLevel1 = '';  // 政令指定都市の区名
+
+          // 市町村の情報を抽出
+          addressComponents.forEach(function(component) {
+            if (component.types.includes('administrative_area_level_1')) {
+              prefecture = component.long_name;
+            }
+            if (component.types.includes('administrative_area_level_2')) {
+              administrativeAreaLevel2 = component.long_name;
+            }
+            if (component.types.includes('locality')) {
+              locality = component.long_name;
+            }
+            if (component.types.includes('sublocality_level_1')) {
+              sublocalityLevel1 = component.long_name;
+            }
+          });
+
+          if (administrativeAreaLevel2) {
+            // 郡名 + 市町村名 の場合
+            municipality = administrativeAreaLevel2 + locality;
+          } else if (sublocalityLevel1) {
+            // 市町村名 + 区名 の場合
+            municipality = locality + sublocalityLevel1;
+          } else {
+            // それ以外の場合は普通に市町村名だけ
+            municipality = locality;
+          }
+
+          display.textContent = prefecture + municipality
+          
+          // 市町村のフォームに自動入力
+          const prefectureId = prefectureMap[prefecture];
+          if (prefectureId) {
+            document.getElementById('spot_prefecture_id').value = prefectureId;
+
+            const url = `/municipalities?prefecture_id=${prefectureId}`;
+            fetch(url, {
+              headers: { Accept: "text/vnd.turbo-stream.html" }
+            })
+            .then((response) => response.text())
+            .then((html) => {
+              // 市町村リストを更新
+              const municipalityFrame = document.querySelector("#municipality_select_frame");
+              if (municipalityFrame) {
+                municipalityFrame.innerHTML = html;
+
+                // 市町村IDを取得し、自動的に選択
+                setTimeout(() => {
+                  const municipalityId = municipalityMap[municipality];
+                  if (municipalityId) {
+                    document.getElementById('spot_municipality_id').value = municipalityId;
+                  } else {
+                    alert('対応する市区町村が見つかりませんでした');
+                  }
+                }, 500); // 500ms 待機してから市町村を選択
+              } else {
+                console.error("municipality_select_frame の要素が見つかりません");
+              }
+            })
+            .catch((error) => {
+              console.error("エラーが発生しました:", error);
+            });
+
+          } else {
+            alert('対応する都道府県が見つかりませんでした');
+          }
+        } else {
+          alert('市町村情報を取得できませんでした');
+        }
+      });
+    }
+
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>

@@ -14,6 +14,12 @@ class SpotsController < ApplicationController
     end
   end
 
+  def get_municipalities
+    prefecture = Prefecture.find(params[:prefecture_id])
+    municipalities = prefecture.municipalities.select(:id, :name)
+    render json: municipalities
+  end
+
   private
 
   def spot_params

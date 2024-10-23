@@ -1,0 +1,50 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="prefecture_map"></div>
+
+<script type="text/javascript">
+  // Load the Google Charts GeoChart package
+  google.charts.load('current', {
+    packages: ['geochart'],
+    mapsApiKey: '<%= ENV["GOOGLE_MAPS_API_KEY"] %>' // Make sure your Maps API key is set
+  });
+
+  google.charts.setOnLoadCallback(drawRegionsMap);
+
+  function drawRegionsMap() {
+    // Data representing prefectures and their spot counts
+    var data = google.visualization.arrayToDataTable([
+      ['Prefecture', 'Spot Count'],
+      <% @prefecture_spots_count.each do |prefecture, spot_count| %>
+        // 「都」「府」「県」を除いた表記にする
+        <% if prefecture.end_with?("道") %>
+          <% prefecture_correct = prefecture %>
+        <% else %>
+          <% prefecture_correct = prefecture.chop %>
+        <% end %>
+        
+        ['<%= prefecture_correct %>', <%= spot_count %>],
+      <% end %>
+    ]);
+
+    // Map options, adjust colors for different ranges
+    var options = {
+      region: 'JP', // Japan region
+      resolution: 'provinces', // Provinces-level resolution for prefectures
+      colorAxis: {colors: ['#dfd', '#127b12']}, // Color gradient from light to dark
+      backgroundColor: '#ffffff',
+      datalessRegionColor: '#f5f5f5',
+      defaultColor: '#f5f5f5'
+    };
+
+    var chart = new google.visualization.GeoChart(document.getElementById('prefecture_map'));
+
+    chart.draw(data, options);
+  }
+</script>
+
+<style>
+  #prefecture_map {
+    width: 50%;
+    height: 500px;
+  }
+</style>

@@ -1,0 +1,65 @@
+<div id="map" style="height: 650px; width: 50%;"></div>
+
+<!--  Leaflet.jsのスタイルシートを追加  -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<!--  Leaflet.jsのスクリプトを追加  -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+// 地図の初期化
+const map = L.map('map').setView([35.6895, 139.6917], 8); // 東京の中心で初期化
+
+// OpenStreetMapのタイルを追加
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    minZoom: 4,
+    maxZoom: 12,
+}).addTo(map);
+
+//塗りつぶし色を指定
+function getColor(spotCount, minCount, maxCount) {
+      const minColor = [221, 255, 221]; // 最小値の色
+      const maxColor = [18, 123, 18];     // 最大値の色
+
+      const scale = (spotCount - minCount) / (maxCount - minCount); // 0 ~ 1 の範囲にスケール
+
+      const r = Math.round(minColor[0] + scale * (maxColor[0] - minColor[0]));
+      const g = Math.round(minColor[1] + scale * (maxColor[1] - minColor[1]));
+      const b = Math.round(minColor[2] + scale * (maxColor[2] - minColor[2]));
+
+      return `rgb(${r},${g},${b})`; // RGB形式の色を返す
+  }
+
+// GeoJSONデータの取得（例）
+fetch('/geojson')
+    .then(response => response.json())
+    .then(data => {
+        // スポット数の最大値と最小値を取得
+        const spotCounts = data.features.map(feature => feature.properties.spot_number || 0);
+        const maxCount = Math.max(...spotCounts);
+        const minCount = Math.min(...spotCounts);
+
+        L.geoJSON(data, {
+            style: function(feature) {
+                // データの存在チェックに基づいて色を設定
+                const hasData = feature.properties.spot_number > 0; 
+                const spotCount = feature.properties.spot_number || 0;
+                  const fillColor = getColor(spotCount, minCount, maxCount); // グラデーション色を取得
+                return {
+                    fillColor: hasData ? fillColor : '#ddd', 
+                    weight: 1.2,
+                    opacity: 0.5,
+                    color: 'gray',
+                    dashArray: '2',
+                    fillOpacity: 0.9
+                };
+            },
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup(`${feature.properties.N03_008}: ${feature.properties.spot_number} スポット`); // クリックでポップアップ表示（例）
+            }
+        }).addTo(map);
+    })
+    .catch(error => console.error('GeoJSONの取得エラー:', error));
+    
+    
+</script>

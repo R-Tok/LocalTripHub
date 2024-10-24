@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :spots, only: %i[new create] do
     collection do
       get :get_municipalities
+      get :select
     end
     resources :posts
   end

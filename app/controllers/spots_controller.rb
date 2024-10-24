@@ -20,6 +20,10 @@ class SpotsController < ApplicationController
     render json: municipalities
   end
 
+  def select
+    @spots = Spot.all
+  end
+
   private
 
   def spot_params

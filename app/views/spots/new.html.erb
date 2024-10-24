@@ -1,17 +1,22 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 offset-lg-2">
-      <h1>スポット登録</h1>
-      <div class="d-flex align-items-center">
-        <input id="address" type="textbox" placeholder="スポット名を検索" class="p-1">
-        <input type="button" value="検索" onclick="codeAddress()" class="p-1 me-3">
-        市区町村の取得結果： <div id="display"></div>
-      </div>
+<div class="col-lg-8 offset-lg-2">
+  <h1>新規投稿 -スポット登録-</h1>
+  <br>
+  <h5 class="mb-3">
+    <li>①②いずれかの方法でスポットの座標を決定してください。</li>
+    <p>① 検索ボックスでスポット名称を検索 <span></span>② 地図上で該当する位置をクリック</p>
 
-      <%= render "spotcreate_map" %>
-      <%= render partial: "spot_form" %>
-    </div>
+    <li>ピンの位置に応じて、緯度経度・都道府県・市町村を自動取得します。</li>
+
+    <li>登録するスポット名称、該当するカテゴリをフォームから選択してください。</li>
+  </h5>
+  <div class="d-flex align-items-center">
+    <input id="address" type="textbox" placeholder="スポット名を検索" class="p-1">
+    <input type="button" value="検索" onclick="codeAddress()" class="p-1 me-3">
+    市区町村の取得結果： <div id="display"></div>
   </div>
+
+  <%= render "spotcreate_map" %>
+  <%= render partial: "spot_form" %>
 </div>
 
 <script>

@@ -1,0 +1,68 @@
+<div class="bg-info-subtle">
+  <h2 id="registered_spots">A. 登録済みスポットから選ぶ</h2>
+  <p>地図上でピンを選択し、「このスポットについて投稿する」ボタンを押してください</p>
+
+  <div id="created_spot_map" class="mx-auto my-3"></div>
+</div>
+
+<style>
+  #created_spot_map { height: 600px; width: 95%;}
+</style>
+
+<script>
+  let created_spot_map
+  let currentInfoWindow = null;
+
+  function initMap(){
+    geocoder = new google.maps.Geocoder();
+    // 初期表示の位置とピン
+    created_spot_map = new google.maps.Map(document.getElementById('created_spot_map'), {
+      center: {lat: 35.6812, lng: 139.7671},
+      zoom: 14,
+    });
+
+    // Railsから渡されたスポットデータをJSで扱えるようにパース
+    const spots = <%= raw @spots.to_json(only: [:id, :latitude, :longitude, :name]) %>;
+
+    // 各スポットにピンを立てる
+    spots.forEach((spot) => {
+      const marker = new google.maps.Marker({
+        position: {lat: parseFloat(spot.latitude), lng: parseFloat(spot.longitude)},
+        map: created_spot_map,
+        title: spot.name
+      });
+
+      // ピンをクリックした時に表示されるInfoWindow
+      const infoWindow = new google.maps.InfoWindow({
+        content: `
+          <div>
+            <h5>${spot.name}</h5>
+            <a href='/spots/${spot.id}/posts' class="btn btn-outline-info btn-sm">
+              投稿一覧を見る
+            </a>
+            <a href='/spots/${spot.id}/posts/new' class="btn btn-info btn-sm">
+              このスポットについて投稿する
+            </a>
+          </div>
+        `
+      });
+
+      // ピンがクリックされた時にInfoWindowを開く
+      marker.addListener('click', () => {
+        // 既に開いているInfoWindowがあれば閉じる
+        if (currentInfoWindow) {
+          currentInfoWindow.close();
+        }
+
+        infoWindow.open({
+          anchor: marker,
+          map: created_spot_map,
+          shouldFocus: false
+        });
+        // 現在のInfoWindowを保持
+        currentInfoWindow = infoWindow;
+      });
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>

@@ -15,13 +15,18 @@ class TopController < ApplicationController
     # 市町村ごとのスポット数を一括取得
     municipality_spot_counts = Spot.group(:municipality_id).count
 
+    # 関連する市町村を事前に取得
+    municipalities = Municipality.joins(spots: :posts).where(name: geojson["features"].map { |f| f["properties"]["N03_008"] })
+
+    # 市町村名をキーとしたハッシュを作成して高速な検索が可能に
+    municipality_map = municipalities.index_by(&:name)
+
     # 各市町村にspot_countを追加
     geojson["features"].each do |feature|
-      prefecture_name = feature["properties"]["N03_001"] # 県名
-      municipality_name = feature["properties"]["N03_004"] # 市町村名
+      municipality_name = feature["properties"]["N03_008"] # 市町村名
 
       # 市町村を見つける
-      municipality = Municipality.joins(spots: :posts).find_by(name: municipality_name)
+      municipality = municipality_map[municipality_name]
 
       # スポット数を取得して追加
       spot_count = municipality.present? ? municipality_spot_counts[municipality.id] || 0 : 0

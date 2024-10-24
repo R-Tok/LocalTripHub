@@ -32,8 +32,8 @@ ja:
   header:
     login: ログイン
     logout: ログアウト
-    post_map: 投稿マップ
     create_post: 新規投稿
+    post_map: 投稿状況マップ
     bookmarked_list: 保存済みリスト
     mypage: マイページ
   footer:

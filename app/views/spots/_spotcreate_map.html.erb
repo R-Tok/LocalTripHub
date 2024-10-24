@@ -1,6 +1,6 @@
-  <div id='map'></div>
+  <div id='map' class="mx-auto my-3"></div>
   <style>
-    #map { height: 600px; width: 600px;}
+    #map { height: 600px; width: 95%;}
   </style>
 
   <script>
@@ -117,7 +117,7 @@
                   } else {
                     alert('対応する市区町村が見つかりませんでした');
                   }
-                }, 500); // 500ms 待機してから市町村を選択
+                }, 200); // 500ms 待機してから市町村を選択
               } else {
                 console.error("municipality_select_frame の要素が見つかりません");
               }

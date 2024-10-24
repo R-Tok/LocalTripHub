@@ -1,8 +1,9 @@
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <div id="prefecture_map"></div>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
-  // Load the Google Charts GeoChart package
+
+// Load the Google Charts GeoChart package
   google.charts.load('current', {
     packages: ['geochart'],
     mapsApiKey: '<%= ENV["GOOGLE_MAPS_API_KEY"] %>' // Make sure your Maps API key is set

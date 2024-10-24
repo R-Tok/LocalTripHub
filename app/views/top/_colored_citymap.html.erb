@@ -19,7 +19,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //塗りつぶし色を指定
 function getColor(spotCount, minCount, maxCount) {
       const minColor = [221, 255, 221]; // 最小値の色
-      const maxColor = [18, 123, 18];     // 最大値の色
+      const maxColor = [18, 110, 18];     // 最大値の色
 
       const scale = (spotCount - minCount) / (maxCount - minCount); // 0 ~ 1 の範囲にスケール
 
@@ -36,15 +36,15 @@ fetch('/geojson')
     .then(data => {
         // スポット数の最大値と最小値を取得
         const spotCounts = data.features.map(feature => feature.properties.spot_number || 0);
-        const maxCount = Math.max(...spotCounts);
-        const minCount = Math.min(...spotCounts);
+        const [minCount, maxCount] = [Math.min(...spotCounts)+1, Math.max(...spotCounts)];
 
         L.geoJSON(data, {
             style: function(feature) {
                 // データの存在チェックに基づいて色を設定
-                const hasData = feature.properties.spot_number > 0; 
                 const spotCount = feature.properties.spot_number || 0;
-                  const fillColor = getColor(spotCount, minCount, maxCount); // グラデーション色を取得
+                const hasData = spotCount > 0; 
+                const fillColor = getColor(spotCount, minCount, maxCount); // グラデーション色を取得
+
                 return {
                     fillColor: hasData ? fillColor : '#ddd', 
                     weight: 1.2,

@@ -1,0 +1,16 @@
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <h1>新規投稿 -スポット選択-</h1>
+      <div class="text-center my-4">
+        <%= link_to "↓ 登録済みスポットから選ぶ", "#registered_spots", class:"btn btn-primary" %>
+        <%= link_to "↓ スポットを新規作成する", "#new_spot", class:"btn btn-warning" %>
+      </div>
+    
+      <%= render "created_spot_map" %>
+
+      <div class="mb-3 bg-warning-subtle">
+        <h2 id="new_spot">B. スポットを新規作成する</h2>
+        <%= link_to "スポット作成ページはこちら", new_spot_path, data: { turbo: false }, class: "btn btn-primary text-center d-grid gap-2 col-6 mx-auto" %>
+      </div>
+    </div>
+  </div>

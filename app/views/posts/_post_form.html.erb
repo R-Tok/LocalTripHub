@@ -22,7 +22,7 @@
           <div class="image-box d-inline-block text-center me-2" style="display: border: 2px solid #f0f0f0;">
             <%= image_tag image.image_url.url, height: "186px", class: "mr-1" %>
             <div class="mt-1">
-            <%= link_to '削除', image_path(image), data: { turbo_confirm: "画像を削除しますか？ (直ちに削除が行われます)", turbo_method: :delete}, class: 'btn btn-danger' %>
+            <%= link_to t('helpers.submit.delete'), image_path(image), data: { turbo_confirm: t('images.delete_confirm'), turbo_method: :delete}, class: 'btn btn-danger' %>
             </div>
           </div>
         <% end %>

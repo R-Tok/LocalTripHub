@@ -1,5 +1,5 @@
 class TopController < ApplicationController
-  skip_before_action :require_login, only: %i[index]
+  skip_before_action :require_login
 
   def index
     @prefecture_spots_count = Prefecture.joins(spots: :posts).group(:name).distinct.count("spots.id")

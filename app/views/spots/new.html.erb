@@ -1,18 +1,19 @@
+<% content_for(:title, t('.title'))%>
 <div class="col-lg-8 offset-lg-2">
-  <h1>新規投稿 -スポット登録-</h1>
+  <h1><%= t('.title') %></h1>
   <br>
-  <h5 class="mb-3">
-    <li>①②いずれかの方法でスポットの座標を決定してください。</li>
-    <p>① 検索ボックスでスポット名称を検索 <span></span>② 地図上で該当する位置をクリック</p>
+  <ul class="mb-3">
+    <li><h5 class="text-decoration-underline">①②いずれかの方法でスポットの座標を決定してください。</h5></li>
+    <p>① 検索ボックスでスポット名称を検索 &emsp; ② 地図上で該当する位置をクリック</p>
 
-    <li>ピンの位置に応じて、緯度経度・都道府県・市町村を自動取得します。</li>
+    <p>ピンの位置に応じて、緯度経度・都道府県・市町村を自動取得します。</p>
 
-    <li>登録するスポット名称、該当するカテゴリをフォームから選択してください。</li>
-  </h5>
+    <li><h5 class="text-decoration-underline">登録するスポット名称、該当するカテゴリをフォームから選択してください。</h5></li>
+  </ul>
   <div class="d-flex align-items-center">
-    <input id="address" type="textbox" placeholder="スポット名を検索" class="p-1">
-    <input type="button" value="検索" onclick="codeAddress()" class="p-1 me-3">
-    市区町村の取得結果： <div id="display"></div>
+    <input id="address" type="textbox" placeholder=<%= t('.search_spot') %> class="p-1">
+    <input type="button" value=<%= t('defaults.search') %> onclick="codeAddress()" class="p-1 me-3">
+    <%= t('.city_judge') %> : <div id="display"></div>
   </div>
 
   <%= render "spotcreate_map" %>

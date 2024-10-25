@@ -2,6 +2,11 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      spot: スポット
+      post: 投稿
+      prefecture: 都道府県
+      municipality: 市区町村
+      category: カテゴリ
     attributes:
       user:
         email: メールアドレス
@@ -15,8 +20,8 @@ ja:
         latitude: 緯度
         longitude: 経度
       post:
-        access_info: アクセス・営業時間
-        content: 本文(見どころ・感想など)
+        access_info: アクセス・営業時間など
+        content: 本文(見どころ・感想)
         image_url: 画像
       image:
         image_url: 画像

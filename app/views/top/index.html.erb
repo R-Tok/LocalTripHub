@@ -1,6 +1,9 @@
+<% content_for(:title, t('.title')) %>
 <div class='top-wrapper'>
   <div class='top-inner-text'>
     <h1>LocalTripHub</h1>
+
+    <h1 id="posted_area_map"><%= t('.postmap_title') %><h1>
     <div class="d-flex justify-content-between">
       
         <%= render "colored_prefmap" %>

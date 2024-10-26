@@ -5,7 +5,7 @@
 
   <div class="mb-3">
     <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %>
+    <%= f.text_field :name, class: "form-control", required: true %>
   </div>
 
   <div class="row">
@@ -30,7 +30,7 @@
       <%= f.label :prefecture_id, t('activerecord.models.prefecture') %>
       <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name,
       {prompt: t('prefecture.select')}, 
-      {class: "form-control",  data: { turbo_action: "change", turbo_frame: "municipality_select" }} %>
+      {class: "form-control",  data: { turbo_action: "change", turbo_frame: "municipality_select" }, required: true} %>
     </div>
     <div class="col">
       <%= render partial: 'municipality_select', locals: { municipalities: @municipalities } %>
@@ -51,4 +51,3 @@
   <%= f.submit nil, class: "btn btn-primary text-center d-grid gap-2 col-6 mx-auto" %>
   <br>
 <% end %>
-    

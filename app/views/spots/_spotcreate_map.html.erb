@@ -58,7 +58,7 @@
         if (status == "OK" && results[0]) {
           // Geocode結果から市町村を取得
           let addressComponents = results[0].address_components;
-          let city = '';
+          let prefecture = '';
           let municipality = '';
           let administrativeAreaLevel2 = '';  // 郡名
           let locality = '';  // 市町村名
@@ -93,7 +93,7 @@
 
           display.textContent = prefecture + municipality
           
-          // 市町村のフォームに自動入力
+          // 都道府県のフォームに自動入力
           const prefectureId = prefectureMap[prefecture];
           if (prefectureId) {
             document.getElementById('spot_prefecture_id').value = prefectureId;
@@ -111,13 +111,14 @@
 
                 // 市町村IDを取得し、自動的に選択
                 setTimeout(() => {
-                  const municipalityId = municipalityMap[municipality];
+                  const combinedKey = prefecture + municipality;
+                  const municipalityId = municipalityMap[combinedKey];
                   if (municipalityId) {
                     document.getElementById('spot_municipality_id').value = municipalityId;
                   } else {
                     alert('対応する市区町村が見つかりませんでした');
                   }
-                }, 200); // 500ms 待機してから市町村を選択
+                }, 200); // 200ms 待機してから市町村を選択
               } else {
                 console.error("municipality_select_frame の要素が見つかりません");
               }

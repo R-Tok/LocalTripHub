@@ -1,6 +1,8 @@
 class SpotsController < ApplicationController
   def new
     @spot = Spot.new
+    @municipalities = Municipality.includes(:prefecture).all
+    @prefectures = Prefecture.all
   end
 
   def create
@@ -10,7 +12,7 @@ class SpotsController < ApplicationController
       redirect_to new_spot_post_path(@spot), success: "スポットが作成されました"
     else
       flash.now[:danger] = "スポットの作成に失敗しました"
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity, turbo: false
     end
   end
 

@@ -22,14 +22,14 @@
 
 <script>
   const prefectureMap = {
-    <% Prefecture.all.each do |prefecture| %>
+    <% @prefectures&.each do |prefecture| %>
       "<%= prefecture.name %>": <%= prefecture.id %>,
     <% end %>
   };
 
   const municipalityMap = {
-    <% Municipality.all.each do |municipality| %>
-      "<%= municipality.name %>": <%= municipality.id %>,
+    <% @municipalities&.each do |municipality| %>
+      "<%= municipality.prefecture.name %><%= municipality.name %>": <%= municipality.id %>,
     <% end %>
   };
 </script>

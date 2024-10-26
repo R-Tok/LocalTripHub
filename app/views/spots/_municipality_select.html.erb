@@ -1,6 +1,6 @@
 <turbo-frame id="municipality_select_frame">
   <label><%= t('activerecord.models.municipality') %></label>
-  <select name="spot[municipality_id]" id="spot_municipality_id" class="form-control">
+  <select name="spot[municipality_id]" id="spot_municipality_id" class="form-control" required>
     <option value=""><%= t('municipality.select') %></option>
     <% municipalities&.each do |municipality| %>
       <option value="<%= municipality.id %>"><%= municipality.name %></option>

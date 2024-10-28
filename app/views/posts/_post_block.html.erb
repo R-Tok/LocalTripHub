@@ -1,4 +1,4 @@
-<% if @posts.present? %>
+
   <% @posts.each do |post| %>
     
       <div class="post-preview d-flex border mb-3" style="height: 205px;" >
@@ -16,9 +16,12 @@
         <!-- テキスト表示エリア -->
         <div class="d-flex flex-column mb-3" style="width: 50%; height: 100%;">
           <div class="d-flex justify-content-between p-2">
-            <div>
-              <%= post.user.nickname %>
-            </div>
+            <%= link_to (current_user == post.user ? profile_path : user_path(post.user)), class: 'nav-link' do %>
+              <div class="text-truncate">
+                <%= image_tag post.user.avatar.url, class: 'rounded-circle', size: '30x30' %>
+                <span class="ms-2 text-primary text-decoration-underline"><%= post.user.nickname %></span>
+              </div>
+            <% end %>
             <div>
               <% if current_user.own?(post) %>
                 <%= link_to t('helpers.submit.edit'), edit_spot_post_path(post.spot, post), class:"btn btn-sm btn-primary" %>
@@ -43,6 +46,3 @@
     
   <% end %>
   <%= paginate @posts, theme: "bootstrap-5" %>
-<% else %>
-  <p><%= t('posts.index.no_posts') %></p>
-<% end %>

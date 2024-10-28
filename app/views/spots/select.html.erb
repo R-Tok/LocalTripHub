@@ -1,18 +1,23 @@
 <% content_for(:title, t('.title')) %>
 
-    <div class="col-lg-8 offset-lg-2">
-      <h1><%= t('.title') %></h1>
-      <div class="text-center my-4">
-        <%= link_to t('.select_newly'), "#new_spot", class:"btn btn-warning" %>
-        <%= link_to t('.select_created'), "#registered_spots", class:"btn btn-primary" %>
-      </div>
-    
-      <div class="mb-3 bg-warning-subtle">
-        <h2 id="new_spot">A. スポットを新規作成する</h2>
-        <%= link_to t('.link_to_spot_create'), new_spot_path, data: { turbo: false }, class: "btn btn-primary text-center d-grid gap-2 col-6 mx-auto" %>
-      </div>
 
-      <%= render "created_spot_map" %>
+  <h1><%= t('.title') %></h1>
+  <div class="text-center my-4">
+    <%= link_to t('.select_newly'), "#new_spot", class:"btn btn-warning" %>
+    <%= link_to t('.select_created'), "#registered_spots", class:"btn btn-primary" %>
+  </div>
 
-    </div>
+  <div class="mb-3 bg-warning-subtle">
+    <h2 id="new_spot">A. スポットを新規作成する</h2>
+    <%= link_to t('.link_to_spot_create'), new_spot_path, data: { turbo: false }, class: "btn btn-primary text-center d-grid gap-2 col-6 mx-auto" %>
+  </div>
+
+  <div class="bg-info-subtle">
+    <h2 id="registered_spots">B. 登録済みスポットから選ぶ</h2>
+    <p class="fw-semibold">【注意】既存のスポットについて投稿しても、投稿状況マップの色塗りには影響しません。</p>
+    <p>地図上でピンを選択し、「このスポットについて投稿する」ボタンを押してください</p>
+
+    <%= render "created_spot_map" %>
+
+  </div>
 

@@ -1,12 +1,15 @@
 <% content_for(:title, t('.title')) %>
-<div class="col-lg-8 offset-lg-2">
-  <h1><%= t('.title') %><h1>
 
-  <%= render "spots/spot_block" %>
+<h1><%= t('.title') %></h1>
 
+<%= render "spots/spot_block" %>
+
+<% if @posts.present? %>
   <%= render "posts/post_block" %>
+<% else %>
+  <p><%= t('posts.index.no_posts') %></p>
+<% end %>
 
-  <div class="d-grid gap-2 col-6 mx-auto mb-3">
-    <%= link_to t(".link_to_create_post"), new_spot_post_path(@spot), class: "btn btn-primary" %>
-  </div>
+<div class="d-grid gap-2 col-6 mx-auto mb-3">
+  <%= link_to t(".link_to_create_post"), new_spot_post_path(@spot), class: "btn btn-primary" %>
 </div>

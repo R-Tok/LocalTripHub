@@ -15,6 +15,12 @@ ja:
         avatar: アイコン
         password: パスワード
         password_confirmation: パスワード確認
+      profile:
+        email: メールアドレス
+        password: パスワード
+        nickname: ニックネーム
+        introduction: 自己紹介コメント
+        avatar: アイコン
       spot:
         name: スポット名称
         latitude: 緯度

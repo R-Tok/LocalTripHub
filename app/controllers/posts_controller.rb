@@ -20,7 +20,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.where(spot_id: params[:spot_id]).order(created_at: :desc).page(params[:page])
+    @posts = Post.where(spot_id: params[:spot_id]).includes(:user, :spot).order(created_at: :desc).page(params[:page])
   end
 
   def show; end
@@ -54,9 +54,10 @@ class PostsController < ApplicationController
 
   def set_post_and_check_access
     @post = Post.find_by(id: params[:id])
-    render_404(@post)
+    if !@post.present?
+      render_404(@post)
 
-    if @post.spot_id != @spot.id
+    elsif @post.spot_id != @spot.id
       render file: "public/404.html"
     end
   end

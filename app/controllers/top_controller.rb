@@ -5,6 +5,11 @@ class TopController < ApplicationController
     @prefecture_spots_count = Prefecture.joins(spots: :posts).group(:name).distinct.count("spots.id")
   end
 
+  def posts_browse
+    @spots = Spot.all
+    @posts = Post.all.order(created_at: :desc).page(params[:page])
+  end
+
 
   def municipality_spot_counts
     # JSONファイルの読み込み

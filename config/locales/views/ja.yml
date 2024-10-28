@@ -20,6 +20,8 @@ ja:
     index:
       title: トップページ
       postmap_title: 投稿状況マップ
+    posts_browse:
+      title: 投稿を見る
   user_sessions:
     new:
       title: ログイン
@@ -39,6 +41,16 @@ ja:
     create:
       success: ユーザー登録に成功しました
       failure: ユーザー登録に失敗しました
+    show:
+      title: ユーザー情報
+  profiles:
+    show:
+      title: マイページ
+    edit:
+      title: プロフィール編集
+    update:
+      success: プロフィール情報を更新しました
+      failure: プロフィール情報更新に失敗しました
   spots:
     new:
       title: 新規投稿 -スポット登録-
@@ -75,6 +87,7 @@ ja:
     login: ログイン
     logout: ログアウト
     create_post: 新規投稿
+    post_browse: 投稿を見る
     post_map: 投稿状況マップ
     bookmarked_list: 保存済みリスト
     mypage: マイページ

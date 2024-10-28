@@ -1,0 +1,30 @@
+<% content_for(:title, t('.title')) %>
+
+<h1><%= t('.title') %></h1>
+<%= form_with model: @user, url: profile_path, method: :put do |f| %>
+  <div class="mb-3">
+    <%= f.label :nickname, class: "form-label" %>
+    <%= f.text_field :nickname, class: "form-control", required: true %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :introduction, class: "form-label" %>
+    <%= f.text_area :introduction, class: "form-control", rows: "4",
+    placeholder: "よく行くエリア、興味のあること、お出かけ先の決め方など (任意)" %>
+  </div>
+  <div class="d-flex justify-content-evenly align-items-center">
+    <div>
+      <%= image_tag @user.avatar.url, class: 'rounded-circle', size: '150x150' %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :avatar, class: "form-label" %>
+      <%= f.file_field :avatar, class: "form-control", accept: 'image/*' %>
+      <%= f.hidden_field :avatar_cache %>
+    </div>
+  </div>
+  <br>
+
+  <div class="d-flex justify-content-center mb-3">
+    <%= f.submit nil, class: "btn btn-primary w-50" %>
+  </div>
+<% end %>
+<br>

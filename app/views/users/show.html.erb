@@ -1,0 +1,30 @@
+<% content_for(:title, t('.title')) %>
+
+<h1><%= t('.title') %></h1>
+<br>
+
+<!-- プロフィール情報 -->
+<h2>プロフィール</h2>
+
+<div class="d-flex justify-content-evenly column-gap-3 mb-3">
+  <div>
+    <%= image_tag @user.avatar.url, class: 'rounded-circle', size: '100x100' %>
+  </div>
+  <div class="flex-fill">
+    <div class="border border-secondary p-2 my-3">
+      ニックネーム： <%= @user.nickname %>
+    </div>
+    <div class="border border-secondary p-2">
+      自己紹介コメント： <br><%= simple_format(@user.introduction) %>
+    </div>
+  </div>        
+</div>
+      
+<!-- 表示中のユーザーの投稿一覧 -->
+<h2>投稿一覧</h2>
+<% if @posts.present? %>
+  <%= render "posts/post_block" %>
+<% else %>
+  <div class="text-center mb-3">投稿はありません</div>
+<% end %>
+

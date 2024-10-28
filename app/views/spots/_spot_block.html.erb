@@ -1,14 +1,18 @@
-<h3><%= Spot.human_attribute_name("name") %>: <%= @spot.name %></h3>
-<p>
-  <%= t('activerecord.models.prefecture') %>: <span class="badge bg-success text-wrap"><%= @spot.prefecture.name %></span>
-  <%= t('activerecord.models.municipality') %>: <span class="badge bg-success text-wrap"><%= @spot.municipality.name %></span>
-</p>
-<p>
-  <%= Spot.human_attribute_name("latitude") %>: <%= @spot.latitude %>
-  <%= Spot.human_attribute_name("longitude") %>: <%= @spot.longitude %></p>
-<p>
-  <%= t('activerecord.models.category') %>: 
-  <% @spot.categories&.each do |category| %>
-    <span class="badge bg-success text-wrap"><%= category.name %></span>
-  <% end %>
-</p>
+<div class= "bg-body-secondary mb-3">
+  <h3><%= Spot.human_attribute_name("name") %>: 
+    <%= link_to @spot.name, spot_posts_path(@spot) %>
+  </h3>
+  <p>
+    <%= t('activerecord.models.prefecture') %>: <span class="badge bg-success text-wrap"><%= @spot.prefecture.name %></span>
+    <%= t('activerecord.models.municipality') %>: <span class="badge bg-success text-wrap"><%= @spot.municipality.name %></span>
+  </p>
+  <p>
+    <%= Spot.human_attribute_name("latitude") %>: <%= @spot.latitude %>
+    <%= Spot.human_attribute_name("longitude") %>: <%= @spot.longitude %></p>
+  <p>
+    <%= t('activerecord.models.category') %>: 
+    <% @spot.categories&.each do |category| %>
+      <span class="badge bg-success text-wrap"><%= category.name %></span>
+    <% end %>
+  </p>
+</div>

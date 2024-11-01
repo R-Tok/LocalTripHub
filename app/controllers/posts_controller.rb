@@ -2,6 +2,8 @@ class PostsController < ApplicationController
   before_action :set_spot_and_check_access
   before_action :set_post_and_check_access, only: %i[show edit update destroy]
 
+  skip_before_action :require_login, only: %i[show], if: -> { from_top_page? }
+
   def new
     @post = @spot.posts.build
     @post.images.build
@@ -12,9 +14,9 @@ class PostsController < ApplicationController
     @post.user = current_user
 
     if @post.save
-      redirect_to spot_posts_path(@spot), success: "投稿が作成されました"
+      redirect_to spot_posts_path(@spot), success: t("posts.create.success")
     else
-      flash.now[:danger] = "投稿の作成に失敗しました"
+      flash.now[:danger] = t("posts.create.failure")
       render :new, status: :unprocessable_entity
     end
   end
@@ -29,16 +31,16 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to spot_post_path(@spot), success: "投稿が更新されました"
+      redirect_to spot_post_path(@spot), success: t("posts.update.success")
     else
-      flash.now[:danger] = "投稿の更新に失敗しました"
+      flash.now[:danger] = t("posts.update.failure")
       render :new, status: :unprocessable_entity
     end
   end
 
   def destroy
     @post.destroy!
-    redirect_to spot_posts_path(@spot), status: :see_other, success: "投稿が削除されました"
+    redirect_to spot_posts_path(@spot), data: { turbo: false }, status: :see_other, success: t("posts.delete")
   end
 
   private
@@ -60,5 +62,9 @@ class PostsController < ApplicationController
     elsif @post.spot_id != @spot.id
       render file: "public/404.html"
     end
+  end
+
+  def from_top_page?
+    request.referer == root_url
   end
 end

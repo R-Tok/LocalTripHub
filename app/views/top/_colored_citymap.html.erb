@@ -1,4 +1,4 @@
-<div id="map" style="height: 650px; width: 50%;"></div>
+<div id="map" class="col-12 col-lg-5 my-3" style="height: 560px; max-width: 90%;"></div>
 
 <!--  Leaflet.jsのスタイルシートを追加  -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -46,7 +46,7 @@ fetch('/geojson')
                 const fillColor = getColor(spotCount, minCount, maxCount); // グラデーション色を取得
 
                 return {
-                    fillColor: hasData ? fillColor : '#ddd', 
+                    fillColor: hasData ? fillColor : '#eee', 
                     weight: 1.2,
                     opacity: 0.5,
                     color: 'gray',

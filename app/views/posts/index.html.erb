@@ -6,6 +6,7 @@
 
 <% if @posts.present? %>
   <%= render "posts/post_block" %>
+  <%= paginate @posts, theme: "bootstrap-5" %>
 <% else %>
   <p><%= t('posts.index.no_posts') %></p>
 <% end %>

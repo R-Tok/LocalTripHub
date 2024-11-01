@@ -9,9 +9,9 @@ class SpotsController < ApplicationController
     @spot = current_user.spots.build(spot_params)
 
     if @spot.save
-      redirect_to new_spot_post_path(@spot), success: "スポットが作成されました"
+      redirect_to new_spot_post_path(@spot), success: t("spots.create.success")
     else
-      flash.now[:danger] = "スポットの作成に失敗しました"
+      flash.now[:danger] = t("spots.create.failure")
       render :new, status: :unprocessable_entity, turbo: false
     end
   end

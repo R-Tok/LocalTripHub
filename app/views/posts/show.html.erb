@@ -12,7 +12,7 @@
     </div>
     <% end %>
     <div>
-      <% if current_user.id === @post.user_id %>
+      <% if current_user&.id === @post.user_id %>
         <%= link_to t('helpers.submit.edit'), edit_spot_post_path(@post.spot, @post), class:"btn btn-sm btn-primary" %>
         <%= link_to t('helpers.submit.delete'), spot_post_path(@post.spot, @post), data: { turbo_confirm: t('posts.delete_confirm'), turbo_method: :delete }, class:"btn btn-sm btn-danger" %>
       <% end %>

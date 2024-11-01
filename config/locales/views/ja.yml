@@ -5,6 +5,7 @@ ja:
     submit:
       create: 登録
       submit: 保存
+      posting: 投稿する
       edit: 編集
       update: 更新
       delete: 削除
@@ -20,8 +21,12 @@ ja:
     index:
       title: トップページ
       postmap_title: 投稿状況マップ
+      latest_post: 最新の投稿
+      link_to_post_browse: もっと見る
     posts_browse:
       title: 投稿を見る
+      from_spot: スポットから探す
+      latest_post: 最新の投稿
   user_sessions:
     new:
       title: ログイン
@@ -43,6 +48,9 @@ ja:
       failure: ユーザー登録に失敗しました
     show:
       title: ユーザー情報
+      profile: プロフィール
+      posts_index: 投稿一覧
+      no_posts: 投稿はありません
   profiles:
     show:
       title: マイページ
@@ -56,6 +64,9 @@ ja:
       title: 新規投稿 -スポット登録-
       search_spot: スポット名を検索
       city_judge: 市区町村の取得結果
+    create:
+      success: スポットが作成されました
+      failure: スポットの作成に失敗しました
     select:
       title: 新規投稿 -スポット選択-
       link_to_spot_create: スポット作成ページはこちら
@@ -72,10 +83,17 @@ ja:
       no_posts: このスポットに関する投稿はありません
     new:
       title: 投稿新規作成
+    create:
+      success: 投稿が作成されました
+      failure: 投稿の作成に失敗しました
     show:
       title: 投稿詳細
     edit:
       title: 投稿編集
+    update:
+      success: 投稿が更新されました
+      failure: 投稿の更新に失敗しました
+    delete: 投稿が削除されました
     delete_confirm: 投稿が削除されます。よろしいですか？
   images:
     delete_confirm: 画像を削除しますか？ (選択した画像が直ちに削除されます)

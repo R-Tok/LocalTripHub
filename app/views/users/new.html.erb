@@ -1,9 +1,12 @@
 <% content_for(:title, t('.title')) %>
-    <div class="col-md-10 col-lg-10 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto">
       <h1><%= t('.title') %></h1>
       <%= form_with model: @user do |f| %>
         <div class="mb-3">
-          <%= f.label :nickname, class: "form-label" %>
+          <div class="d-flex align-items-start">
+            <%= f.label :nickname, class: "form-label" %>
+            <%= t(".changeable") %>
+          </div>
           <%= f.text_field :nickname, class: "form-control" %>
         </div>
         <div class="mb-3">

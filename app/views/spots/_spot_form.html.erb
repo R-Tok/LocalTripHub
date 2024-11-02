@@ -1,6 +1,6 @@
 <br>
 
-<%= form_with model: @spot, local: true, remote: false, class: "new_spot" do |f| %>
+<%= form_with model: @spot, url: confirm_spots_path(@post), data: { turbo: false }, local: true, remote: false, class: "new_spot" do |f| %>
   <%= render "shared/error_messages", object: f.object %>
 
   <div class="mb-3">

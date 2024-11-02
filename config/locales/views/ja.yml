@@ -42,7 +42,8 @@ ja:
     new:
       title: ユーザー新規登録
       to_login_page: ログインページへ
-      password_length: (6文字以上で設定してください)
+      changeable: ・・・後から変更可能です
+      password_length: ・・・6文字以上で設定してください
     create:
       success: ユーザー登録に成功しました
       failure: ユーザー登録に失敗しました
@@ -64,6 +65,8 @@ ja:
       title: 新規投稿 -スポット登録-
       search_spot: スポット名を検索
       city_judge: 市区町村の取得結果
+    confirm:
+      title: 新規投稿 -スポット登録確認-
     create:
       success: スポットが作成されました
       failure: スポットの作成に失敗しました

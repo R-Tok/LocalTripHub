@@ -1,0 +1,39 @@
+<% content_for(:title, t('.title'))%>
+
+<h1><%= t('.title') %></h1>
+<br>
+<p>
+  以下の内容でスポットを登録します。よろしいですか？<br>
+  <span class="text-danger fw-bold">この内容は基本的に後から編集できません。</span>
+</p>
+
+<div class="bg-body-secondary my-3">
+    <h3><%= Spot.human_attribute_name("name")%> : <%= @spot.name %>
+  </h3>
+  <p>
+    <%= t('activerecord.models.prefecture') %>: <span class="badge bg-success text-wrap"><%= @spot.prefecture.name %></span>
+    <%= t('activerecord.models.municipality') %>: <span class="badge bg-success text-wrap"><%= @spot.municipality.name %></span>
+  </p>
+  <p>
+    <%= Spot.human_attribute_name("latitude") %>: <%= @spot.latitude %>
+    <%= Spot.human_attribute_name("longitude") %>: <%= @spot.longitude %></p>
+  <p>
+    <%= t('activerecord.models.category') %>: 
+    <% @spot.categories&.each do |category| %>
+      <span class="badge bg-success text-wrap"><%= category.name %></span>
+    <% end %>
+  </p>
+</div>
+
+<%= form_with model: @spot, data: { turbo: false }, local: true do |f| %>
+  <%= f.hidden_field :name %>
+  <%= f.hidden_field :latitude %>
+  <%= f.hidden_field :longitude %>
+  <%= f.hidden_field :prefecture_id %>
+  <%= f.hidden_field :municipality_id %>
+  <% @spot.category_ids.each do |category_id| %>
+    <%= hidden_field_tag "spot[category_ids][]", category_id %>
+  <% end %>
+  <%= f.submit "やり直す", name: "back", class: "btn btn-secondary mx-2 my-3" %>
+  <%= f.submit "登録する", class: "btn btn-primary mx-2 w-50 mx-2 my-3" %>
+<% end %>

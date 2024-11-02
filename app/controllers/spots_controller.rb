@@ -5,14 +5,29 @@ class SpotsController < ApplicationController
     @prefectures = Prefecture.all
   end
 
+  def confirm
+    @spot = current_user.spots.build(spot_params)
+    @municipalities = Municipality.includes(:prefecture).all
+    @prefectures = Prefecture.all
+
+    if @spot.valid?
+      render :confirm
+    else
+      flash.now[:danger] = t("spots.create.failure")
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def create
     @spot = current_user.spots.build(spot_params)
 
-    if @spot.save
+    if params[:back]
+      redirect_to action: :new
+    elsif @spot.save
       redirect_to new_spot_post_path(@spot), success: t("spots.create.success")
     else
       flash.now[:danger] = t("spots.create.failure")
-      render :new, status: :unprocessable_entity, turbo: false
+      render :new, status: :unprocessable_entity, data: { turbo: false }
     end
   end
 

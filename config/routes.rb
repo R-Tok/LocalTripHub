@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     collection do
       get :get_municipalities
       get :select
+      post :confirm
     end
     resources :posts
   end

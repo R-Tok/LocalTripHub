@@ -13,7 +13,8 @@
     // 初期表示の位置とピン
     created_spot_map = new google.maps.Map(document.getElementById('created_spot_map'), {
       center: {lat: 35.6812, lng: 139.7671},
-      zoom: 14,
+      zoom: 12,
+      minZoom: 5
     });
 
     // Railsから渡されたスポットデータをJSで扱えるようにパース

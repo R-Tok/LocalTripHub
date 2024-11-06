@@ -34,7 +34,7 @@
         <div class="dropdown dropdown-slide nav-item">
           <%= link_to "#", class: 'nav-link d-flex', data: { bs_toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }, id: 'header-profile' do %>
             <%= image_tag current_user.avatar.url, class: 'rounded-circle ', size: '30x30' %>
-            <span class="ms-2 align-self-center"><%= current_user.nickname %></span>
+            <span class="ms-2 align-self-center text-truncate" style="max-width: 150px;"><%= current_user.nickname %></span>
           <% end %>
 
           <div class="dropdown-menu dropdown-menu-end">

@@ -4,21 +4,25 @@
   
   <%= render "spots/spot_block" %>
 
-  <div class="d-flex justify-content-between p-2">
-    <%= link_to (current_user == @post.user ? profile_path : user_path(@post.user)), class: 'nav-link' do %>
-    <div class="text-truncate">
-      <%= image_tag @post.user.avatar.url, class: 'rounded-circle', size: '30x30' %>
-      <span class="ms-2 text-primary text-decoration-underline"><%= @post.user.nickname %></span>
-    </div>
-    <% end %>
+  <div class="d-flex flex-column flex-md-row justify-content-between p-2">
     <div>
-      <% if current_user&.id === @post.user_id %>
+      <%= link_to (current_user == @post.user ? profile_path : user_path(@post.user)), class: 'nav-link d-flex align-items-center flex-grow-1' do %>
+        <%= image_tag @post.user.avatar.url, class: 'rounded-circle', size: '30x30' %>
+        <span class="ms-2 text-primary text-decoration-underline d-inline-block text-truncate col-8">
+          <%= @post.user.nickname %>
+        </span>
+      <% end %>
+    </div>
+
+    <div class="d-flex flex-wrap align-items-center ms-auto">
+      <% if current_user&.own?(@post) %>
         <%= link_to t('helpers.submit.edit'), edit_spot_post_path(@post.spot, @post), class:"btn btn-sm btn-primary" %>
         <%= link_to t('helpers.submit.delete'), spot_post_path(@post.spot, @post), data: { turbo_confirm: t('posts.delete_confirm'), turbo_method: :delete }, class:"btn btn-sm btn-danger" %>
       <% end %>
       <%= l @post.created_at %>
     </div>
   </div>
+
   <div class="d-flex flex-wrap gap-3">
     <% @post.images&.each do |image| %>
       <% if image.image_url.present? %>

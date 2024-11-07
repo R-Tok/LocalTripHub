@@ -40,13 +40,17 @@
 
   <!-- カテゴリ選択 -->
   <h3><%= t('activerecord.models.category') %></h3>
-  <div>
-    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
-    <div>
-      <%= b.check_box %> <%= b.label %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+    <div class="d-flex">
+      <div>
+        <%= b.check_box %>
+      </div>
+      <div>
+         <%= b.label %>
+      </div>
     </div>
-    <% end %>
-  </div>
+  <% end %>
+  
   <br>
   <%= f.submit nil, class: "btn btn-success text-center d-grid gap-2 col-8 mx-auto" %>
   <br>

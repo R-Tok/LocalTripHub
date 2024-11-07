@@ -10,10 +10,10 @@
 
     <li><h5 class="text-decoration-underline">登録するスポット名称、該当するカテゴリをフォームから選択してください。</h5></li>
   </ul>
-  <div class="d-flex align-items-center">
+  <div class="d-flex align-items-center flex-wrap">
     <input id="address" type="textbox" placeholder=<%= t('.search_spot') %> class="p-1">
     <input type="button" value=<%= t('defaults.search') %> onclick="codeAddress()" class="p-1 me-3">
-    <%= t('.city_judge') %> : <div id="display"></div>
+    <div><%= t('.city_judge') %> : <span id="display"></span></div>
   </div>
 
   <%= render "spotcreate_map" %>

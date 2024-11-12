@@ -31,3 +31,8 @@ ja:
         image_url: 画像
       image:
         image_url: 画像
+      contact:
+        name: ユーザー名
+        email: 連絡先メールアドレス
+        subject: 件名
+        message: お問い合わせ内容

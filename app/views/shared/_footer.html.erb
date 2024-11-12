@@ -2,14 +2,10 @@
 
   <div class="sp d-flex justify-content-center">
     <ul class="other">
-      <li class="mx-2"><%= link_to t('footer.privacy_policy'), "#" %></li>  <!-- privacypolicy -->
-      <li class="mx-2"><%= link_to t('footer.site_policy'), "#" %></li>  <!-- sitepolicy -->
+      <li class="mx-2"><%= link_to t('footer.privacy_policy'), privacy_policy_path %></li>  <!-- privacypolicy -->
+      <li class="mx-2"><%= link_to t('footer.site_policy'), site_policy_path %></li>  <!-- sitepolicy -->
+      <li class="mx-2"><%= link_to t('footer.contact'), new_contact_path %></li>  <!-- contact -->  
     </ul>
-  
-    <ul class="other">
-      <li class="mx-2"><%= link_to t('footer.contact'), "#" %></li>  <!-- contact -->      
-    </ul>
-
   </div>
   <div class="text-center">
     <small>© LocalTripHub ALL RIGHTS RESERVED.</small>

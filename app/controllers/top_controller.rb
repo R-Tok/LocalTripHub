@@ -1,5 +1,5 @@
 class TopController < ApplicationController
-  skip_before_action :require_login, only: %i[index municipality_spot_counts]
+  skip_before_action :require_login, only: %i[index municipality_spot_counts site_policy privacy_policy contact]
 
   def index
     @posts = Post.all.order(created_at: :desc).limit(3)
@@ -10,6 +10,12 @@ class TopController < ApplicationController
     @spots = Spot.all
     @posts = Post.all.order(created_at: :desc).page(params[:page])
   end
+
+  def site_policy; end
+
+  def privacy_policy; end
+
+  def contact; end
 
 
   def municipality_spot_counts

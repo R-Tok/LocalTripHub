@@ -8,7 +8,8 @@
 </p>
 
 <div class="bg-body-secondary my-3">
-    <h3><%= Spot.human_attribute_name("name")%> : <%= @spot.name %>
+  <h3>
+    <%= Spot.human_attribute_name("name")%> : <%= @spot.name %>
   </h3>
   <p>
     <%= t('activerecord.models.prefecture') %>: <span class="badge bg-success text-wrap"><%= @spot.prefecture.name %></span>
@@ -16,7 +17,8 @@
   </p>
   <p>
     <%= Spot.human_attribute_name("latitude") %>: <%= @spot.latitude %>
-    <%= Spot.human_attribute_name("longitude") %>: <%= @spot.longitude %></p>
+    <%= Spot.human_attribute_name("longitude") %>: <%= @spot.longitude %>
+  </p>
   <p>
     <%= t('activerecord.models.category') %>: 
     <% @spot.categories&.each do |category| %>
@@ -34,6 +36,8 @@
   <% @spot.category_ids.each do |category_id| %>
     <%= hidden_field_tag "spot[category_ids][]", category_id %>
   <% end %>
-  <%= f.submit "<< やり直す", name: "back", class: "btn btn-secondary mx-3 my-3" %>
-  <%= f.submit "登録する", class: "btn btn-success mx-2 w-50 mx-3 my-3" %>
+  <div class="d-flex justify-content-center">
+    <%= f.submit "<< やり直す", name: "back", class: "btn btn-secondary mx-3 my-3" %>
+    <%= f.submit "登録する", class: "btn btn-success mx-2 w-50 mx-3 my-3" %>
+  </div>
 <% end %>

@@ -1,0 +1,25 @@
+<% content_for(:title, t('.title')) %>
+<div class="col-md-10 col-lg-8 mx-auto">
+  <h1><%= t('.title') %></h1>
+  <%= form_with model: @contact, url: confirm_contacts_path do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, class: "form-label" %>
+      <%= f.text_field :name, class: "form-control", required: true %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :email, class: "form-label" %>
+      <%= f.text_field :email, class: "form-control", required: true %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :subject, class: "form-label" %>
+      <%= f.text_field :subject, class: "form-control", required: true %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :message, class: "form-label" %>
+      <%= f.text_area :message, class: "form-control", rows: "8", required: true %>
+    </div>
+    <div class="d-grid gap-2 col-8 mx-auto mb-3">
+      <%= f.submit t('.to_confirm_page'), class: "btn btn-success", data: { turbo: false } %>
+    </div>
+  <% end %>
+</div>

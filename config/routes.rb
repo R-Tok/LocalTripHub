@@ -13,6 +13,15 @@ Rails.application.routes.draw do
   root "top#index"
   get "geojson", to: "top#municipality_spot_counts"
 
+  get "privacy_policy", to: "top#privacy_policy"
+  get "site_policy", to: "top#site_policy"
+  resources :contacts, only: %i[new create] do
+    collection do
+      post :confirm
+      get :done
+    end
+  end
+
   resources :users, only: %i[new create show]
   get "login", to: "user_sessions#new"
   post "login", to: "user_sessions#create"
@@ -32,4 +41,6 @@ Rails.application.routes.draw do
   resources :images, only: %i[destroy]
 
   resource :profile, only: %i[show edit update]
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

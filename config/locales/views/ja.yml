@@ -28,6 +28,12 @@ ja:
       title: 投稿を見る
       from_spot: スポットから探す
       latest_post: 最新の投稿
+    site_policy:
+      title: 利用規約
+    privacy_policy:
+      title: プライバシーポリシー
+    contact:
+      title: お問い合わせ
   user_sessions:
     new:
       title: ログイン
@@ -99,6 +105,17 @@ ja:
       failure: 投稿の更新に失敗しました
     delete: 投稿が削除されました
     delete_confirm: 投稿が削除されます。よろしいですか？
+  contacts:
+    new:
+      title: お問い合わせフォーム
+      to_confirm_page: 確認画面へ
+    create:
+      failure: メッセージの作成に失敗しました
+    confirm:
+      title: お問い合わせ内容確認
+    done:
+      title: お問い合わせ送信完了
+      to_top_page: トップページへ戻る
   images:
     delete_confirm: 画像を削除しますか？ (選択した画像が直ちに削除されます)
   prefecture:

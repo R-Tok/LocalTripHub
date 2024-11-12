@@ -1,0 +1,47 @@
+<% content_for(:title, t('.title'))%>
+
+<h1><%= t('.title') %></h1>
+<br>
+<p>
+  以下の内容でお問い合わせメールを送信します。よろしいですか？
+</p>
+
+<table class="table my-3">
+  <tbody>
+  <tr>
+    <td width="30%"><%= Contact.human_attribute_name("name")%></td>
+    <td><%= @contact.name %></td>
+  </tr>
+  <tr>
+    <td><%= Contact.human_attribute_name("email")%></td>
+    <td><%= @contact.email %></td>
+  </tr>
+  <tr>
+    <td><%= Contact.human_attribute_name("subject")%></td>
+    <td><%= @contact.subject %></td>
+  </tr>
+  <tr>
+    <td><%= Contact.human_attribute_name("message")%></td>
+    <td><%= simple_format(@contact.message) %></td>
+  </tr>
+  </tbody>
+</table>
+
+<%= form_with model: @contact, data: { turbo: false }, local: true do |f| %>
+  <%= f.hidden_field :name %>
+  <%= f.hidden_field :email %>
+  <%= f.hidden_field :subject %>
+  <%= f.hidden_field :message %>
+  <div class="d-flex justify-content-center">
+    <%= f.submit " << 入力へ戻る", name: "back", class: "btn btn-secondary mx-3 my-3" %>
+    <%= f.submit "送信する", class: "btn btn-success mx-2 w-50 mx-3 my-3" %>
+  </div>
+<% end %>
+
+<style>
+table{
+    width: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+</style>

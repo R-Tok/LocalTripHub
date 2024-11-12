@@ -1,0 +1,9 @@
+<% content_for(:title, t('.title'))%>
+<div class="container p-5">
+  <h5 class="text-center my-3">
+    入力内容を送信しました。<br>お問い合わせありがとうございました。
+  </h5>
+  <div class="d-flex justify-content-center gap-2 col-8 mx-auto my-3">
+    <%= link_to t('.to_top_page'), root_path, class: "btn btn-success", data: { turbo: false } %>
+  </div>
+</div>

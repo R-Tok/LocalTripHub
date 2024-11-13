@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :set_user, only: %i[show edit update]
+  before_action :set_user, only: %i[show edit update unsubscribe destroy]
 
   def show
     @posts = @user.posts.includes(:user).order(created_at: :desc).page(params[:page])
@@ -14,6 +14,15 @@ class ProfilesController < ApplicationController
       flash.now[:danger] = t("profiles.update.failure")
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def unsubscribe; end
+
+  def destroy
+    @user.update(is_deleted: true)
+    reset_session
+    flash[:success] = "退会処理が完了しました"
+    redirect_to root_path, data: { turbo: false }
   end
 
   private

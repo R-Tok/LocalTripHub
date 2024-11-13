@@ -45,6 +45,7 @@ ja:
       failure: ログインに失敗しました
     destroy:
       success: ログアウトしました
+    deleted_account: 退会済みです。再度ユーザー登録をしてください。
   users:
     new:
       title: ユーザー新規登録

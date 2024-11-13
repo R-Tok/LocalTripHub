@@ -22,7 +22,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.where(spot_id: params[:spot_id]).includes(:user, :spot).order(created_at: :desc).page(params[:page])
+    @posts = Post.includes(:user, :spot).where(spot_id: params[:spot_id], users: { is_deleted: false }).order(created_at: :desc).page(params[:page])
   end
 
   def show; end
@@ -59,7 +59,7 @@ class PostsController < ApplicationController
     if !@post.present?
       render_404(@post)
 
-    elsif @post.spot_id != @spot.id
+    elsif @post.spot_id != @spot.id || @post.user.is_deleted?
       render file: "public/404.html"
     end
   end

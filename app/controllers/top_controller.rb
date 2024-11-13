@@ -2,13 +2,13 @@ class TopController < ApplicationController
   skip_before_action :require_login, only: %i[index municipality_spot_counts site_policy privacy_policy contact]
 
   def index
-    @posts = Post.all.order(created_at: :desc).limit(3)
-    @prefecture_spots_count = Prefecture.joins(spots: :posts).group(:name).distinct.count("spots.id")
+    @posts = Post.includes(:user).where(users: { is_deleted: false }).order(created_at: :desc).limit(3)
+    @prefecture_spots_count = Prefecture.joins(spots: { posts: :user }).where(users: { is_deleted: false }).group(:name).distinct.count("spots.id")
   end
 
   def posts_browse
     @spots = Spot.all
-    @posts = Post.all.order(created_at: :desc).page(params[:page])
+    @posts = Post.includes(:user).where(users: { is_deleted: false }).order(created_at: :desc).page(params[:page])
   end
 
   def site_policy; end
@@ -25,7 +25,7 @@ class TopController < ApplicationController
     geojson = JSON.parse(geojson_data)
 
     # 市町村ごとのスポット数を一括取得
-    municipality_spot_counts = Spot.joins(:posts).group(:municipality_id).distinct.count
+    municipality_spot_counts = Spot.joins(posts: :user).where(users: { is_deleted: false }).group(:municipality_id).distinct.count
 
     # 関連する市町村を事前に取得
     municipalities = Municipality.joins(spots: :posts).where(name: geojson["features"].map { |f| f["properties"]["N03_008"] })

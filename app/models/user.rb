@@ -19,6 +19,10 @@ class User < ApplicationRecord
     object.user_id === id
   end
 
+  def active_for_authentication?
+    is_deleted == false
+  end
+
   private
 
   def store_password_length

@@ -40,7 +40,9 @@ Rails.application.routes.draw do
   resources :municipalities, only: %i[index]
   resources :images, only: %i[destroy]
 
-  resource :profile, only: %i[show edit update]
+  resource :profile, only: %i[show edit update destroy] do
+    get :unsubscribe
+  end
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

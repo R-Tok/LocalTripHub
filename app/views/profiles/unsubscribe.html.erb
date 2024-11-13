@@ -1,0 +1,11 @@
+<h1>本当に退会しますか？</h1>
+<div class="text-center">
+  <p>
+    退会すると、会員登録情報や<br>
+    これまでの投稿が削除され閲覧できなくなります。<br>
+    退会する場合は、「退会する」をクリックしてください。
+  </p>
+
+  <%= link_to "退会しない", profile_path, class: "btn btn-primary my-3 w-75" %>
+  <%= link_to "退会する", profile_path, class: "btn btn-danger my-3 w-75", data: { turbo_method: :delete, turbo_confirm: "本当に退会しますか？" }  %>
+</div>

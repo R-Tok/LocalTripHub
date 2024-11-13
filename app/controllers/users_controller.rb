@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
 
-  before_action :set_user_and_check_access
+  before_action :set_user_and_check_access, only: %i[show]
 
   def new
     @user = User.new
@@ -10,7 +10,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to login_path, success: t("users.create.success")
+      login(user_params[:email], user_params[:password])
+      redirect_to root_path, success: t("users.create.success")
     else
       flash.now[:danger] = t("users.create.failure")
       render :new, status: :unprocessable_entity
@@ -19,6 +20,8 @@ class UsersController < ApplicationController
 
    def show
     @user = User.find_by(id: params[:id])
+    redirect_to profile_path if @user.id == current_user.id
+
     @posts = @user.posts.includes(:images).order(created_at: :desc).page(params[:page])
    end
 
@@ -30,6 +33,10 @@ class UsersController < ApplicationController
 
   def set_user_and_check_access
     @user = User.find_by(id: params[:id])
-    render_404(@user)
+    if @user.is_deleted?
+      render file: "public/404.html"
+    else
+      render_404(@user)
+    end
   end
 end

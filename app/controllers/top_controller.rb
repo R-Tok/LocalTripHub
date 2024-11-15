@@ -1,5 +1,5 @@
 class TopController < ApplicationController
-  skip_before_action :require_login, only: %i[index municipality_spot_counts site_policy privacy_policy contact]
+  skip_before_action :require_login, only: %i[index municipality_spot_counts site_policy privacy_policy]
 
   def index
     @posts = Post.includes(:user).where(users: { is_deleted: false }).order(created_at: :desc).limit(3)
@@ -14,9 +14,6 @@ class TopController < ApplicationController
   def site_policy; end
 
   def privacy_policy; end
-
-  def contact; end
-
 
   def municipality_spot_counts
     # JSONファイルの読み込み

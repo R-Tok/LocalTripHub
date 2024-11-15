@@ -18,32 +18,50 @@
         map: map
       });
 
-      map.addListener("click", function(event) {  //  地図上のクリックにより座標を指すするルート
-        placeMarker(event.latLng);
-        document.getElementById('spot_latitude').value = event.latLng.lat().toFixed(6);
-        document.getElementById('spot_longitude').value = event.latLng.lng().toFixed(6);
+      // ①地図上のクリックにより座標を指定するルート
+      map.addListener("click", function(event) {
 
-        codeLatLng(event.latLng);
+        placeMarker(event.latLng);
+        setLatLng(event.latLng);
+        setPrefAndCity(event.latLng);
+      });
+
+      // ②検索ボックスのオートコンプリート候補からスポットを選択するルート
+      const input = document.getElementById("address");
+      const autocomplete = new google.maps.places.Autocomplete(input);  // オートコンプリートの設定
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+    
+        if (!place.geometry || !place.geometry.location) {
+          alert("場所が見つかりませんでした");
+          return;
+        }
+        map.setCenter(place.geometry.location);
+
+        placeMarker(place.geometry.location);
+        setLatLng(place.geometry.location);
+        setPrefAndCity(place.geometry.location);
       });
     }
 
-    function codeAddress(){   // 検索ボックスから座標を指定するルート
+    // ③検索ボックスの「検索」をクリックして座標を指定するルート
+    function codeAddress(){
       let inputAddress = document.getElementById('address').value;
 
       geocoder.geocode( { 'address': inputAddress}, function(results, status) {
         if (status == 'OK') {
           map.setCenter(results[0].geometry.location);
 
-          placeMarker(results[0].geometry.location);  // ピンを立てるためのplaceMarkerメソッド実行
-          document.getElementById('spot_latitude').value = results[0].geometry.location.lat().toFixed(6);
-          document.getElementById('spot_longitude').value = results[0].geometry.location.lng().toFixed(6);
-
-          codeLatLng(results[0].geometry.location);
+          placeMarker(results[0].geometry.location);
+          setLatLng(results[0].geometry.location);
+          setPrefAndCity(results[0].geometry.location);
         }
       });   
     }
 
-    function placeMarker(location) {   // マーカーを新規に設定するメソッド
+    // 【共通】マーカーを新規に設定するメソッド
+    function placeMarker(location) {
       if(marker) {
         marker.setMap(null);  //既存のピンを削除
       }
@@ -53,7 +71,14 @@
       });
     }
 
-    function codeLatLng(latLng) {    //  マーカーの座標から県と市町村を逆引きして自動選択するメソッド
+    // 【共通】マーカー座標の緯度経度をフォームに自動入力するメソッド
+    function setLatLng(location) {
+      document.getElementById('spot_latitude').value = location.lat().toFixed(6);
+      document.getElementById('spot_longitude').value = location.lng().toFixed(6);
+    }
+
+    // 【共通】マーカーの座標から県と市町村を逆引きして自動選択するメソッド
+    function setPrefAndCity(latLng) {
       geocoder.geocode({ "location": latLng }, function(results, status) {
         if (status == "OK" && results[0]) {
           // Geocode結果から市町村を取得
@@ -137,4 +162,4 @@
     }
 
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=places&callback=initMap" async defer></script>

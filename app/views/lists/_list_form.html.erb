@@ -1,0 +1,11 @@
+<%= form_with model: [@user, @list], remote: true, id: "new-list-form" do |f| %>
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control", required: true %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :caption %>
+    <%= f.text_field :caption, class: "form-control", placeholder: "リストの説明(任意)" %>
+  </div>
+  <%= f.submit "保存", class: "btn btn-success d-grid mx-auto w-50" %>
+<% end %>

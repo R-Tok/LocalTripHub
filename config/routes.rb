@@ -22,7 +22,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: %i[new create show]
+  resources :users, only: %i[new create show] do
+    resources :lists, only: %i[index show create update destroy]
+  end
   get "login", to: "user_sessions#new"
   post "login", to: "user_sessions#create"
   delete "logout", to: "user_sessions#destroy"
@@ -39,6 +41,8 @@ Rails.application.routes.draw do
   end
   resources :municipalities, only: %i[index]
   resources :images, only: %i[destroy]
+
+  resources :bookmarks, only: %i[create destroy]
 
   resource :profile, only: %i[show edit update destroy] do
     get :unsubscribe

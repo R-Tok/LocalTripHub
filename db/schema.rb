@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_12_144241) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_16_001703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "list_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id", "post_id"], name: "index_bookmarks_on_list_id_and_post_id", unique: true
+    t.index ["list_id"], name: "index_bookmarks_on_list_id"
+    t.index ["post_id"], name: "index_bookmarks_on_post_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -40,6 +50,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_12_144241) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_images_on_post_id"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "caption"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
   create_table "municipalities", force: :cascade do |t|
@@ -96,7 +115,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_12_144241) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "bookmarks", "lists"
+  add_foreign_key "bookmarks", "posts"
   add_foreign_key "images", "posts"
+  add_foreign_key "lists", "users"
   add_foreign_key "municipalities", "prefectures"
   add_foreign_key "posts", "spots"
   add_foreign_key "posts", "users"

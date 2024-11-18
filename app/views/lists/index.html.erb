@@ -1,0 +1,41 @@
+<% content_for(:title, t('.title')) %>
+
+<h1><%= t('.title') %></h1>
+<!-- リスト作成ボタン -->
+<% if current_user.id == @user.id %>
+  <button id="new-list-btn" class="btn btn-success my-3 w-50 d-grid mx-auto" data-bs-toggle="modal" data-bs-target="#list-modal">リストの新規作成</button>
+<% end %>
+
+<!-- モーダル用の領域 -->
+<div id="list-modal" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">新しいリストを作成</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render "list_form" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <% if @lists.present? && @lists.any?(&:persisted?) %>
+    <% @lists.select(&:persisted?).each do |list| %>
+      <div class="container-fluid">
+      <div class="row">
+      <div class="d-flex border border-secondary col-10 mx-auto my-3">
+        <h3 class="col-11 d-inline-block text-truncate my-3 mx-3">
+          <%= link_to list.name, user_list_path(list.user, list) %>
+        </h3>
+      </div>
+      </div>
+      </div>
+      
+    <% end %>
+  <% else %>
+    <div class="text-center my-3">作成されたリストはありません<div>
+  <% end %>
+</div>

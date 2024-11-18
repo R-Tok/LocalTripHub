@@ -106,6 +106,13 @@ ja:
       failure: 投稿の更新に失敗しました
     delete: 投稿が削除されました
     delete_confirm: 投稿が削除されます。よろしいですか？
+  lists:
+    index:
+      title: マイリスト一覧
+    show:
+      title: リスト詳細
+    delete: リストが削除されました
+    delete_confirm: リストが削除されます。よろしいですか？  この操作は取り消せません。
   contacts:
     new:
       title: お問い合わせフォーム

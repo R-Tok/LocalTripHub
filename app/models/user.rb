@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   has_many :spots
   has_many :posts, dependent: :destroy
+  has_many :lists, dependent: :destroy
 
   mount_uploader :avatar, AvatarUploader
 

@@ -36,3 +36,6 @@ ja:
         email: 連絡先メールアドレス
         subject: 件名
         message: お問い合わせ内容
+      list:
+        name: リスト名
+        caption: キャプション

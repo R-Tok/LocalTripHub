@@ -46,12 +46,14 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:access_info, :content, images_attributes: [ :image_url, :image_url_cache ])
+    params.require(:post).permit(:access_info, :content, images_attributes: [ :id, :image_url, :post_id ])
   end
 
   def set_spot_and_check_access
     @spot = Spot.includes(:prefecture, :municipality).find_by(id: params[:spot_id])
-    render_404(@spot)
+    if !@spot.present?
+      render file: "public/404.html"
+    end
   end
 
   def set_post_and_check_access

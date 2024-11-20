@@ -25,10 +25,13 @@ ja:
         name: スポット名称
         latitude: 緯度
         longitude: 経度
+        prefecture_id: 都道府県
+        municipality_id: 市区町村
       post:
         access_info: アクセス・営業時間など
         content: 本文(見どころ・感想)
         image_url: 画像
+        images: 画像
       image:
         image_url: 画像
       contact:

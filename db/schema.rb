@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_16_001703) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_19_151019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_16_001703) do
 
   create_table "images", force: :cascade do |t|
     t.bigint "post_id", null: false
-    t.string "image_url"
+    t.string "image_url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_images_on_post_id"
@@ -73,8 +73,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_16_001703) do
   create_table "posts", force: :cascade do |t|
     t.text "content", null: false
     t.text "access_info"
-    t.bigint "user_id"
-    t.bigint "spot_id"
+    t.bigint "user_id", null: false
+    t.bigint "spot_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["spot_id"], name: "index_posts_on_spot_id"
@@ -91,7 +91,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_16_001703) do
     t.string "name", null: false
     t.decimal "latitude", precision: 10, scale: 6, null: false
     t.decimal "longitude", precision: 10, scale: 6, null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "prefecture_id", null: false

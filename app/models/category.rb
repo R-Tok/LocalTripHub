@@ -1,3 +1,4 @@
 class Category < ApplicationRecord
-  has_and_belongs_to_many :spots
+  has_many :categories_spots
+  has_many :spots, through: :categories_spots
 end

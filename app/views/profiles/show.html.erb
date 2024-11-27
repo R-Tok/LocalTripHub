@@ -7,13 +7,30 @@
 <h2>登録情報</h2>
 <div class="col-lg-8 offset-lg-2">
   <div class="d-flex border-bottom border-secondary">
+    <div class="p-2 flex-fill">SNSログイン</div>
+    <div class="p-2 flex-fill">
+      <% if @user.authentications.find_by(provider: "twitter") %>
+        <i class="bi bi-twitter-x"></i> Xアカウントでログイン済
+      <% elsif @user.authentications.find_by(provider: "google") %>
+        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" class="me-2" style="height: 20px;">Googleでログイン済
+      <% else %>
+        未登録
+      <% end %>
+    </div>
+  </div>
+
+  <div class="d-flex border-bottom border-secondary">
     <div class="p-2 flex-fill">メールアドレス</div>
     <div class="p-2 flex-fill"><%= @user.email %></div>
   </div>
 
   <div class="d-flex border-bottom border-secondary mb-3">
     <div class="p-2 flex-fill">パスワード</div>
-    <div class="p-2 flex-fill"><%= '*' * @user.password_length %></div>
+    <div class="p-2 flex-fill">
+      <% if @user.password_length.present? %>
+        <%= '*' * @user.password_length %>
+      <% end %>
+    </div>
   </div>
   <br>
 </div>

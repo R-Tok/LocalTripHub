@@ -3,7 +3,7 @@
 <style>
   #created_spot_map { height: 500px; width: 95%;}
 </style>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&loading=async&callback=initMap" async defer></script>
 <script>
   let created_spot_map
   let currentInfoWindow = null;
@@ -61,4 +61,3 @@
     });
   }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>

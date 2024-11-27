@@ -1,4 +1,4 @@
-<div id="map" class="col-12 col-lg-5 my-3" style="height: 560px; max-width: 90%;"></div>
+<div id="city_map" class="col-12 col-lg-5 my-3" style="height: 560px; max-width: 90%;"></div>
 
 <!--  Leaflet.jsのスタイルシートを追加  -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -8,7 +8,7 @@
 
 <script>
 // 地図の初期化
-const map = L.map('map').setView([35.6895, 139.6917], 8); // 東京の中心で初期化
+const map = L.map('city_map').setView([35.6895, 139.6917], 8); // 東京の中心で初期化
 
 // OpenStreetMapのタイルを追加
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

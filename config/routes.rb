@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   post "login", to: "user_sessions#create"
   delete "logout", to: "user_sessions#destroy"
 
+  post "oauth/callback", to: "oauths#callback"
+  get "oauth/callback", to: "oauths#callback"
+  get "oauth/:provider", to: "oauths#oauth", as: :auth_at_provider
+
   get "posts_browse", to: "top#posts_browse"
 
   resources :spots, only: %i[new create] do
@@ -49,4 +53,6 @@ Rails.application.routes.draw do
   end
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
+  match "*unmatched", to: "application#rescue_to_404", via: :all
 end

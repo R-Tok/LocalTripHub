@@ -32,6 +32,12 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  selenium:
+    image: selenium/standalone-chrome:4.10.0
+    container_name: selenium
+    ports:
+      - "4444:4444" # Selenium WebDriver用ポート
+    shm_size: 2gb  # Chromeでのメモリ不足エラー防止
 volumes:
   bundle_data:
   postgresql_data:

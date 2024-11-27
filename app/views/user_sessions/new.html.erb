@@ -19,6 +19,15 @@
   <% end %>
   <br>
 
+  <%= link_to auth_at_provider_path(provider: :google), class: 'btn w-100 google btn btn-outline-secondary my-3 d-flex align-items-center justify-content-center' do %>
+    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" class="me-2" style="height: 20px;">
+    Googleでログイン
+  <% end %>
+
+  <%= link_to auth_at_provider_path(provider: :twitter), class: 'btn w-100 twitter btn btn-dark my-3' do %>
+    <i class="bi bi-twitter-x"></i> Xアカウントでログイン
+  <% end %>
+
   <div class='text-center'>
     <%= link_to t('.to_register_page'), new_user_path %>
     <br>

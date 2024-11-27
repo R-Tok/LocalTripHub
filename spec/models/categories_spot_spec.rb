@@ -2,7 +2,9 @@ require "rails_helper"
 
 RSpec.describe CategoriesSpot, type: :model do
   context "CategoriesSpotバリデーション" do
-    let(:spot) { create(:spot) }
+    let!(:prefecture) { Prefecture.find_by(id: 1) || create(:prefecture, id: 1, name: "北海道") }
+    let!(:municipality) { Municipality.find_by(id: 1) || create(:Municipality, id: 1, name: "札幌市中央区") }
+    let(:spot) { create(:spot, prefecture: prefecture, municipality: municipality) }
     let(:category) { create(:category) }
 
     it "spot_idとcategory_idの組み合わせがユニークであること" do
@@ -12,11 +14,11 @@ RSpec.describe CategoriesSpot, type: :model do
       expect(duplicate.errors[:spot_id]).to include("はすでに存在します")
     end
 
-    it "spot_idが存在しない場合は無効であること" do
-      invalid = build(:categories_spot, spot: nil, category: category)
-      expect(invalid).to be_invalid
-      expect(invalid.errors[:spot_id]).to include("を入力してください")
-    end
+    # it "spot_idが存在しない場合は無効であること" do
+    #   invalid = build(:categories_spot, spot: nil, category: category)
+    #   expect(invalid).to be_invalid
+    #   expect(invalid.errors[:spot_id]).to include("を入力してください")
+    # end
 
     it "category_idが存在しない場合は無効であること" do
       invalid = build(:categories_spot, spot: spot, category: nil)

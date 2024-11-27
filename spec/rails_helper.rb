@@ -1,5 +1,12 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+
+require "capybara/rspec"
+require "selenium/webdriver"
+Capybara.javascript_driver = :selenium_chrome_headless
+
+require_relative 'support/login_macros'
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
@@ -72,6 +79,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    Rails.application.load_seed
   end
 
   config.around(:each) do |example|
@@ -82,5 +90,19 @@ RSpec.configure do |config|
 
   config.before(:each) do
     FactoryBot.rewind_sequences
+  end
+
+  config.before(:each, type: :system) do
+    driven_by(:selenium_chrome_headless)
+  end
+
+  config.include LoginMacros
+
+  config.before(:each, type: :system) do
+    driven_by :remote_chrome
+    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+    Capybara.server_port = 4444
+    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
+    Capybara.ignore_hidden_elements = false
   end
 end

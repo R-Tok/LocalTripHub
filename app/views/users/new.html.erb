@@ -35,3 +35,12 @@
   </div>
   <br>
 </div>
+
+<script>
+  document.addEventListener("turbo:load", () => {
+  if (window.location.pathname === "/users") {
+    history.replaceState(null, "", "/users/new");
+  }
+});
+
+</script>

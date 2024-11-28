@@ -21,15 +21,9 @@
 
 
 <script>
-  const prefectureMap = {
-    <% @prefectures&.each do |prefecture| %>
-      "<%= prefecture.name %>": <%= prefecture.id %>,
-    <% end %>
-  };
-
-  const municipalityMap = {
-    <% @municipalities&.each do |municipality| %>
-      "<%= municipality.prefecture.name %><%= municipality.name %>": <%= municipality.id %>,
-    <% end %>
-  };
+  document.addEventListener("turbo:load", () => {
+  if (window.location.pathname === "/spots/confirm") {
+    history.replaceState(null, "", "/spots/new");
+  }
+});
 </script>

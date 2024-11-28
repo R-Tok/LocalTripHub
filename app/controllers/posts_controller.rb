@@ -34,7 +34,7 @@ class PostsController < ApplicationController
       redirect_to spot_post_path(@spot), success: t("posts.update.success")
     else
       flash.now[:danger] = t("posts.update.failure")
-      render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -63,6 +63,8 @@ class PostsController < ApplicationController
 
     elsif @post.spot_id != @spot.id || @post.user.is_deleted?
       render file: "public/404.html"
+    else
+      render_404(@post)
     end
   end
 

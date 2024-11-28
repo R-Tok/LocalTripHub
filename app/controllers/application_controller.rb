@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def rescue_to_404
+    render file: "public/404.html"
+  end
+
   private
 
   def not_authenticated

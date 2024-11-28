@@ -9,10 +9,13 @@ class User < ApplicationRecord
   validates :nickname, presence: true, length: { maximum: 255 }
   validates :introduction, length: { maximum: 5000 }
   validates :email, presence: true, uniqueness: true
+  validates :reset_password_token, uniqueness: true, allow_nil: true
 
   has_many :spots
   has_many :posts, dependent: :destroy
   has_many :lists, dependent: :destroy
+  has_many :authentications, dependent: :destroy
+  accepts_nested_attributes_for :authentications # has_many :authenticationsより下に書く
 
   mount_uploader :avatar, AvatarUploader
 

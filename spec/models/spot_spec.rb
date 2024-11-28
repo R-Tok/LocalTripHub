@@ -2,7 +2,9 @@ require "rails_helper"
 
 RSpec.describe Spot, type: :model do
   context "Spotバリデーション" do
-    let(:spot) { create(:spot) }
+    let!(:prefecture) { Prefecture.find_by(id: 1) || create(:prefecture, id: 1, name: "北海道") }
+    let!(:municipality) { Municipality.find_by(id: 1) || create(:Municipality, id: 1, name: "札幌市中央区") }
+    let(:spot) { create(:spot, prefecture: prefecture, municipality: municipality) }
 
     it "スポット名・緯度・経度・都道府県・市区町村が正しければ登録できること" do
       expect(spot).to be_valid

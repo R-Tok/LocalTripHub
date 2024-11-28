@@ -2,7 +2,10 @@ require "rails_helper"
 
 RSpec.describe Post, type: :model do
   context "Postバリデーション" do
-    let(:post) { create(:post) }
+    let!(:prefecture) { Prefecture.find_by(id: 1) || create(:prefecture, id: 1, name: "北海道") }
+    let!(:municipality) { Municipality.find_by(id: 1) || create(:Municipality, id: 1, name: "札幌市中央区") }
+    let(:spot) { create(:spot, prefecture: prefecture, municipality: municipality) }
+    let(:post) { create(:post, spot: spot) }
 
     it "本文・アクセス情報が正しければ登録できる" do
       expect(post).to be_valid

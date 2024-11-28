@@ -8,7 +8,8 @@ class TopController < ApplicationController
 
   def posts_browse
     @spots = Spot.all
-    @posts = Post.includes(:user).where(users: { is_deleted: false }).order(created_at: :desc).page(params[:page])
+    @q = Post.ransack(params[:q])
+    @posts = @q.result(distinct: true).includes(:user).where(users: { is_deleted: false }).order(created_at: :desc).page(params[:page])
   end
 
   def site_policy; end

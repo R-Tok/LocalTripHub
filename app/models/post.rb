@@ -10,6 +10,14 @@ class Post < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :lists, through: :bookmarks
 
+  def self.ransackable_attributes(auth_object = nil)
+    [ "content", "access_info" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "spot", "user" ]
+  end
+
   private
 
   def images_upto_10

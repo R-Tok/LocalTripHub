@@ -17,6 +17,14 @@ class Spot < ApplicationRecord
   has_many :categories_spots
   has_many :categories, through: :categories_spots
 
+  def self.ransackable_attributes(auth_object = nil)
+    [ "id", "id_value", "municipality_id", "name", "prefecture_id" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "prefecture", "municipality", "posts" ]
+  end
+
   private
 
   def latitude_precision

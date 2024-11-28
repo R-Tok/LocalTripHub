@@ -27,7 +27,8 @@ ja:
     posts_browse:
       title: 投稿を見る
       from_spot: スポットから探す
-      latest_post: 最新の投稿
+      latest_post: 最新の投稿から探す
+      search_word: 投稿内容、スポット名、県名や市名
     site_policy:
       title: 利用規約
     privacy_policy:

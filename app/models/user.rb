@@ -9,6 +9,7 @@ class User < ApplicationRecord
   validates :nickname, presence: true, length: { maximum: 255 }
   validates :introduction, length: { maximum: 5000 }
   validates :email, presence: true, uniqueness: true
+  validates :reset_password_token, uniqueness: true, allow_nil: true
 
   has_many :spots
   has_many :posts, dependent: :destroy

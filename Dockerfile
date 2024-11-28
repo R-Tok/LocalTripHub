@@ -82,9 +82,3 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
 
-# DockerイメージにChromeとChromeDriverをインストール
-RUN apt-get update -qq && apt-get install -y \
-  chromium \
-  chromium-driver \
-  xvfb \
-  && apt-get clean

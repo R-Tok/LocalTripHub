@@ -1,0 +1,25 @@
+<% content_for(:title, t('.title'))%>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1><%= t('.title')%></h1>
+      <%= form_with model: @user, url: password_reset_path(@token) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+	    <%= f.label :email %>
+        <%= @user.email %>
+        <div class="form-group">
+          <%= f.label :password %>
+          <%= f.password_field :password, class:"form-control", presence: true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, class:"form-control", presence: true %>
+        </div>
+        <br>
+        <div class="text-center">
+          <%= f.submit t('.submit'), class:"btn btn-success d-grid gap-2 col-8 mx-auto mb-3" %>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>

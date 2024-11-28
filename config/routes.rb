@@ -52,6 +52,8 @@ Rails.application.routes.draw do
     get :unsubscribe
   end
 
+  resources :password_resets, only: %i[new create edit update]
+
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   match "*unmatched", to: "application#rescue_to_404", via: :all

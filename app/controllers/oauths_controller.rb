@@ -34,4 +34,8 @@ class OauthsController < ApplicationController
   def auth_params
     params.permit(:code, :provider, :oauth_token, :oauth_verifier)
   end
+
+  def login_at(provider_name, args = {})
+    redirect_to sorcery_login_url(provider_name, args), allow_other_host: true
+  end
 end

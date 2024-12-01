@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.1"
+gem "rails", "~> 7.2.1.1"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use postgresql as the database for Active Record
@@ -42,12 +42,12 @@ gem "rails-i18n", "~> 7.0.0"
 
 gem "pry-rails"
 
-gem "carrierwave", "2.2.2"  # 画像アップロード
+gem "carrierwave", "2.2.6"  # 画像アップロード
 
 gem "kaminari", "1.2.2"
 gem "bootstrap5-kaminari-views"
 
-gem "dotenv-rails"
+gem "dotenv-rails" # .envファイルで環境変数を管理
 
 gem "fog-aws"
 
@@ -58,7 +58,9 @@ gem "meta-tags"
 
 gem "config"
 
-gem "ransack"
+gem "ransack" # 検索機能
+
+gem "rexml", ">= 3.3.9"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -69,6 +71,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "bundler-audit", require: false
 end
 
 group :development do

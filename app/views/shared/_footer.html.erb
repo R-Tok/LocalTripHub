@@ -8,6 +8,10 @@
     </ul>
   </div>
   <div class="text-center">
+    <% if current_user&.admin?%>
+      <small><%= link_to "admin", "/admin" %></small>
+    <br>
+    <% end %>
     <small>© LocalTripHub ALL RIGHTS RESERVED.</small>
   </div>
 </footer>

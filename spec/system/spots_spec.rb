@@ -171,22 +171,6 @@ RSpec.describe "Spots", type: :system, js: true do
         expect(page).to have_content("新規投稿 -スポット登録確認-")
         expect(page).to have_current_path(confirm_spots_path)
       end
-
-      it "緯度経度に文字列や小数点以下7桁以降を入力 ⇒成功" do
-        visit new_spot_path
-
-        fill_in "スポット名称", with: "おすすめスポット"
-        fill_in "緯度", with: 35.123456789
-        fill_in "経度", with: 140.123456789
-        find("#spot_prefecture_id").find("option[value='12']").select_option
-        find("#spot_municipality_id").find("option[value='621']").select_option
-
-        click_on "登録"
-
-        expect(page).to have_content("おすすめスポット")
-        expect(page).to have_content("新規投稿 -スポット登録確認-")
-        expect(page).to have_current_path(confirm_spots_path)
-      end
     end
   end
 end

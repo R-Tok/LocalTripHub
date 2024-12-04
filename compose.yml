@@ -32,8 +32,16 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    cpus: "2.0"
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+          cpus: '2.0'
+        reservations:
+          memory: 1g
   selenium:
-    image: selenium/standalone-chrome:4.10.0
+    image: selenium/standalone-chrome:131.0.6778.85-chromedriver-131.0.6778.85
     container_name: selenium
     ports:
       - "4444:4444" # Selenium WebDriver用ポート

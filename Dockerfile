@@ -82,3 +82,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
 
+

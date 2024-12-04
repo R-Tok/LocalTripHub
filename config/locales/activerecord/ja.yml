@@ -7,6 +7,12 @@ ja:
       prefecture: 都道府県
       municipality: 市区町村
       category: カテゴリ
+      categories_spot: カテゴリ-スポット紐付け
+      image: 画像
+      list: お気に入りリスト
+      bookmark: ブックマーク
+      contact: お問い合わせ
+      authentication: SNS認証
     attributes:
       user:
         email: メールアドレス
@@ -15,6 +21,9 @@ ja:
         avatar: アイコン
         password: パスワード
         password_confirmation: パスワード確認
+        password_length: パスワード文字数
+        is_deleted: 退会ユーザーフラグ
+        role: 管理者権限
       profile:
         email: メールアドレス
         password: パスワード

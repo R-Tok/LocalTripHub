@@ -38,7 +38,7 @@ ja:
         municipality_id: 市区町村
       post:
         access_info: アクセス・営業時間など
-        content: 本文(見どころ・感想)
+        content: 本文[見どころ・感想]
         image_url: 画像
         images: 画像
       image:

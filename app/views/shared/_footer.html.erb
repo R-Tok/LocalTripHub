@@ -1,17 +1,21 @@
 <footer id='footer' class='footer-bottom bg-dark-subtle'>
 
-  <div class="sp d-flex justify-content-center">
-    <ul class="other">
-      <li class="mx-2"><%= link_to t('footer.privacy_policy'), privacy_policy_path %></li>  <!-- privacypolicy -->
-      <li class="mx-2"><%= link_to t('footer.site_policy'), site_policy_path %></li>  <!-- sitepolicy -->
-      <li class="mx-2"><%= link_to t('footer.contact'), new_contact_path %></li>  <!-- contact -->  
-    </ul>
-  </div>
-  <div class="text-center">
-    <% if current_user&.admin?%>
-      <small><%= link_to "admin", "/admin" %></small>
-    <br>
-    <% end %>
-    <small>© LocalTripHub ALL RIGHTS RESERVED.</small>
+  <div class="d-flex justify-content-center align-items-end">
+    <div class="mx-1 my-2">
+      <a class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover" href="/privacy_policy"><%= t('footer.privacy_policy') %></a><br>  <!-- privacypolicy -->
+      <a class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover" href="/site_policy"><%= t('footer.site_policy') %></a><br>  <!-- sitepolicy -->
+      <a class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover" href="/contacts/new"><%= t('footer.contact') %></a>  <!-- contact -->  
+
+    </div>
+    <div class="mx-1 my-2">
+      <small>
+        © LocalTripHub 
+        <% if current_user&.admin?%>
+          <a href="/admin" class="text-decoration-none text-dark">admin</a>
+          <br>
+        <% end %>
+        ALL RIGHTS RESERVED.
+      </small>
+    </div>
   </div>
 </footer>

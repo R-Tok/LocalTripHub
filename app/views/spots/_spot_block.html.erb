@@ -1,6 +1,6 @@
-<div class= "bg-body-secondary mb-3">
-  <h3><%= Spot.human_attribute_name("name") %>: 
-    <%= link_to @spot.name, spot_posts_path(@spot) %>
+<div class= "bg-body-secondary my-3">
+  <h3 class="my-2">
+    <%= link_to @spot.name, spot_posts_path(@spot), class:"fw-bold text-dark" %>
   </h3>
   <p>
     <%= t('activerecord.models.prefecture') %>: <span class="badge bg-success text-wrap"><%= @spot.prefecture.name %></span>

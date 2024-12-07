@@ -33,5 +33,7 @@ module LocalTripHub
     end
 
     config.i18n.default_locale = :ja
+
+    config.active_storage.variant_proessor = :mini_magick
   end
 end

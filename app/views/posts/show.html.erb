@@ -1,16 +1,14 @@
 <% content_for(:title, t('.title')) %>
-
-  <h1><%= t('.title') %></h1>
   
   <%= render "spots/spot_block" %>
 
   <div class="d-flex flex-column flex-md-row justify-content-between p-2">
     <div>
       <%= link_to (current_user == @post.user ? profile_path : user_path(@post.user)), class: 'nav-link d-flex align-items-center flex-grow-1' do %>
-        <%= image_tag @post.user.avatar.url, class: 'rounded-circle', size: '30x30' %>
-        <span class="ms-2 text-primary text-decoration-underline d-inline-block text-truncate col-8">
+        <%= image_tag @post.user.avatar.url, class: 'rounded-circle flex-shrink-0', size: '30x30' %>
+        <div class="ms-2 d-inline-block text-truncate col-8" >
           <%= @post.user.nickname %>
-        </span>
+        </div>
       <% end %>
     </div>
 
@@ -53,7 +51,7 @@
   </div>
 
 
-  <div class="d-flex flex-wrap gap-3">
+  <div class="d-flex flex-wrap gap-2">
     <% @post.images&.each do |image| %>
       <% if image.image_url.present? %>
         <div class="p-0">

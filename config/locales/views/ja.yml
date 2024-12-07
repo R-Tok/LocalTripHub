@@ -89,12 +89,12 @@ ja:
       create_post: このスポットについて投稿する
   posts:
     index:
-      title: 投稿一覧
+      title: スポット詳細
       link_to_detail: 詳細を見る
       link_to_create_post: このスポットについて新規投稿する
       no_posts: このスポットに関する投稿はありません
     new:
-      title: 投稿新規作成
+      title: 新規投稿フォーム
     create:
       success: 投稿が作成されました
       failure: 投稿の作成に失敗しました

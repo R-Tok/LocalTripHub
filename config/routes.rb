@@ -57,5 +57,7 @@ Rails.application.routes.draw do
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
+  get "/health", to: proc { [ 200, {}, [ "OK" ] ] }
+
   match "*unmatched", to: "application#rescue_to_404", via: :all
 end

@@ -1,7 +1,7 @@
 class PostImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   if Rails.env.production?
@@ -27,10 +27,19 @@ class PostImageUploader < CarrierWave::Uploader::Base
 
   # Process files as they are uploaded:
   # process scale: [200, 300]
+  process resize_to_fit: [ nil, 300 ]  # 画像リサイズ
+  process :convert_to_webp  # webpに変換
   #
   # def scale(width, height)
   #   # do something
   # end
+
+  def convert_to_webp
+    manipulate! do |img|
+      img.format("webp") { |c| c.quality "80" }
+      img
+    end
+  end
 
   # Create different versions of your uploaded files:
   # version :thumb do
@@ -45,7 +54,7 @@ class PostImageUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    super.chomp(File.extname(super)) + ".webp" if original_filename.present?
+  end
 end

@@ -15,6 +15,8 @@ class OauthsController < ApplicationController
     when "google" then "Google"
     end
 
+    existing_user = User.find_by(email: params[:email])
+
     if @user = login_from(provider)
       redirect_to root_path, success: "#{flash_provider}アカウントでログインしました"
     else
@@ -24,7 +26,13 @@ class OauthsController < ApplicationController
         auto_login(@user)
         redirect_to root_path, success: "#{flash_provider}アカウントでログインしました"
       rescue StandardError
-        redirect_to root_path, danger: "#{flash_provider}アカウントでのログインに失敗しました"
+        
+        if existing_user
+          redirect_to root_path, danger: "#{flash_provider}アカウントでのログインに失敗しました。このメールアドレスは既に登録されています。"
+        else
+          redirect_to root_path, danger: "#{flash_provider}アカウントでのログインに失敗しました"
+        end
+        
       end
     end
   end

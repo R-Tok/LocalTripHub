@@ -1,0 +1,15 @@
+Id,email,crypted_password,salt,nickname,introduction,avatar,created_at,updated_at,password_length,is_deleted,reset_password_token,reset_password_token_expires_at,reset_password_email_sent_at,access_count_to_reset_password_page,role
+1,user1_test@sample.jp,$2a$10$kffHDc5mtTKOvYDubSNrGe19PA.FqDBILv0WTu84/WvNZQs9/VB9O,s27FnGc3Ws17P-WCMx3K,1,,,2024/10/17 11:53,2024/10/17 11:53,8,FALSE,,,,0,0
+2,user1@sample.com,$2a$10$4f7CYN1gzxGNMnH79TewXeMGzREEJIe2f6TBs3PRADGTUMkaJMQd2,DToz44an2XsUjxiRy3js,51,,https://localtriphub-storage.s3.ap-northeast-1.amazonaws.com/uploads/user/avatar/2/FAA6F236-173F-4660-9034-C2491EFFCD2E.jpeg?X-Amz-Expires=600&X-Amz-Date=20241210T021112Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4VDBMIBOFEO4FJP3%2F20241210%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=a75899e21c6eee5375c899cf42215fe5535e1c03d2dcfc21f8d34be3fd9226d7,2024/11/01 13:20,2024/12/04 14:30,6,FALSE,,,,0,1
+3,user2@sample.com,$2a$10$oZnG50BwGJlcbtI5mY8sgu8Uem7aH0jnYDsSrNFpD1wW6cDnKXaKe,C915jk45qr6jBVDtoD8x,こま,,,2024/11/05 15:21,2024/11/05 15:21,6,FALSE,,,,0,0
+4,test@example.com,$2a$10$JCwI0.XZ3eONAfudsqquCe4.y8IC1KA4hhvWiyD6jbdzgj7MjSlNy,nLrrs5Ny5ZFEEojKs1x6,れなっち,,,2024/11/05 20:19,2024/11/05 20:19,6,FALSE,,,,0,0
+5,takenakaeri0423@i.softbank.jp,$2a$10$rS3B8o8mwdfoczLlmUCEQu2vC0TM1EEsMxt2sR3MhDALL8f27BT5O,yPmrdrwKsNdusDrysXdy,なかやん,,,2024/11/07 11:33,2024/11/07 11:37,15,FALSE,,,,0,0
+6,farao@example.com,$2a$10$uHgjFc/z.wwnwwwYiEgkYuWNk..CWZUpBTZAV8pZq3JwCFjsN29.i,DKAxcCg9idd_9kv-EtV1,farao,,,2024/11/11 17:17,2024/11/11 17:17,8,FALSE,,,,0,0
+7,spegolily@gmail.com,$2a$10$gukUaZ26iJbwuFCOWzAIwO9xs4r7TpxLk5CWfbilb8Ngct.GKJIYq,Aza826zSzvZmYes8nrDa,ゆり,,,2024/11/16 12:31,2024/11/16 12:31,20,FALSE,,,,0,0
+8,,,,ACT_mtt4ng,,,2024/11/28 10:19,2024/11/28 10:19,,FALSE,,,,0,0
+9,ryosuke.tokunaga.t5@alumni.tohoku.ac.jp,$2a$10$sNRXHjDWFW.Y94FnqUPmGuxfG61T8ckXIFOKy6Qg5wfQZ0gaoioiS,DzmMSKacxuzZ5isxwMZL,徳永凌祐,,,2024/11/28 16:07,2024/11/28 16:33,10,FALSE,,,2024/11/28 16:32,0,0
+10,c023273.nichireki@gmail.com,$2a$10$JvO6Tdccst8dl/mbcXSYkuz9ASL/LdJ/vjct2g0ATidWQxoo4NpqK,LziLNFQXYExyNp7FW3Yt,1,,,2024/11/28 16:10,2024/11/28 16:24,10,FALSE,,,2024/11/28 16:23,0,0
+11,workshop2tsuchiya.iris@gmail.com,,,Tsuchiya,,,2024/12/05 17:57,2024/12/05 17:57,,FALSE,,,,0,0
+12,mugi.stnk100122@gmail.com,,,清水侑李,,,2024/12/07 14:39,2024/12/07 14:39,,FALSE,,,,0,0
+13,yas0225y@gmail.com,,,yuta,,,2024/12/08 19:29,2024/12/08 19:29,,FALSE,,,,0,0
+14,n.kosuko731@gmail.com,$2a$10$uwv0485Pt1yLWNix/V/Ws.2ZSkQGFhWwbYYttnZeHBk.22wJndW9u,Dv5S8GTzR3SqPvsXFFug,なかむら,,,2024/12/09 20:48,2024/12/09 20:48,9,FALSE,,,,0,0

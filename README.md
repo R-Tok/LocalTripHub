@@ -42,3 +42,15 @@ GoogleMap上をクリックまたはスポット名検索をすることで、�
 投稿の保存リストを複数作成し、お気に入りの投稿を任意のリストへ保存できます。
 情報収集のまとめにご活用ください。
 
+### 使用技術
+| カテゴリ | 使用技術 |
+| ---- | ---- |
+| フロントエンド | JavaScript / Ruby on Rails |
+| バックエンド | Ruby 3.2.3 / Ruby on Rails 7.2.1.2 |
+| CSSフレームワーク | Bootstrap |
+| データベースサーバー | PostgreSQL |
+| 環境構築 | Docker |
+| 画像ファイル保存サーバー | AWS S3 |
+| アプリケーションサーバー | Fly.io |
+| バージョン管理 | GitHub |
+| その他 | GoogleMapAPI / leaflet.js / mini magick |

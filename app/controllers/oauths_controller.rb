@@ -26,13 +26,11 @@ class OauthsController < ApplicationController
         auto_login(@user)
         redirect_to root_path, success: "#{flash_provider}アカウントでログインしました"
       rescue StandardError
-        
         if existing_user
           redirect_to root_path, danger: "#{flash_provider}アカウントでのログインに失敗しました。このメールアドレスは既に登録されています。"
         else
           redirect_to root_path, danger: "#{flash_provider}アカウントでのログインに失敗しました"
         end
-        
       end
     end
   end

@@ -12,9 +12,11 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.save
-        redirect_to user_lists_path, success: "リストを作成しました"
+        format.html { redirect_to user_lists_path, success: "リストを作成しました" }
+        format.js   # JavaScript形式でレスポンス
       else
-        render :index, status: :unprocessable_entity, flash: { danger: "リスト作成に失敗しました" }
+        format.html { render :index, status: :unprocessable_entity, flash: { danger: "リスト作成に失敗しました" } }
+        format.js   # JavaScript形式でエラー表示
       end
     end
   end
@@ -28,9 +30,11 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.save
-        redirect_to user_list_path, success: "リストを編集しました"
+        format.html { redirect_to user_list_path, success: "リストを編集しました" }
+        format.js   # JavaScript形式でレスポンス
       else
-        render :index, status: :unprocessable_entity, flash: { danger: "リスト作成に失敗しました" }
+        format.html { render :index, status: :unprocessable_entity, flash: { danger: "リスト編集に失敗しました" } }
+        format.js   # JavaScript形式でエラー表示
       end
     end
   end
@@ -48,7 +52,7 @@ class ListsController < ApplicationController
 
   def set_user_and_check_access
     @user = User.find_by(id: params[:user_id])
-    render file: "public/404.html" if @user.is_deleted? || @user.nil?
+    render file: "public/404.html" if @user.is_deleted? || @user.nil? || current_user != @user
   end
 
   def set_list_and_check_access

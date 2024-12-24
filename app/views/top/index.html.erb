@@ -45,7 +45,11 @@
         <div class="text-center bg-body-secondary my-1 mx-1">
           <h4 class="text-primary">お出かけスポット記録・共有</h4>
           <p>近所のお散歩、行きつけのお店、ドライブの行先、旅先でふらっと立ち寄った施設…など、日々の外出だって誰かの小さな旅へと繋がるかも。
-            <br>「定番観光地ではなくてもオススメのローカルスポット」を投稿し、ユーザー同士で共有しよう。
+            <br>「定番観光地ではなくてもオススメのローカルスポット」を投稿し、ユーザー同士で共有しよう。<br>
+            <%= link_to select_spots_path, class: "btn btn-sm btn-success" do %>
+              <i class="bi bi-pencil-square align-self-center mx-1"></i>
+              新規投稿はこちら
+            <% end %>
           <p>
         </div>
         <div class="text-center bg-body-secondary my-1 mx-1">

@@ -15,8 +15,6 @@ class BookmarksController < ApplicationController
     # 除外されたリストからは既存ブックマークを削除する
     Bookmark.where(post_id: post.id, list_id: removed_list_ids).destroy_all
 
-    respond_to do |format|
-      format.js { render inline: "location.reload();" } # 成功後にページをリロード
-    end
+    redirect_to request.referer, success: "リストへの保存を更新しました" # ページをリロード
   end
 end

@@ -22,7 +22,7 @@
 </div>
 
 <div>
-  <div class="container-fluid">
+  <div class="container-fluid" id="list-container">
     <div class="row">
       <% if @lists.present? && @lists.any?(&:persisted?) %>
         <% @lists.select(&:persisted?).each do |list| %>

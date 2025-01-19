@@ -50,7 +50,10 @@ Rails.application.routes.draw do
   resources :bookmarks, only: %i[create destroy]
 
   resource :profile, only: %i[show edit update destroy] do
-    get :unsubscribe
+    collection do
+      get :myposts
+      get :unsubscribe
+    end
   end
 
   resources :password_resets, only: %i[new create edit update]

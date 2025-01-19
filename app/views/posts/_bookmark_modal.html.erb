@@ -1,0 +1,32 @@
+<!-- リスト選択のモーダル -->
+<div id="addToListModal-<%= post.id %>" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">投稿をリストへ追加</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if logged_in? %>
+          <% if current_user.lists.present? %>
+            <%= form_with url: bookmarks_path, method: :post, remote: true do |f| %>
+              <%= f.hidden_field :post_id, value: post.id %> <!-- 追加対象のポストID -->
+
+              <%= f.collection_check_boxes :list_ids, List.where(user_id: current_user&.id), :id, :name, checked: post.list_ids do |b| %>
+                <div class="d-flex">
+                  <div><%= b.check_box %></div>
+                  <div><%= b.text %></div>
+                </div>
+              <% end %>
+
+              <%= f.submit "更新する", class: "btn btn-success d-grid mx-auto w-50 my-3" %>
+            <% end %>
+          <% else %>
+                      作成済みリストがありません
+            <%= link_to "リスト作成へ移動", user_lists_path(current_user.id), class: "btn btn-success d-grid mx-auto w-50 my-3" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

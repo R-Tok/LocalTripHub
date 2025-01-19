@@ -15,70 +15,41 @@
 
         <!-- テキスト表示エリア -->
         <div class="d-flex flex-column mb-3" style="width: 50%; height: 100%;">
-          <div class="d-flex justify-content-between p-2">
+          <div class="d-flex justify-content-between align-items-center ps-2 py-1">
             <div class="text-truncate">
-              <%= link_to (current_user == post.user ? profile_path : user_path(post.user)), data: { turbo: false }, class: 'nav-link d-flex align-items-center flex-grow-1 text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover' do %>
+              <%= link_to (current_user == post.user ? profile_path : user_path(post.user)), data: { turbo: false }, class: 'nav-link d-flex align-items-center flex-grow-1 text-dark' do %>
               
                 <%= image_tag post.user.avatar.url, class: 'rounded-circle flex-shrink-0', size: '30x30' %>
-                <div class="ms-2 d-inline-block text-truncate col-8 d-none d-lg-inline">
+                <div class="ms-2 text-truncate d-none d-lg-inline" style="max-width: 140px;">
                   <%= post.user.nickname %>
                 </div>
               <% end %>
             </div>
             
             <div class="d-flex align-items-center">
-              <%= l post.created_at, format: :date %>
+              <div class="d-none d-md-block">
+                <%= l post.created_at, format: :date %>
+              </div>
               <% if logged_in? %>
-                <div class="dropdown dropdown-slide nav-item">
-                  <button class='btn btn-sm btn-outline-dark' type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id='post-menu' >
-                    …
-                  </button>
-                  <ul class="dropdown-menu text-center">
-                    <li>
-                      <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#addToListModal-<%= post.id %>">リストへ追加</button>
-                    </li>
+                <div>
+                  
+                  
+                    
+                      <button class="btn btn-sm rounded-pill btn-light" data-bs-toggle="modal" data-bs-target="#addToListModal-<%= post.id %>">
+                        <i class="bi bi-bookmark-heart" style="font-size: 18px;"></i>
+                      </button>
+                    
                     <% if current_user&.own?(post) %>
-                      <li><%= link_to t('helpers.submit.edit'), edit_spot_post_path(post.spot, post), data: { turbo: false }, class:"btn btn-sm btn-primary" %></li>
-                      <li><%= link_to t('helpers.submit.delete'), spot_post_path(post.spot, post), data: { turbo: false }, data: { turbo_confirm: t('posts.delete_confirm'), turbo_method: :delete }, class:"btn btn-sm btn-danger" %></li>
+                      <%= link_to t('helpers.submit.edit'), edit_spot_post_path(post.spot, post), data: { turbo: false }, class: "btn btn-sm btn-primary", style: "font-size: 12px;"%>
+                      <%= link_to t('helpers.submit.delete'), spot_post_path(post.spot, post), data: { turbo: false }, data: { turbo_confirm: t('posts.delete_confirm'), turbo_method: :delete }, class: "btn btn-sm btn-danger", style: "font-size: 12px;"%>
                     <% end %>
-                  </ul>
+                  
                 </div>
               <% end %>
             </div>
           </div>
 
-          <!-- リスト選択のモーダル -->
-          <div id="addToListModal-<%= post.id %>" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">投稿をリストへ追加</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <% if logged_in? %>
-                    <% if current_user.lists.present? %>
-                      <%= form_with url: bookmarks_path, method: :post, remote: true do |f| %>
-                        <%= f.hidden_field :post_id, value: post.id %> <!-- 追加対象のポストID -->
-
-                        <%= f.collection_check_boxes :list_ids, List.where(user_id: current_user&.id), :id, :name, checked: post.list_ids do |b| %>
-                          <div class="d-flex">
-                            <div><%= b.check_box %></div>
-                            <div><%= b.text %></div>
-                          </div>
-                        <% end %>
-
-                        <%= f.submit "更新する", class: "btn btn-success d-grid mx-auto w-50 my-3" %>
-                      <% end %>
-                    <% else %>
-                      作成済みリストがありません
-                      <%= link_to "リスト作成へ移動", user_lists_path(current_user.id), class: "btn btn-success d-grid mx-auto w-50 my-3" %>
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
+          <%= render "posts/bookmark_modal", post: post %>
 
           <div class="text-truncate p-2" >
             <%= post.content %>

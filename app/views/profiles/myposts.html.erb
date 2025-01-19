@@ -1,0 +1,11 @@
+<% content_for(:title, t('.title')) %>
+
+<h1><%= t('profiles.show.title') %></h1>
+<!-- 自分の投稿一覧 -->
+<h2><%= t('.title') %></h2>
+<% if @posts.present? %>
+  <%= render "posts/post_block" %>
+  <%= paginate @posts, theme: "bootstrap-5" %>
+<% else %>
+  <div class="text-center mb-3">投稿はありません</div>
+<% end %>

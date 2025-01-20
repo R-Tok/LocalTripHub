@@ -3,8 +3,9 @@
     <%= link_to @spot.name, spot_posts_path(@spot), class:"fw-bold text-dark" %>
   </h3>
   <p>
-    <%= t('activerecord.models.prefecture') %>: <span class="badge bg-success text-wrap"><%= @spot.prefecture.name %></span>
-    <%= t('activerecord.models.municipality') %>: <span class="badge bg-success text-wrap"><%= @spot.municipality.name %></span>
+    <i class="bi bi-pin-angle-fill"></i> 
+    <%= @spot.prefecture.name %> 
+    <%= @spot.municipality.name %>
   </p>
   <p>
     <%= Spot.human_attribute_name("latitude") %>: <%= @spot.latitude %>

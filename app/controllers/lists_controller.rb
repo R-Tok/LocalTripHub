@@ -52,7 +52,7 @@ class ListsController < ApplicationController
 
   def set_user_and_check_access
     @user = User.find_by(id: params[:user_id])
-    render file: "public/404.html" if @user.is_deleted? || @user.nil? || current_user != @user
+    render file: "public/404.html" if !@user.present? || current_user != @user
   end
 
   def set_list_and_check_access

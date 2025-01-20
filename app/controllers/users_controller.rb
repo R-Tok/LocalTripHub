@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
   def set_user_and_check_access
     @user = User.find_by(id: params[:id])
-    if @user.is_deleted?
+    if !@user.present? || @user.is_deleted?
       render file: "public/404.html"
     else
       render_404(@user)

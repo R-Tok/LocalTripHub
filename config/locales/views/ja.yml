@@ -64,7 +64,7 @@ ja:
       no_posts: 投稿はありません
   profiles:
     show:
-      title: マイページ
+      title: 登録情報・プロフィール
     edit:
       title: プロフィール編集
     update:

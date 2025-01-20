@@ -1,9 +1,11 @@
 class ProfilesController < ApplicationController
-  before_action :set_user, only: %i[show edit update unsubscribe destroy]
+  before_action :set_user, only: %i[myposts show edit update unsubscribe destroy]
 
-  def show
+  def myposts
     @posts = @user.posts.includes(:user).order(created_at: :desc).page(params[:page])
   end
+
+  def show; end
 
   def edit; end
 

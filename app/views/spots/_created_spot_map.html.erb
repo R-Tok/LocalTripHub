@@ -17,6 +17,9 @@
       minZoom: 5
     });
 
+    
+    
+
     // Railsから渡されたスポットデータをJSで扱えるようにパース
     const spots = <%= raw @spots.to_json(only: [:id, :latitude, :longitude, :name]) %>;
 
@@ -25,7 +28,10 @@
       const marker = new google.maps.Marker({
         position: {lat: parseFloat(spot.latitude), lng: parseFloat(spot.longitude)},
         map: created_spot_map,
-        title: spot.name
+        title: spot.name,
+        icon: {
+          url: "/LTH_CreatedPin.png"
+        }
       });
 
       // ピンをクリックした時に表示されるInfoWindow

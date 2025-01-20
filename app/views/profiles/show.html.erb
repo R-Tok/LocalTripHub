@@ -1,6 +1,6 @@
 <% content_for(:title, t('.title')) %>
 
-<h1><%= t('.title') %></h1>
+<h1>マイページ</h1>
 <br>
 
 <!-- 登録情報 -->
@@ -52,22 +52,13 @@
   </div>
   <div class="flex-fill">
     <div class="border border-secondary text-break p-2 my-3">
-            ニックネーム： <%= @user.nickname %>
+      ニックネーム： <%= @user.nickname %>
     </div>
     <div class="border border-secondary p-2">
-            自己紹介コメント： <br><%= simple_format(@user.introduction) %>
+      自己紹介コメント： <br><%= simple_format(@user.introduction) %>
     </div>
   </div>        
 </div>
-      
-<!-- 自分の投稿一覧 -->
-<h2>投稿一覧</h2>
-<% if @posts.present? %>
-  <%= render "posts/post_block" %>
-  <%= paginate @posts, theme: "bootstrap-5" %>
-<% else %>
-  <div class="text-center mb-3">投稿はありません</div>
-<% end %>
 
 <h2>退会する</h2>
 <div>

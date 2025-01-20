@@ -26,7 +26,7 @@ ja:
       link_to_post_browse: もっと見る
     posts_browse:
       title: 投稿を見る
-      from_spot: スポットから探す
+      from_spot: 登録されたスポットから探す
       latest_post: 最新の投稿から探す
       search_word: 投稿内容、スポット名、県名や市名
     site_policy:
@@ -64,12 +64,14 @@ ja:
       no_posts: 投稿はありません
   profiles:
     show:
-      title: マイページ
+      title: 登録情報・プロフィール
     edit:
       title: プロフィール編集
     update:
       success: プロフィール情報を更新しました
       failure: プロフィール情報更新に失敗しました
+    myposts:
+      title: 投稿一覧
   spots:
     new:
       title: 新規投稿 -スポット登録-
@@ -147,6 +149,9 @@ ja:
     post_map: 投稿状況マップ
     bookmarked_list: 保存済みリスト
     mypage: マイページ
+    profile: 登録情報・プロフィール
+    my_lists: マイリスト
+    my_posts: 自分の投稿一覧
   footer:
     privacy_policy: プライバシーポリシー
     site_policy: 利用規約

@@ -17,26 +17,26 @@ class TopController < ApplicationController
   def privacy_policy; end
 
   def municipality_spot_counts
-    # JSONファイルの読み込み
+    # JSONファイルの指定
     geojson_path = Rails.root.join("public", "N03-20240101_municipality.geojson")
     geojson_data = File.read(geojson_path)
     geojson = JSON.parse(geojson_data)
 
-    # 市町村ごとのスポット数を一括取得
+    # DB上で市町村ごとのスポット数を一括取得
     municipality_spot_counts = Spot.joins(posts: :user).where(users: { is_deleted: false }).group(:municipality_id).distinct.count
 
-    # 関連する市町村を事前に取得
+    # GeoJSONデータに含まれる市町村名に対応するデータを取得
     municipalities = Municipality.joins(spots: :posts).where(name: geojson["features"].map { |f| f["properties"]["N03_008"] })
 
-    # 市町村名をキーとしたハッシュを作成して高速な検索が可能に
-    municipality_map = municipalities.index_by(&:name)
+    # 市町村名をキーとしたハッシュを作成。名前による検索が高速で可能に
+    municipality_map = municipalities.index_by { |m| "#{m.prefecture.name}#{m.name}" }
 
-    # 各市町村にspot_countを追加
+    # 各市町村にspot_countを追加する
     geojson["features"].each do |feature|
-      municipality_name = feature["properties"]["N03_008"] # 市町村名
+      key = "#{feature["properties"]["N03_001"]}#{feature["properties"]["N03_008"]}" # 県名+市町村名のキーを作る
 
-      # 市町村を見つける
-      municipality = municipality_map[municipality_name]
+      # 市町村をハッシュから検索
+      municipality = municipality_map[key]
 
       # スポット数を取得して追加
       spot_count = municipality.present? ? municipality_spot_counts[municipality.id] || 0 : 0

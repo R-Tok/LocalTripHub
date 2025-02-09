@@ -13,12 +13,9 @@
     // 初期表示の位置とピン
     created_spot_map = new google.maps.Map(document.getElementById('created_spot_map'), {
       center: {lat: 35.6812, lng: 139.7671},
-      zoom: 12,
+      zoom: 11,
       minZoom: 5
     });
-
-    
-    
 
     // Railsから渡されたスポットデータをJSで扱えるようにパース
     const spots = <%= raw @spots.to_json(only: [:id, :latitude, :longitude, :name]) %>;
@@ -61,8 +58,14 @@
           map: created_spot_map,
           shouldFocus: false
         });
-        // 現在のInfoWindowを保持
-        currentInfoWindow = infoWindow;
+        currentInfoWindow = infoWindow;  // 現在のInfoWindowを保持
+      });
+
+      // ウインドウ外のマップ上をクリックすることでInfoWindowを閉じる
+      created_spot_map.addListener('click', () => {
+        if (currentInfoWindow) {
+          currentInfoWindow.close();
+        }
       });
     });
   }

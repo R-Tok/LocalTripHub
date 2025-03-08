@@ -1,0 +1,10 @@
+<turbo-stream action="update" target="bookmark-message-<%= post.id %>">
+  <template>
+    <%= render "bookmarks/message", post: post %>
+  </template>
+  <script>
+      setTimeout(() => {
+        document.getElementById("bookmark-message-<%= post.id %>")?.remove();
+      }, 1000);
+    </script>
+</turbo-stream>

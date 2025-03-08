@@ -19,9 +19,7 @@
         <%= link_to t('helpers.submit.delete'), spot_post_path(@post.spot, @post), data: { turbo_confirm: t('posts.delete_confirm'), turbo_method: :delete }, class:"btn btn-sm btn-danger" %>
       <% end %>
       <% if logged_in? %>
-        <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#addToListModal-<%= @post.id %>">
-          <i class="bi bi-bookmark-heart" style="font-size: 18px;"></i>
-        </button>
+        <div id="modal-<%= @post.id %>" data-post="<%= h @post.to_json %>"></div>
       <% end %>
     </div>
   </div>
@@ -29,13 +27,19 @@
   <%= render "posts/bookmark_modal", post: @post %>
 
   <div class="d-flex flex-wrap gap-2">
-    <% @post.images&.each do |image| %>
-      <% if image.image_url.present? %>
-        <div class="p-0">
-          <%= image_tag image.image_url.url, height: "240px", class: "mr-1" %>
-        </div>
+    <% if @post.images.present? %>
+      <% @post.images&.each do |image| %>
+        <% if image.image_url.present? %>
+          <div class="p-0">
+            <%= image_tag image.image_url.url, height: "240px", class: "my-1" %>
+          </div>
+        <% end%>
       <% end%>
-    <% end%>
+    <% else %>
+      <div class="bg-dark-subtle d-flex justify-content-center align-items-center text-white my-1" style="height: 200px; width: 320px">
+        <div>No Image</div>
+      </div>
+    <% end %>
   </div>
 
   <h5 class="fw-semibold"><%= Post.human_attribute_name("content") %></h5>

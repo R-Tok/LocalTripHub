@@ -7,6 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div id="bookmark-message-<%= post.id %>"></div>
         <% if logged_in? %>
           <% if current_user.lists.present? %>
             <%= form_with url: bookmarks_path, method: :post, remote: true do |f| %>
@@ -22,7 +23,7 @@
               <%= f.submit "更新する", class: "btn btn-success d-grid mx-auto w-50 my-3" %>
             <% end %>
           <% else %>
-                      作成済みリストがありません
+            作成済みリストがありません
             <%= link_to "リスト作成へ移動", user_lists_path(current_user.id), class: "btn btn-success d-grid mx-auto w-50 my-3" %>
           <% end %>
         <% end %>

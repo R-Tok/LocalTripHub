@@ -72,6 +72,18 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'yarn' # Yarnのキャッシュを有効化
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build assets
+        run: yarn build # esbuildの実行
+
       - name: Run tests
         env:
           RAILS_ENV: test

@@ -1,23 +1,25 @@
-<header class="sticky-top">
-  <nav class="navbar navbar-expand-lg navigation navbar-light p-2" style="background-color: #46aa82">
+<header class="sticky-top" style="background-color: #46aa82">
+  <div class="d-flex align-items-center p-1">
 
-    <%= link_to "LocalTripHub", root_path, data: { turbo: false }, class: "navbar-brand" %>
-
-    <button class='navbar-toggler' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="navbar-nav ms-auto main-nav align-items-center">
-        <div class="d-flex nav-item border-start border-end">
-          <i class="bi bi-map align-self-center mx-1"></i>
-          <%= link_to t('header.post_map'), "/#posted_area_map", data: { turbo: false }, class: "nav-link" %>
-        </div>
-        <div class="d-flex nav-item border-start border-end">
-          <i class="bi bi-box-arrow-in-right align-self-center mx-1"></i>
-          <%= link_to t('header.login'), login_path, data: { turbo: false }, class:"nav-link" %>
-        </div>
-      </div>
+    <div class="me-auto">
+      <%= link_to "LocalTripHub", root_path, data: { turbo: false }, class: "navbar-brand", style: "font-family: 'Kanit' ", class: "fs-4 text-black text-decoration-none" %>
     </div>
-  </nav>
+
+    
+
+    
+        <div class="nav-item border-start text-center">
+          <%= link_to "/#posted_area_map", data: { turbo: false }, class:"nav-link" do %>
+            <div><i class="bi bi-map align-self-center mx-1"></i></div>
+            <div class="mx-3" style="font-size: 14px;"><%= t('header.post_map') %></div>
+          <% end %>
+        </div>
+        <div class="dnav-item border-start text-center">
+          <%= link_to login_path, data: { turbo: false }, class:"nav-link" do %>
+            <div><i class="bi bi-box-arrow-in-right align-self-center mx-1"></i></div>
+            <div class="mx-3" style="font-size: 14px;"><%= t('header.login') %></div>
+          <% end %>
+        </div>
+      
+  </div>
 </header>

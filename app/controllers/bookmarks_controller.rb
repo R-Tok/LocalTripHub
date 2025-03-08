@@ -15,6 +15,8 @@ class BookmarksController < ApplicationController
     # 除外されたリストからは既存ブックマークを削除する
     Bookmark.where(post_id: post.id, list_id: removed_list_ids).destroy_all
 
-    redirect_to request.referer, success: "リストへの保存を更新しました" # ページをリロード
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.update("bookmark-message-#{post.id}", partial: "bookmarks/message", locals: { post: post }) }
+    end
   end
 end

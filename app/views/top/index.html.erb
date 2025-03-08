@@ -3,66 +3,50 @@
   <div class='top-inner-text'>
     
 
-    <div class="d-flex">
+    <div class="d-flex flex-column flex-sm-row justify-content-center">
       <!-- トップ画像表示エリア-->
-      <div id="carouselExampleFade" class="carousel slide carousel-fade  flex-fill" data-bs-ride="carousel" data-bs-pause="false" style="width: 50%; height: 427px;">
+      <div id="carouselExampleFade" class="carousel slide carousel-fade  flex-fill col-12 col-sm-6" data-bs-ride="carousel" data-bs-pause="false" style="height: 427px;">
 
         <div class="carousel-inner" style="height: 427px;">
           <div class="carousel-item active">
-            <%= image_tag "top_image_1.jpg", class: "d-block" %>
+            <%= image_tag "top_image_1.webp", class: "d-block" %>
           </div>
           <div class="carousel-item">
-            <%= image_tag "top_image_2.jpg", class: "d-block" %>
+            <%= image_tag "top_image_2.webp", class: "d-block" %>
           </div>
           <div class="carousel-item">
-            <%= image_tag "top_image_3.jpg", class: "d-block" %>
+            <%= image_tag "top_image_3.webp", class: "d-block" %>
           </div>
           <div class="carousel-item">
-            <%= image_tag "top_image_4.jpg", class: "d-block" %>
+            <%= image_tag "top_image_4.webp", class: "d-block" %>
           </div>
           <div class="carousel-item">
-            <%= image_tag "top_image_5.jpg", class: "d-block" %>
+            <%= image_tag "top_image_5.webp", class: "d-block" %>
           </div>
           <div class="carousel-item">
-            <%= image_tag "top_image_6.jpg", class: "d-block" %>
+            <%= image_tag "top_image_6.webp", class: "d-block" %>
           </div>
         </div>  
       </div>
 
       <!-- トップ キャッチコピーエリア-->
-      <div class="d-flex bg-success-subtle bg-gradient text-center align-items-center flex-fill">
+      <div class="d-flex bg-success-subtle bg-gradient text-center align-items-center flex-fill flex-grow-1">
         <div>
         <h4 class="my-3 fst-italic">あなただけの気ままなローカルツーリズムを計画してみませんか？</h4>
           普段と違う町・駅・通り…何気ない場所だって、興味を持って調べた時点であなただけの旅が始まる。
           全国に1,892もある市区町村で日々営まれている生活へと目を向けて、まだ知らない街の景色と魅力を自由に発見しよう。
+          <br>
+          <div id="modalDescription">
+            <h4>アプリ説明モーダル</h4>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- 機能説明エリア-->
-    <div>
-      <div class="d-flex flex-column flex-md-row justify-content-evenly mx-3">
-        <div class="text-center bg-body-secondary my-1 mx-1">
-          <h4 class="text-primary">お出かけスポット記録・共有</h4>
-          <p>近所のお散歩、行きつけのお店、ドライブの行先、旅先でふらっと立ち寄った施設…など、日々の外出だって誰かの小さな旅へと繋がるかも。
-            <br>「定番観光地ではなくてもオススメのローカルスポット」を投稿し、ユーザー同士で共有しよう。<br>
-            <%= link_to select_spots_path, class: "btn btn-sm btn-success" do %>
-              <i class="bi bi-pencil-square align-self-center mx-1"></i>
-              新規投稿はこちら
-            <% end %>
-          <p>
-        </div>
-        <div class="text-center bg-body-secondary my-1 mx-1">
-          <h4 class="text-primary">投稿状況に応じた地図塗りつぶし</h4>
-          <p>「投稿状況マップ」の都道府県地図・市区町村地図は、投稿されたスポット数に応じて相対的に濃く塗られていく。
-            <br>自分の好きな町へ投稿を重ねていきアピールするもよし、あまり塗られていない町には何があるんだろう？と新たに発見しに行くもよし。</p>
-        </div>
-      </div>
-    </div>
-
-    <br>
     <!-- 色塗りマップ-->
-    <h1 id="posted_area_map" style="padding-top: 60px; margin-top: -60px;"><%= t('.postmap_title') %></h1>
+    <h2 id="posted_area_map" style="padding-top: 70px; margin-top: -60px;">
+      <span class="rounded-pill mx-2 px-3" style="background-color: #D3EEA7;"><%= t('.postmap_title') %></span>
+    </h2>
     <p class="mx-3">1つ以上の投稿がされた「スポット数」に応じて、地図が濃く塗られます。投稿を伴わない「スポット登録」だけでは色塗りに反映されません。</p>
     <div class="d-lg-flex justify-content-evenly mx-3">
       
@@ -73,7 +57,9 @@
     </div>
 
     <!-- 最新の投稿3件-->
-    <h1 class="my-3"><%= t('.latest_post') %></h1>
+    <h2 class="my-3">
+      <span class="rounded-pill mx-2 px-3" style="background-color: #D3EEA7;"><%= t('.latest_post') %></span>
+    </h2>
     <div class="container">
       <div class="row">
         <%= render "posts/post_block" %>

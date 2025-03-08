@@ -2,7 +2,7 @@
   <div class="d-flex align-items-center p-1">
 
     <div class="d-none d-sm-block me-auto">
-      <%= link_to "LocalTripHub", root_path, data: { turbo: false }, class: "navbar-brand" %>
+      <%= link_to "LocalTripHub", root_path, data: { turbo: false }, class: "navbar-brand", style: "font-family: 'Kanit' ", class: "fs-4 text-black text-decoration-none" %>
     </div>
     <div class="d-block d-sm-none me-auto">
       <%= link_to root_path, data: { turbo: false }, class: "navbar-brand" do %>
@@ -13,44 +13,44 @@
     
 
     
-        <div class="nav-item border-start text-center">
-          <%= link_to select_spots_path, data: { turbo: false }, class:"nav-link text-warning" do %>
-            <div><i class="bi bi-plus-circle-fill text-warning align-self-center mx-1"></i></div>
-            <div class="mx-1" style="font-size: 14px;"><%= t('header.create_post') %></div>
-          <% end %>
-        </div>
+    <div class="nav-item border-start text-center">
+      <%= link_to select_spots_path, data: { turbo: false }, class:"nav-link text-warning" do %>
+        <div><i class="bi bi-plus-circle-fill text-warning align-self-center mx-1"></i></div>
+        <div class="mx-1" style="font-size: 14px;"><%= t('header.create_post') %></div>
+      <% end %>
+    </div>
 
-        <div class="nav-item border-start text-center">
-          <%= link_to posts_browse_path, data: { turbo: false }, class:"nav-link" do %>
-            <div><i class="bi bi-search align-self-center mx-1"></i></div>
-            <div class="mx-1" style="font-size: 14px;"><%= t('header.post_browse') %></div>
-          <% end %>
-        </div>
+    <div class="nav-item border-start text-center">
+      <%= link_to posts_browse_path, data: { turbo: false }, class:"nav-link" do %>
+        <div><i class="bi bi-search align-self-center mx-1"></i></div>
+        <div class="mx-1" style="font-size: 14px;"><%= t('header.post_browse') %></div>
+      <% end %>
+    </div>
 
-        <div class="nav-item border-start text-center">
-          <%= link_to "/#posted_area_map", data: { turbo: false }, class:"nav-link" do %>
-            <div><i class="bi bi-map align-self-center mx-1"></i></div>
-            <div class="mx-1" style="font-size: 14px;"><%= t('header.post_map') %></div>
-          <% end %>
-        </div>
+    <div class="nav-item border-start text-center">
+      <%= link_to "/#posted_area_map", data: { turbo: false }, class:"nav-link" do %>
+        <div><i class="bi bi-map align-self-center mx-1"></i></div>
+        <div class="mx-1" style="font-size: 14px;"><%= t('header.post_map') %></div>
+      <% end %>
+    </div>
 
-        <div class="dropdown dropdown-slide nav-item border-start">
-          <%= link_to "#", class: 'nav-link text-center', data: { bs_toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }, id: 'header-profile' do %>
-            <div><%= image_tag current_user.avatar.url, class: 'rounded-circle ', size: '27x27' %></div>
-            <div class="mx-1" style="font-size: 14px;"><%= t('header.mypage') %></span></div>
-          <% end %>
+    <div class="dropdown dropdown-slide nav-item border-start">
+      <%= link_to "#", class: 'nav-link text-center', data: { bs_toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }, id: 'header-profile' do %>
+        <div><%= image_tag current_user.avatar.url, class: 'rounded-circle ', size: '27x27' %></div>
+        <div class="mx-1" style="font-size: 14px;"><%= t('header.mypage') %></span></div>
+      <% end %>
 
-          <div class="dropdown-menu dropdown-menu-end">
-            <%= link_to t('header.my_lists'), user_lists_path(current_user.id), data: { turbo: false}, class:"dropdown-item" %>
-            <hr class="dropdown-divider">
-            <%= link_to t('header.my_posts'), myposts_profile_path, data: { turbo: false}, class:"dropdown-item" %>
-            <hr class="dropdown-divider">
-            <%= link_to t('header.profile'), profile_path, data: { turbo: false}, class:"dropdown-item" %>
-            <hr class="dropdown-divider">
-            <%= form_with url: logout_path, method: :delete, data: { turbo_confirm: "ログアウトしますか？" }, local: true do %>
-              <%= submit_tag t('header.logout'), class: "dropdown-item text-danger" %>
-            <% end %>
-          </div>
-        </div>
+      <div class="dropdown-menu dropdown-menu-end">
+        <%= link_to t('header.my_lists'), user_lists_path(current_user.id), data: { turbo: false}, class:"dropdown-item" %>
+        <hr class="dropdown-divider">
+        <%= link_to t('header.my_posts'), myposts_profile_path, data: { turbo: false}, class:"dropdown-item" %>
+        <hr class="dropdown-divider">
+        <%= link_to t('header.profile'), profile_path, data: { turbo: false}, class:"dropdown-item" %>
+        <hr class="dropdown-divider">
+        <%= form_with url: logout_path, method: :delete, data: { turbo_confirm: "ログアウトしますか？" }, local: true do %>
+          <%= submit_tag t('header.logout'), class: "dropdown-item text-danger" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </header>

@@ -4,12 +4,18 @@
       <div class="post-preview d-flex border mb-3" style="height: 205px;" >
         <!-- 画像表示エリア -->
         <div class="image-area d-flex overflow-auto" style="background-color: #f0f0f0; width: 50%; height: 100%; white-space: nowrap;">
-          <% post.images&.each do |image| %>
-            <% if image.image_url.present? %>
-              <div class="image-box mr-2" style="display: inline-block; border: 2px solid #f0f0f0;">
-                <%= image_tag image.image_url.url, height: "186px", class: "mr-1" %>
-              </div>
+          <% if post.images.present? %>
+            <% post.images&.each do |image| %>
+              <% if image.image_url.present? %>
+                <div class="image-box mr-2" style="display: inline-block; border: 2px solid #f0f0f0;">
+                  <%= image_tag image.image_url.url, height: "186px", class: "mr-1" %>
+                </div>
+              <% end %>
             <% end %>
+          <% else %>
+            <div class="bg-dark-subtle d-flex justify-content-center align-items-center text-white" style="height: 186px; width: 300px">
+              <div>No Image</div>
+            </div>
           <% end %>
         </div>
 
@@ -31,15 +37,13 @@
                 <%= l post.created_at, format: :date %>
               </div>
               <% if logged_in? %>
-                <div>  
+                <div >  
                   <% if current_user&.own?(post) %>
                     <%= link_to t('helpers.submit.edit'), edit_spot_post_path(post.spot, post), data: { turbo: false }, class: "btn btn-sm btn-primary", style: "font-size: 12px;"%>
                     <%= link_to t('helpers.submit.delete'), spot_post_path(post.spot, post), data: { turbo: false }, data: { turbo_confirm: t('posts.delete_confirm'), turbo_method: :delete }, class: "btn btn-sm btn-danger", style: "font-size: 12px;"%>
                   <% end %>
-                  <button class="btn btn-sm rounded-pill btn-light" data-bs-toggle="modal" data-bs-target="#addToListModal-<%= post.id %>">
-                    <i class="bi bi-bookmark-heart" style="font-size: 18px;"></i>
-                  </button> 
                 </div>
+                <div id="modal-<%= post.id %>" data-post="<%= h post.to_json %>"></div>
               <% end %>
             </div>
           </div>

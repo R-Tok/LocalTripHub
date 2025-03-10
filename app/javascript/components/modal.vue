@@ -11,7 +11,15 @@
     </button>
 
     <ModalDescription v-if="type === 'description'" :show="showModal" @close="showModal = false" />
-    <ModalList v-if="type === 'list'" :show="showModal" @close="showModal = false" />
+    <ModalList
+      v-if="type === 'list'"
+      :show="showModal"
+      :post="post"
+      :loggedIn="loggedIn"
+      :userLists="userLists"
+      :userListsPath="userListsPath"
+      @close="closeModal"
+    />
   </div>
 </template>
 
@@ -25,7 +33,10 @@ export default {
   },
   props: {
     type: String,  // 'description' または 'list'が入る
-    post: Object
+    post: Object,
+    loggedIn: Boolean,
+    userLists: Array,
+    userListsPath: String
   },
   data() {
     return {
@@ -42,14 +53,9 @@ export default {
   },
   methods: {
     openModal() {
-      if (!this.post || !this.post.id) {
-        this.showModal = true;
-      } else {
       
-        const modalId = `addToListModal-${this.post.id}`
-        const modal = new bootstrap.Modal(document.getElementById(modalId))
-        modal.show()
-      }
+        this.showModal = true;
+      
     },
     closeModal() {
       this.showModal = false;

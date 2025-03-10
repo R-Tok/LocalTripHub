@@ -16,6 +16,11 @@ RSpec.describe Spot, type: :model do
       expect(spot.errors[:name]).to include("を入力してください")
     end
 
+    it "スポット名が255文字以下で有効であること" do
+      spot.name = "a" * 255
+      expect(spot).to be_valid
+    end
+
     it "スポット名が256文字以上でエラーになること" do
       spot.name = "a" * 256
       expect(spot).to be_invalid
@@ -95,6 +100,11 @@ RSpec.describe Spot, type: :model do
     end
 
     it "都道府県idは1~47の範囲内であること" do
+      spot.prefecture_id = 47
+      expect(spot).to be_valid
+    end
+
+    it "都道府県idは48以上で無効であること" do
       spot.prefecture_id = 48
       expect(spot).to be_invalid
       expect(spot.errors[:prefecture_id]).to include("は1から47の範囲内で指定してください")
@@ -107,6 +117,11 @@ RSpec.describe Spot, type: :model do
     end
 
     it "市区町村idは1~1892の範囲内であること" do
+      spot.municipality_id = 1892
+      expect(spot).to be_valid
+    end
+
+    it "市区町村idは1893以上で無効であること" do
       spot.municipality_id = 1893
       expect(spot).to be_invalid
       expect(spot.errors[:municipality_id]).to include("は1から1892の範囲内で指定してください")

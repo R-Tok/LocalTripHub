@@ -29,18 +29,31 @@ document.addEventListener('DOMContentLoaded', () => {
   createApp(Modal, { type: 'description' }).mount('#modalDescription') // Vue 3 ではこの方法でマウントする
   }
 
-  document.querySelectorAll('[id^="modal-"]').forEach(element => {
-    
+  document.querySelectorAll('.modal-list-container').forEach((el) => {
+    const postId = el.dataset.postId
+    const loggedIn = el.dataset.loggedIn === "true"
+    const userLists = JSON.parse(el.dataset.userLists || "[]")
+    const userListsPath = el.dataset.userListsPath
 
-    try {
-      const postData = JSON.parse(element.dataset.post)
-      createApp(Modal, { post: postData }).mount(`#${element.id}`)
-    } catch (error) {
-      console.error(`Failed to parse JSON for element: ${element.id}`, error)
-    }
+    createApp(Modal, { 
+      type: 'list',
+      post: { id: postId },
+      loggedIn,
+      userLists,
+      userListsPath
+    }).mount(el)
   })
 })
 
+// LightBox導入
+import PostLightbox from '../components/PostLightbox.vue'
+
+document.addEventListener('DOMContentLoaded', () => {
+  const app = document.querySelector('#lightbox')
+  if (app) {
+  createApp(PostLightbox, { type: 'lightbox' }).mount('#lightbox') // Vue 3 ではこの方法でマウントする
+  }
+})
 
 
 // The above code uses Vue without the compiler, which means you cannot

@@ -7,7 +7,6 @@
           <button type="button" class="btn-close mx-3" @click="$emit('close')"></button>
         </div>
         <div class="modal-body">
-          <h3>aaaa</h3>
           <div v-if="loggedIn">
             <div v-if="userLists.length > 0">
               <form @submit.prevent="submitForm">
@@ -43,46 +42,47 @@
 export default {
   props: {
     show: Boolean,
-    post: Object,    // 親コンポーネントから受け取る post データ
-    loggedIn: Boolean, // ユーザーがログインしているか
-    userLists: Array  // ユーザーのリストデータ
+    post: Object,
+    loggedIn: Boolean,
+    userLists: Array, // ユーザーのリスト情報
+    userListsPath: String // "リスト作成へ移動" のリンク先
   },
   data() {
     return {
-      selectedLists: this.post?.list_ids || [] // 初期状態でチェックされるリスト
+      selectedLists: this.post?.list_ids || [] // 初期選択リスト
     }
   },
   computed: {
-    listCreationUrl() {
-      return `/users/${this.post.user_id}/lists`; // Railsのルートに合わせる
+    postId() {
+      return this.post?.id || null
     }
   },
-  emits: ['close'],
   methods: {
+    close() {
+      this.$emit('close')
+    },
     submitForm() {
-      const payload = {
-        post_id: this.post.id,
-        list_ids: this.selectedLists
-      };
-      
+      // Railsへリクエスト送信
       fetch("/bookmarks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          post_id: this.postId,
+          list_ids: this.selectedLists
+        })
       }).then(response => {
         if (response.ok) {
-          alert("リストが更新されました！");
-          this.$emit("close");
+          alert("リストが更新されました！")
+          this.close()
         } else {
-          alert("更新に失敗しました。");
+          alert("エラーが発生しました。")
         }
-      });
-    },
-    close() {
-      this.$emit('close')
+      }).catch(error => {
+        console.error("Error:", error)
+      })
     }
   }
 }

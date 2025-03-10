@@ -4,7 +4,9 @@
 <br>
 
 <!-- プロフィール情報 -->
-<h2><%= t('.profile') %></h2>
+<h2>
+  <span class="rounded-pill mx-2 px-3" style="background-color: #D3EEA7;"><%= t('.profile') %></span>
+</h2>
 
 <div class="d-flex justify-content-evenly column-gap-3 mb-3">
   <div>
@@ -21,7 +23,9 @@
 </div>
       
 <!-- 表示中のユーザーの投稿一覧 -->
-<h2><%= t('.posts_index') %></h2>
+<h2>
+  <span class="rounded-pill mx-2 px-3" style="background-color: #D3EEA7;"><%= t('.posts_index') %></span>
+</h2>
 <% if @posts.present? %>
   <%= render "posts/post_block" %>
   <%= paginate @posts, theme: "bootstrap-5" %>

@@ -2,7 +2,9 @@
 
 <h1><%= t('profiles.show.title') %></h1>
 <!-- 自分の投稿一覧 -->
-<h2><%= t('.title') %></h2>
+<h2>
+  <span class="rounded-pill mx-2 px-3" style="background-color: #D3EEA7;"><%= t('.title') %></span>
+</h2>
 <% if @posts.present? %>
   <%= render "posts/post_block" %>
   <%= paginate @posts, theme: "bootstrap-5" %>

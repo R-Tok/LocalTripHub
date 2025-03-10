@@ -30,11 +30,17 @@
     <% if @post.images.present? %>
       <% @post.images&.each do |image| %>
         <% if image.image_url.present? %>
-          <div class="p-0">
-            <%= image_tag image.image_url.url, height: "240px", class: "my-1" %>
+          <div class="p-0 lightbox-img-wrapper">
+            <%= image_tag image.image_url.url, height: "240px", class: "my-1 lightbox-img", data: { image: image.image_url.url } %>
+            <div class="lightbox-icon">
+              <i class="bi bi-search lightbox-icon"></i>
+            </div> 
           </div>
         <% end%>
       <% end%>
+      <div id="lightbox">
+        <post-lightbox></post-lightbox>
+      </div>
     <% else %>
       <div class="bg-dark-subtle d-flex justify-content-center align-items-center text-white my-1" style="height: 200px; width: 320px">
         <div>No Image</div>
@@ -52,3 +58,35 @@
     <%= simple_format(@post.access_info) %>
   </div>
   <br>
+
+
+<style>
+  .lightbox-img-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.lightbox-img {
+  transition: filter 0.3s ease;
+}
+
+.lightbox-img-wrapper:hover .lightbox-img {
+  filter: brightness(70%);
+}
+
+.lightbox-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* クリックイベントを妨げないように */
+}
+
+.lightbox-img-wrapper:hover .lightbox-icon {
+  opacity: 1;
+}
+</style>

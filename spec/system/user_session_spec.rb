@@ -16,7 +16,7 @@ RSpec.describe "User_session", type: :system do
         click_button "ログイン"
 
         expect(page).to have_content("ログインしました")
-        expect(page).to have_content(user.nickname)
+        expect(page).to have_content("マイページ")
         expect(current_path).to eq root_path
       end
 

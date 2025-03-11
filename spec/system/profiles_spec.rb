@@ -63,11 +63,11 @@ RSpec.describe "Profiles", type: :system do
       it "アイコンを変更できる" do
         visit profile_path
         click_on "編集"
-        attach_file("アイコン", Rails.root.join("spec/fixtures/sample_icon.jpg"))
+        attach_file "アイコン", "#{Rails.root}/spec/fixtures/sample_icon.jpg"
         click_on "更新"
 
         expect(page).to have_content("マイページ")
-        expect(page).to have_selector("img[src$='sample_icon.jpg']")
+        expect(page).to have_selector("img[src*='sample_icon.webp']")
         expect(current_path).to eq profile_path
       end
 

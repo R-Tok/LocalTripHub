@@ -18,12 +18,22 @@ RSpec.describe Post, type: :model do
     end
 
     it "本文が65535文字以内であること" do
+      post.content = "a" * 65535
+      expect(post).to be_valid
+    end
+
+    it "本文が65536文字以上で無効であること" do
       post.content = "a" * 65536
       expect(post).to be_invalid
       expect(post.errors[:content]).to include("は65535文字以内で入力してください")
     end
 
     it "アクセス・営業時間が65535文字以内であること" do
+      post.access_info = "a" * 65535
+      expect(post).to be_valid
+    end
+
+    it "アクセス・営業時間が65536文字以上で無効であること" do
       post.access_info = "a" * 65536
       expect(post).to be_invalid
       expect(post.errors[:access_info]).to include("は65535文字以内で入力してください")

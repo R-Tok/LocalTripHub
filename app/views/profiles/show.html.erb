@@ -4,7 +4,9 @@
 <br>
 
 <!-- 登録情報 -->
-<h2>登録情報</h2>
+<h2>
+  <span class="rounded-pill mx-2 px-3" style="background-color: #D3EEA7;">登録情報</span>
+</h2>
 <div class="col-lg-8 offset-lg-2">
   <div class="d-flex border-bottom border-secondary">
     <div class="p-2 flex-fill">SNSログイン</div>
@@ -40,7 +42,9 @@
 
 <!-- プロフィール情報 -->
 <div class="d-flex justify-content-between align-items-center">
-  <h2>プロフィール<h2>
+  <h2>
+    <span class="rounded-pill mx-2 px-3" style="background-color: #D3EEA7;">プロフィール</span>
+  <h2>
   <div>
     <%= link_to "編集", edit_profile_path, class: "btn btn-sm btn-secondary" %>
   </div>
@@ -60,7 +64,9 @@
   </div>        
 </div>
 
-<h2>退会する</h2>
+<h2>
+  <span class="rounded-pill mx-2 px-3" style="background-color: #DDDDDD;">退会する</span>
+</h2>
 <div>
 <%= link_to "退会処理へ", unsubscribe_profile_path, class: "btn btn-outline-danger my-3" %>
 </div>

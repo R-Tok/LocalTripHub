@@ -1,0 +1,88 @@
+<div id="city_map" class="col-12 col-lg-5 my-3" style="height: 560px; max-width: 90%;"></div>
+
+<!--  Leaflet.jsのスタイルシートを追加  -->
+<script  async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&loading=async&callback=initMap&libraries=geometry"></script>
+
+<script>
+// 地図の初期化
+function initMap(){
+  requestIdleCallback(() => {
+    // 初期表示の位置とピン
+    city_map = new google.maps.Map(document.getElementById('city_map'), {
+      center: {lat: 35.8849, lng: 136.8606},
+      zoom: 7,
+      minZoom: 4,
+      maxZoom: 12,
+      disableDefaultUI: true
+    });
+    
+
+    setTimeout(() => loadGeoJson(city_map), 200);
+
+  });
+}
+
+function loadGeoJson(city_map) {
+    fetch('/geojson')
+    .then(response => response.json())
+    .then(data => {
+        // スポット数の最大値と最小値を取得。最小値が0の場合は1へ補正
+        const spotCounts = data.features.map(feature => feature.properties.spot_number || 0);
+        const minCountTentative = Math.min(...spotCounts)
+        const [minCount, maxCount] = [minCountTentative === 0 ? 1 : minCountTentative, Math.max(...spotCounts)];
+        let infowindow = null;
+
+        city_map.data.addGeoJson(data)
+
+        city_map.data.setStyle(feature => {
+            // データの存在チェックに基づいて色を設定
+            const spotCount = feature.getProperty('spot_number') || 0;
+            const hasData = spotCount > 0; 
+            const fillColor = getColor(spotCount, minCount, maxCount); // グラデーション色を取得
+
+            return {
+                fillColor: hasData ? fillColor : '#eee',
+                fillOpacity: 0.9,
+                strokeOpacity: 0.8,                    
+                strokeWeight: 0.2  // 罫線の幅
+            };
+        });
+
+        // 地図上をクリックしたときのウィンドウを指定
+        city_map.data.addListener('click', function(event) {
+            const feature = event.feature;
+            const name = feature.getProperty('N03_008'); // 市町村名
+            const spotNumber = feature.getProperty('spot_number'); // スポット数
+
+            if (infowindow) {
+                infowindow.close();
+            }
+
+            infowindow = new google.maps.InfoWindow({
+                content: `${name}: ${spotNumber} スポット`,
+                position: event.latLng
+            });
+
+            infowindow.open(city_map);
+        });   
+    })
+    .catch(error => console.error('GeoJSONの取得エラー:', error));
+}
+
+//塗りつぶし色を指定
+function getColor(spotCount, minCount, maxCount) {
+      const minColor = [221, 255, 221]; // 最小値の色
+      const maxColor = [18, 123, 18];     // 最大値の色
+
+      const scale = (spotCount - minCount) / (maxCount - minCount); // 0 ~ 1 の範囲にスケール
+
+      const r = Math.round(minColor[0] + scale * (maxColor[0] - minColor[0]));
+      const g = Math.round(minColor[1] + scale * (maxColor[1] - minColor[1]));
+      const b = Math.round(minColor[2] + scale * (maxColor[2] - minColor[2]));
+
+      return `rgb(${r},${g},${b})`; // RGB形式の色を返す
+  }
+
+    
+    
+</script>

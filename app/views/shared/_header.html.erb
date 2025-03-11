@@ -41,13 +41,13 @@
       <% end %>
 
       <div class="dropdown-menu dropdown-menu-end">
-        <%= link_to t('header.my_lists'), user_lists_path(current_user.id), data: { turbo: false}, class:"dropdown-item" %>
+        <%= link_to t('header.my_lists'), user_lists_path(current_user.id), data: { turbo: false }, class:"dropdown-item" %>
         <hr class="dropdown-divider">
-        <%= link_to t('header.my_posts'), myposts_profile_path, data: { turbo: false}, class:"dropdown-item" %>
+        <%= link_to t('header.my_posts'), myposts_profile_path, data: { turbo: false }, class:"dropdown-item" %>
         <hr class="dropdown-divider">
-        <%= link_to t('header.profile'), profile_path, data: { turbo: false}, class:"dropdown-item" %>
+        <%= link_to t('header.profile'), profile_path, data: { turbo: false }, class:"dropdown-item" %>
         <hr class="dropdown-divider">
-        <%= form_with url: logout_path, method: :delete, data: { turbo_confirm: "ログアウトしますか？" }, local: true do %>
+        <%= form_with url: logout_path, method: :delete, data: { turbo: false }, local: true do %>
           <%= submit_tag t('header.logout'), class: "dropdown-item text-danger" %>
         <% end %>
       </div>

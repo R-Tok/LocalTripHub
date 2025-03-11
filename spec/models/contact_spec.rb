@@ -15,6 +15,11 @@ RSpec.describe Contact, type: :model do
     end
 
     it "名前は255文字以内であること" do
+      contact.name = "a" * 255
+      expect(contact).to be_valid
+    end
+
+    it "名前は256文字以上で無効であること" do
       contact.name = "a" * 256
       expect(contact).to be_invalid
       expect(contact.errors[:name]).to include("は255文字以内で入力してください")
@@ -33,6 +38,11 @@ RSpec.describe Contact, type: :model do
     end
 
     it "件名は255文字以内であること" do
+      contact.subject = "a" * 255
+      expect(contact).to be_valid
+    end
+
+    it "件名は256文字以上で無効であること" do
       contact.subject = "a" * 256
       expect(contact).to be_invalid
       expect(contact.errors[:subject]).to include("は255文字以内で入力してください")
@@ -45,6 +55,11 @@ RSpec.describe Contact, type: :model do
     end
 
     it "メッセージ本文は65535文字以内であること" do
+      contact.message = "a" * 65535
+      expect(contact).to be_valid
+    end
+
+    it "メッセージ本文は65536文字以上で無効であること" do
       contact.message = "a" * 65536
       expect(contact).to be_invalid
       expect(contact.errors[:message]).to include("は65535文字以内で入力してください")

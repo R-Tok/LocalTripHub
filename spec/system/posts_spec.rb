@@ -55,14 +55,14 @@ RSpec.describe "Posts", type: :system do
       it "項目が正常なら新規投稿できる" do
         login(user)
         visit new_spot_post_path(spot.id)
-        fill_in "本文(見どころ・感想)", with: "わんこかわいい"
+        fill_in "本文[見どころ・感想]", with: "わんこかわいい"
         fill_in "アクセス・営業時間など", with: "いつでも"
         image = create(:image, post: post)
         click_on "投稿する"
 
         expect(page).to have_current_path(spot_posts_path(spot.id))
         expect(page).to have_content(spot.name)
-        expect(page).to have_selector("img[src$='sample_image.jpg']")
+        expect(page).to have_selector("img[src$='sample_image.webp']")
         expect(page).to have_content("投稿一覧")
         expect(page).to have_content("投稿が作成されました")
       end
@@ -70,13 +70,13 @@ RSpec.describe "Posts", type: :system do
       it "本文がない場合、投稿作成に失敗する" do
         login(user)
         visit new_spot_post_path(spot.id)
-        fill_in "本文(見どころ・感想)", with: ""
+        fill_in "本文[見どころ・感想]", with: ""
         fill_in "アクセス・営業時間など", with: "いつでも"
         click_on "投稿する"
 
         expect(current_path).to eq spot_posts_path(spot.id)
         expect(page).to have_content("投稿の作成に失敗しました")
-        expect(page).to have_content("投稿新規作成")
+        expect(page).to have_content("新規投稿フォーム")
       end
 
       it "postと同じユーザーの場合は編集画面にアクセスできる" do

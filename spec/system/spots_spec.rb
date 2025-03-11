@@ -58,7 +58,7 @@ RSpec.describe "Spots", type: :system, js: true do
 
         spot = Spot.find_by(name: "おすすめスポット")
         expect(page).to have_content(spot.name)
-        expect(page).to have_content("投稿新規作成")
+        expect(page).to have_content("新規投稿フォーム")
         expect(page).to have_current_path(new_spot_post_path(spot.id))
       end
 

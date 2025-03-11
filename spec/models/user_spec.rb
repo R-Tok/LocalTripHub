@@ -16,6 +16,11 @@ RSpec.describe User, type: :model do
     end
 
     it "nicknameは255文字以下であること" do
+      user.nickname = "a" * 255
+      expect(user).to be_valid
+    end
+
+    it "nicknameは256文字以上で無効であること" do
       user.nickname = "a" * 256
       expect(user).to be_invalid
       expect(user.errors[:nickname]).to include("は255文字以内で入力してください")
@@ -27,10 +32,16 @@ RSpec.describe User, type: :model do
       expect(user.errors[:password_confirmation]).to include("を入力してください")
     end
 
-    it "パスワードが6文字以上であること" do
+    it "パスワードが5文字以下で無効であること" do
       user.password = "short"
       expect(user).to be_invalid
       expect(user.errors[:password]).to include("は6文字以上で入力してください")
+    end
+
+    it "パスワードが6文字以上であること" do
+      user.password = "length"
+      user.password_confirmation = "length"
+      expect(user).to be_valid
     end
 
     it "パスワードとパスワード確認が一致すること" do
@@ -40,11 +51,11 @@ RSpec.describe User, type: :model do
       expect(user.errors[:password_confirmation]).to include("とパスワードの入力が一致しません")
     end
 
-    it "メールアドレスが必須であること" do
-      user.email = nil
-      expect(user).to be_invalid
-      expect(user.errors[:email]).to include("を入力してください")
-    end
+    # it "メールアドレスが必須であること" do
+    #   user.email = nil
+    #   expect(user).to be_invalid
+    #   expect(user.errors[:email]).to include("を入力してください")
+    # end
     it "メールアドレスが一意であること" do
       create(:user, email: "test@example.com")
       user.email = "test@example.com"

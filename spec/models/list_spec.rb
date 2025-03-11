@@ -15,12 +15,22 @@ RSpec.describe List, type: :model do
     end
 
     it "リスト名は255文字以下であること" do
+      list.name = "a" * 255
+      expect(list).to be_valid
+    end
+
+    it "リスト名は256文字以上で無効であること" do
       list.name = "a" * 256
       expect(list).to be_invalid
       expect(list.errors[:name]).to include("は255文字以内で入力してください")
     end
 
     it "キャプションは255文字以下であること" do
+      list.caption = "a" * 255
+      expect(list).to be_valid
+    end
+
+    it "キャプションは256文字以上で無効であること" do
       list.caption = "a" * 256
       expect(list).to be_invalid
       expect(list.errors[:caption]).to include("は255文字以内で入力してください")

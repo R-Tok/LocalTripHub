@@ -8,12 +8,12 @@
             <% post.images&.each do |image| %>
               <% if image.image_url.present? %>
                 <div class="image-box mr-2" style="display: inline-block; border: 2px solid #f0f0f0;">
-                  <%= image_tag image.image_url.url, height: "186px", class: "mr-1" %>
+                  <%= image_tag image.image_url.url, height: "200px", class: "mr-1" %>
                 </div>
               <% end %>
             <% end %>
           <% else %>
-            <div class="bg-dark-subtle d-flex justify-content-center align-items-center text-white" style="height: 186px; width: 300px">
+            <div class="bg-dark-subtle d-flex justify-content-center align-items-center text-white mr-2" style="height: 200px; width: 300px; display: inline-block; border: 2px solid #f0f0f0;">
               <div>No Image</div>
             </div>
           <% end %>
@@ -43,7 +43,10 @@
                     <%= link_to t('helpers.submit.delete'), spot_post_path(post.spot, post), data: { turbo: false }, data: { turbo_confirm: t('posts.delete_confirm'), turbo_method: :delete }, class: "btn btn-sm btn-danger", style: "font-size: 12px;"%>
                   <% end %>
                 </div>
-                <div id="modal-<%= post.id %>" data-post="<%= h post.to_json %>"></div>
+                <!-- <div class="modal-list-container" data-post-id="<%= post.id %>" data-logged-in="<%= logged_in? %>" data-user-lists='<%= current_user.lists.to_json %>' data-user-lists-path="<%= user_lists_path(current_user.id) %>"></div> -->
+                <button class="btn btn-sm rounded-pill btn-light" data-bs-toggle="modal" data-bs-target="#addToListModal-<%= post.id %>">
+                    <i class="bi bi-bookmark-heart" style="font-size: 18px;"></i>
+                  </button> 
               <% end %>
             </div>
           </div>

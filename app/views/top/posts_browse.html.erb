@@ -2,16 +2,20 @@
 
 <h1><%= t('.title') %></h1>
 
-<h3 class="mt-3"><%= t('.from_spot') %></h3>
+<h2 class="mt-3">
+  <span class="rounded-pill mx-2 px-3" style="background-color: #D3EEA7;"><%= t('.from_spot') %>
+</h2>
 <%= render "spots/created_spot_map" %>
 
-<h3 class="my-3"><%= t('.latest_post') %></h3>
+<h2 class="my-3">
+  <span class="rounded-pill mx-2 px-3" style="background-color: #D3EEA7;"><%= t('.latest_post') %>
+</h2>
 <%= search_form_for @q, url: posts_browse_path do |f| %>
   <div class="input-group mb-3">
 	  <%= f.search_field :content_or_access_info_or_spot_name_or_spot_prefecture_name_or_spot_municipality_name_cont,
       class: 'form-control', placeholder: t('.search_word') %>
     <div class="input-group-append">
-      <%= f.submit class: "btn btn-primary" %>
+      <%= f.submit class: "btn btn-outline-primary" %>
     </div>
   </div>
 <% end %>

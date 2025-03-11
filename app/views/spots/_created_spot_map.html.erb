@@ -3,6 +3,8 @@
 <style>
   #created_spot_map { height: 500px; width: 95%;}
 </style>
+<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&loading=async&callback=initMap" async defer></script>
 <script>
   let created_spot_map
@@ -12,13 +14,14 @@
     geocoder = new google.maps.Geocoder();
     // 初期表示の位置とピン
     created_spot_map = new google.maps.Map(document.getElementById('created_spot_map'), {
-      center: {lat: 35.6812, lng: 139.7671},
-      zoom: 11,
+      center: {lat: 35.8849, lng: 136.8606},
+      zoom: 7,
       minZoom: 5
     });
 
     // Railsから渡されたスポットデータをJSで扱えるようにパース
     const spots = <%= raw @spots.to_json(only: [:id, :latitude, :longitude, :name]) %>;
+    const markers = [];  // マーカーを格納する配列
 
     // 各スポットにピンを立てる
     spots.forEach((spot) => {
@@ -30,6 +33,7 @@
           url: "/LTH_CreatedPin.png"
         }
       });
+      markers.push(marker); // マーカーを配列に追加
 
       // ピンをクリックした時に表示されるInfoWindow
       const infoWindow = new google.maps.InfoWindow({
@@ -67,6 +71,11 @@
           currentInfoWindow.close();
         }
       });
+    });
+    // マーカークラスタリング
+    const markerCluster = new markerClusterer.MarkerClusterer({ 
+      map: created_spot_map, 
+      markers: markers 
     });
   }
 </script>

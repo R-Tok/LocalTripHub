@@ -1,20 +1,65 @@
 <div id="city_map" class="col-12 col-lg-5 my-3" style="height: 560px; max-width: 90%;"></div>
 
 <!--  Leaflet.jsのスタイルシートを追加  -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
-<!--  Leaflet.jsのスクリプトを追加  -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&loading=async&callback=initMap" async defer></script>
 
 <script>
 // 地図の初期化
-const map = L.map('city_map').setView([35.6895, 139.6917], 8); // 東京の中心で初期化
+function initMap(){
+    geocoder = new google.maps.Geocoder();
+    // 初期表示の位置とピン
+    city_map = new google.maps.Map(document.getElementById('city_map'), {
+      center: {lat: 35.8780, lng: 139.6981},
+      zoom: 8,
+      minZoom: 4,
+      maxZoom: 12
+    });
+    let infowindow = null;
 
-// OpenStreetMapのタイルを追加
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    minZoom: 4,
-    maxZoom: 12,
-}).addTo(map);
+    fetch('/geojson')
+    .then(response => response.json())
+    .then(data => {
+        // スポット数の最大値と最小値を取得。最小値が0の場合は1へ補正
+        const spotCounts = data.features.map(feature => feature.properties.spot_number || 0);
+        const minCountTentative = Math.min(...spotCounts)
+        const [minCount, maxCount] = [minCountTentative === 0 ? 1 : minCountTentative, Math.max(...spotCounts)];
+
+        city_map.data.addGeoJson(data)
+
+        city_map.data.setStyle(feature => {
+            // データの存在チェックに基づいて色を設定
+            const spotCount = feature.getProperty('spot_number') || 0;
+            const hasData = spotCount > 0; 
+            const fillColor = getColor(spotCount, minCount, maxCount); // グラデーション色を取得
+
+            return {
+                fillColor: hasData ? fillColor : '#eee',
+                fillOpacity: 0.9,
+                strokeOpacity: 0.8,                    
+                strokeWeight: 0.2  // 罫線の幅
+            };
+        });
+
+        // 地図上をクリックしたときのウィンドウを指定
+        city_map.data.addListener('click', function(event) {
+            const feature = event.feature;
+            const name = feature.getProperty('N03_008'); // 市町村名
+            const spotNumber = feature.getProperty('spot_number'); // スポット数
+
+            if (infowindow) {
+                infowindow.close();
+            }
+
+            infowindow = new google.maps.InfoWindow({
+                content: `${name}: ${spotNumber} スポット`,
+                position: event.latLng
+            });
+
+            infowindow.open(city_map);
+        });   
+    })
+    .catch(error => console.error('GeoJSONの取得エラー:', error));
+}
 
 //塗りつぶし色を指定
 function getColor(spotCount, minCount, maxCount) {
@@ -31,36 +76,6 @@ function getColor(spotCount, minCount, maxCount) {
   }
 
 // GeoJSONデータの取得（例）
-fetch('/geojson')
-    .then(response => response.json())
-    .then(data => {
-        // スポット数の最大値と最小値を取得。最小値が0の場合は1へ補正
-        const spotCounts = data.features.map(feature => feature.properties.spot_number || 0);
-        const minCountTentative = Math.min(...spotCounts)
-        const [minCount, maxCount] = [minCountTentative === 0 ? 1 : minCountTentative, Math.max(...spotCounts)];
-
-        L.geoJSON(data, {
-            style: function(feature) {
-                // データの存在チェックに基づいて色を設定
-                const spotCount = feature.properties.spot_number || 0;
-                const hasData = spotCount > 0; 
-                const fillColor = getColor(spotCount, minCount, maxCount); // グラデーション色を取得
-
-                return {
-                    fillColor: hasData ? fillColor : '#eee', 
-                    weight: 1.2,
-                    opacity: 0.5,
-                    color: 'gray',
-                    dashArray: '2',
-                    fillOpacity: 0.9
-                };
-            },
-            onEachFeature: function(feature, layer) {
-                layer.bindPopup(`${feature.properties.N03_008}: ${feature.properties.spot_number} スポット`); // クリックでポップアップ表示（例）
-            }
-        }).addTo(map);
-    })
-    .catch(error => console.error('GeoJSONの取得エラー:', error));
     
     
 </script>

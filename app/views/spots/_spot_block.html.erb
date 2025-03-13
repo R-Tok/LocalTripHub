@@ -9,7 +9,12 @@
   </p>
   <p>
     <%= Spot.human_attribute_name("latitude") %>: <%= @spot.latitude %>
-    <%= Spot.human_attribute_name("longitude") %>: <%= @spot.longitude %></p>
+    <%= Spot.human_attribute_name("longitude") %>: <%= @spot.longitude %>
+    <%= link_to "https://www.google.com/maps/search/?api=1&query=#{@spot.latitude}%2C+#{@spot.longitude}", class: "btn btn-sm btn-secondary", target: :_blank, rel: "noopener noreferrer" do %>
+      <i class="bi bi-google"></i>
+      マップで開く
+    <% end %>
+  </p>
   <p>
     <%= t('activerecord.models.category') %>: 
     <% @spot.categories&.each do |category| %>

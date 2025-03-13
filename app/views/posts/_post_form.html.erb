@@ -1,18 +1,18 @@
   <%= form_with model: [@spot, @post], local: true do |f| %>
     <%= render "shared/error_messages", object: f.object %>
     <div class="mb-3">
-      <%= f.label :content %>
+      <%= f.label :content %> <span class="text-danger">※必須</span>
       <%= f.text_area :content, class: "form-control", rows: 10, required: true %>
     </div>
 
     <div class="mb-3">
-      <%= f.label :access_info %> (任意)
+      <%= f.label :access_info %>
       <%= f.text_area :access_info, class: "form-control", rows: 4 %>
     </div>
 
     
     <div class="mb-3">
-      <%= f.label :image_url %>
+      <%= f.label :image_url %> (10枚まで選択できます)
       <%= f.file_field :image_url, class: "form-control", accept: 'image/*', multiple: true, name: "post[images_attributes][][image_url]" %>
     </div>
     

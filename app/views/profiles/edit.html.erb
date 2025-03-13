@@ -4,7 +4,7 @@
 <%= form_with model: @user, url: profile_path, method: :put do |f| %>
   <%= render "shared/error_messages", object: f.object %>
   <div class="mb-3">
-    <%= f.label :nickname, class: "form-label" %>
+    <%= f.label :nickname, class: "form-label" %> <span class="text-danger">※必須</span>
     <%= f.text_field :nickname, class: "form-control", required: true %>
   </div>
   <div class="mb-3">

@@ -45,13 +45,23 @@ RSpec.describe Spot, type: :model do
       expect(spot.latitude).to be_within(0.0000005).of(40.123456789)
     end
 
-    it "緯度が20.4以上であること" do
+    it "緯度が20.4未満で無効であること" do
       spot.latitude = 20.3999994
       expect(spot).to be_invalid
       expect(spot.errors[:latitude]).to include("は20.4以上の値にしてください")
     end
 
-    it "緯度が45.6以下であること" do
+    it "緯度が20.4以上で有効であること" do
+      spot.latitude = 20.3999995
+      expect(spot).to be_valid
+    end
+
+    it "緯度が45.6以下で有効であること" do
+      spot.latitude = 45.6000004
+      expect(spot).to be_valid
+    end
+
+    it "緯度が45.6より大きいと無効であること" do
       spot.latitude = 45.6000005
       expect(spot).to be_invalid
       expect(spot.errors[:latitude]).to include("は45.6以下の値にしてください")
@@ -75,13 +85,23 @@ RSpec.describe Spot, type: :model do
       expect(spot.longitude).to be_within(0.0000005).of(140.123456789)
     end
 
-    it "経度が122.9以上であること" do
+    it "経度が122.9未満で無効であること" do
       spot.longitude = 122.8999994
       expect(spot).to be_invalid
       expect(spot.errors[:longitude]).to include("は122.9以上の値にしてください")
     end
 
-    it "経度が154.0以下であること" do
+    it "経度が122.9以上で有効であること" do
+      spot.longitude = 122.8999995
+      expect(spot).to be_valid
+    end
+
+    it "経度が154.0以下で有効あること" do
+      spot.longitude = 154.0000004
+      expect(spot).to be_valid
+    end
+
+    it "経度が154.0より大きいと無効であること" do
       spot.longitude = 154.0000005
       expect(spot).to be_invalid
       expect(spot.errors[:longitude]).to include("は154.0以下の値にしてください")

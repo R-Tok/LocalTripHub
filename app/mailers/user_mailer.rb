@@ -8,6 +8,6 @@ class UserMailer < ApplicationMailer
     @user = User.find(user.id)
     @url = edit_password_reset_url(@user.reset_password_token)
 
-    mail(to: user.email, subject: "パスワードリセット")
+    mail(to: user.email, subject: "【LocalTripHub】パスワード再設定のお知らせ")
   end
 end

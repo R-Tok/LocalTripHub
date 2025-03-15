@@ -1,6 +1,10 @@
 <div class= "bg-body-secondary my-3">
   <h3 class="my-2">
-    <%= link_to @spot.name, spot_posts_path(@spot), class:"fw-bold text-dark" %>
+    <% if local_assigns[:link] %>
+      <%= link_to @spot.name, spot_posts_path(@spot), class:"fw-bold text-dark" %>
+    <% else %>
+      <span class="fw-bold text-dark"><%= @spot.name %></span>
+    <% end %>
   </h3>
   <p>
     <i class="bi bi-pin-angle-fill"></i> 

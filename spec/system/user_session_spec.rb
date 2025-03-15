@@ -27,7 +27,7 @@ RSpec.describe "User_session", type: :system do
         click_button "ログイン"
 
         expect(page).to have_content("ログインに失敗しました")
-        expect(page).to have_content("登録ページへ")
+        expect(page).to have_content("メールアドレスで新規会員登録はこちら")
         expect(current_path).to eq login_path
       end
 
@@ -38,7 +38,7 @@ RSpec.describe "User_session", type: :system do
         click_button "ログイン"
 
         expect(page).to have_content("ログインに失敗しました")
-        expect(page).to have_content("登録ページへ")
+        expect(page).to have_content("メールアドレスで新規会員登録はこちら")
         expect(current_path).to eq login_path
       end
     end

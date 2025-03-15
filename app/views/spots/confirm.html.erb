@@ -7,25 +7,7 @@
   <span class="text-danger fw-bold">この内容は基本的に後から編集できません。</span>
 </p>
 
-<div class="bg-body-secondary my-3">
-  <h3>
-    <%= Spot.human_attribute_name("name")%> : <%= @spot.name %>
-  </h3>
-  <p>
-    <%= t('activerecord.models.prefecture') %>: <span class="badge bg-success text-wrap"><%= @spot.prefecture.name %></span>
-    <%= t('activerecord.models.municipality') %>: <span class="badge bg-success text-wrap"><%= @spot.municipality.name %></span>
-  </p>
-  <p>
-    <%= Spot.human_attribute_name("latitude") %>: <%= @spot.latitude %>
-    <%= Spot.human_attribute_name("longitude") %>: <%= @spot.longitude %>
-  </p>
-  <p>
-    <%= t('activerecord.models.category') %>: 
-    <% @spot.categories&.each do |category| %>
-      <span class="badge bg-success text-wrap"><%= category.name %></span>
-    <% end %>
-  </p>
-</div>
+<%= render "spot_block", link: false %>
 
 <%= form_with model: @spot, data: { turbo: false }, local: true do |f| %>
   <%= f.hidden_field :name %>

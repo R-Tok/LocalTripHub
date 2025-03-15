@@ -5,27 +5,14 @@
 
     <div class="d-flex flex-column flex-sm-row justify-content-center">
       <!-- トップ画像表示エリア-->
-      <div id="carouselExampleFade" class="carousel slide carousel-fade  flex-fill col-12 col-sm-6" data-bs-ride="carousel" data-bs-pause="false" style="height: 360px;">
+      <div id="carouselExampleFade" class="carousel slide carousel-fade  flex-fill col-12 col-sm-6" data-bs-ride="carousel" data-bs-pause="false"">
 
-        <div class="carousel-inner" style="height: 427px;">
-          <div class="carousel-item active">
-            <%= image_tag "top_image_1.webp", class: "d-block" %>
-          </div>
-          <div class="carousel-item">
-            <%= image_tag "top_image_2.webp", class: "d-block" %>
-          </div>
-          <div class="carousel-item">
-            <%= image_tag "top_image_3.webp", class: "d-block" %>
-          </div>
-          <div class="carousel-item">
-            <%= image_tag "top_image_4.webp", class: "d-block" %>
-          </div>
-          <div class="carousel-item">
-            <%= image_tag "top_image_5.webp", class: "d-block" %>
-          </div>
-          <div class="carousel-item">
-            <%= image_tag "top_image_6.webp", class: "d-block" %>
-          </div>
+        <div class="carousel-inner"">
+          <% (1..5).each do |i| %>
+            <div class="carousel-item <%= 'active' if i == 1 %>">
+              <%= image_tag "top_image_#{i}.webp", class: "d-block carousel-img" %>
+            </div>
+          <% end %>
         </div>  
       </div>
 
@@ -72,3 +59,18 @@
   </div>
   <br>
 </div>
+
+<style>
+  @media (max-width: 575px) {
+    .carousel {
+      height: auto !important;
+    }
+    .carousel-inner {
+      height: auto !important;
+    }
+    .carousel-img {
+      width: 100% !important;
+      height: auto !important;
+    }
+  }
+</style>

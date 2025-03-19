@@ -26,11 +26,14 @@
     <div class="row">
       <% if @lists.present? && @lists.any?(&:persisted?) %>
         <% @lists.select(&:persisted?).each do |list| %>
-          <div class="d-flex align-items-center border border-secondary col-10 mx-auto my-3">
-            <i class="bi bi-list-stars"></i>
-            <h3 class="col-11 d-inline-block text-truncate my-3 mx-3">
-              <%= link_to list.name, user_list_path(list.user, list), class: "text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover" %>
-            </h3>
+          <div class="d-flex align-items-center border border-secondary shadow col-sm-5 mx-auto mx-1 my-3">
+            <i class="bi bi-folder2"></i>
+            <%= link_to user_list_path(list.user, list), class: "link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover w-100" do %>
+              <h3 class="text-truncate col-10 mx-3 my-2 text-dark"><%= list.name %></h3>
+              <h6 class="text-truncate col-10 mx-3 text-secondary">
+                <%= list.caption.present? ? list.caption : "-" %>
+              </h6>
+            <% end %>
           </div>
         <% end %>
       <% else %>

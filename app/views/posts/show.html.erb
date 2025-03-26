@@ -13,18 +13,26 @@
     </div>
 
     <div class="d-flex flex-wrap align-items-center ms-auto">
-      <%= l @post.created_at %>
+      <div class="me-1"><%= l @post.created_at %></div>
+      <div>
       <% if current_user&.own?(@post) %>
         <%= link_to t('helpers.submit.edit'), edit_spot_post_path(@post.spot, @post), class:"btn btn-sm btn-primary" %>
         <%= link_to t('helpers.submit.delete'), spot_post_path(@post.spot, @post), data: { turbo_confirm: t('posts.delete_confirm'), turbo_method: :delete }, class:"btn btn-sm btn-danger" %>
       <% end %>
       <% if logged_in? %>
-        <div id="modal-<%= @post.id %>" data-post="<%= h @post.to_json %>"></div>
+        <button class="btn btn-sm rounded-pill btn-light" data-bs-toggle="modal" data-bs-target="#addToListModal-<%= @post.id %>">
+          <i class="bi bi-bookmark-heart" style="font-size: 18px;"></i>
+        </button>
       <% end %>
+      <div class="btn btn-sm rounded-pill btn-light" data-bs-toggle="modal" data-bs-target="#shareModal-<%= @post.id %>">
+        <i class="bi bi-share-fill"></i>
+      </div>
+      </div>
     </div>
   </div>
 
   <%= render "posts/bookmark_modal", post: @post %>
+  <%= render "shared/share_modal", post: @post, share_url: request.url, share_content: "#{@post.spot.name} - LocalTripHub" %>
 
   <div class="d-flex flex-wrap gap-2">
     <% if @post.images.present? %>
@@ -36,8 +44,8 @@
               <i class="bi bi-search lightbox-icon"></i>
             </div> 
           </div>
-        <% end%>
-      <% end%>
+        <% end %>
+      <% end %>
       <div id="lightbox">
         <post-lightbox></post-lightbox>
       </div>

@@ -7,7 +7,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div id="bookmark-message-<%= post.id %>"></div>
         <% if logged_in? %>
           <% if current_user.lists.present? %>
             <%= form_with url: bookmarks_path, method: :post, remote: true do |f| %>
@@ -20,7 +19,10 @@
                 </div>
               <% end %>
 
-              <%= f.submit "更新する", class: "btn btn-success d-grid mx-auto w-50 my-3" %>
+              <%= f.submit "更新する", class: "bookmarkCreateBtn btn btn-success d-grid mx-auto w-50 my-3", data: {post_id: post.id } %>
+              <div class="bookmark-message-<%= post.id %>" style="color: #00a300; display: none;">
+                リストへの保存を更新しました
+              </div>
             <% end %>
           <% else %>
             作成済みリストがありません
@@ -31,3 +33,22 @@
     </div>
   </div>
 </div>
+
+<script>
+document.querySelectorAll('.bookmarkCreateBtn').forEach(button => {
+  button.addEventListener('click', function() {
+    const postId = this.getAttribute('data-post-id');  // クリックされたボタンの投稿IDを取得
+    const addToListModal = document.getElementById(`addToListModal-${postId}`);  // 対応するモーダルを取得
+    const bookmarkCreateMessage = addToListModal.querySelector(`.bookmark-message-${postId}`);
+
+    // メッセージを表示
+    if (bookmarkCreateMessage) {
+      bookmarkCreateMessage.style.display = 'block';
+      setTimeout(() => {
+        bookmarkCreateMessage.style.display = 'none';
+      }, 2000); // メッセージを2秒後に非表示
+    };
+    this.blur();
+  })
+});
+</script>

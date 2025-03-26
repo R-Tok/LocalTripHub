@@ -1,0 +1,62 @@
+<div id="shareModal-<%= post&.id %>" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" data-share-url="<%= share_url %>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ページを共有</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-wrap justify-content-around">
+          <div class="d-inline-block text-center">
+            <%= link_to "https://x.com/share?url=#{ share_url }&text=#{ share_content }%0a&hashtags=LocalTripHub", class:"btn btn-dark", target: :_blank, rel: "noopener noreferrer" do %>
+            <i class="bi bi-twitter-x"></i>
+            <% end %>
+            <div>X</div>
+          </div>
+
+          <div class="d-inline-block text-center">
+            <%= link_to "https://social-plugins.line.me/lineit/share?url=#{ share_url }&text=#{ share_content }", class:"btn", style:"color: white; background-color: #06C755;", target: :_blank, rel: "noopener noreferrer" do %>
+            <i class="bi bi-line"></i>
+            <% end %>
+            <div>LINE</div>
+          </div>
+
+          <div class="d-inline-block text-center">
+            <div class="copyUrlBtn btn btn-light" data-post-id="<%= post&.id %>">
+              <i class="bi bi-link-45deg"></i>
+            </div>
+            <div>URLコピー</div>
+          </div>
+
+        </div>
+        <div class="copy-message" style="color: #00a300; display: none;">URLをコピーしました!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.copyUrlBtn').forEach(button => {
+  button.addEventListener('click', function() {
+    const postId = this.getAttribute('data-post-id');  // クリックされたボタンの投稿IDを取得
+    const shareModal = document.getElementById(`shareModal-${postId}`);  // 対応するモーダルを取得
+    if (!shareModal) return;
+
+    const shareUrl = shareModal.getAttribute('data-share-url');  // モーダルのdata属性からURLを取得
+    if (!shareUrl) return;
+    
+    // クリップボードにURLをコピー
+    navigator.clipboard.writeText(shareUrl)
+
+    const copyMessage = shareModal.querySelector(".copy-message");
+    // メッセージを表示
+    if (copyMessage) {
+      copyMessage.style.display = 'block';
+      setTimeout(() => {
+        copyMessage.style.display = 'none';
+      }, 2000); // メッセージを2秒後に非表示
+    };
+    this.blur();
+  })
+});
+</script>

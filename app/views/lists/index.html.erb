@@ -26,7 +26,7 @@
     <div class="row">
       <% if @lists.present? && @lists.any?(&:persisted?) %>
         <% @lists.select(&:persisted?).each do |list| %>
-          <div class="d-flex align-items-center border border-secondary shadow col-sm-5 mx-auto mx-1 my-3">
+          <div class="d-flex align-items-center border border-secondary shadow col-md-5 mx-auto mx-1 my-3">
             <i class="bi bi-folder2"></i>
             <%= link_to user_list_path(list.user, list), class: "link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover w-100" do %>
               <h3 class="text-truncate col-10 mx-3 my-2 text-dark"><%= list.name %></h3>
